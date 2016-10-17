@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/red_round"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2.0dip"
+    android:layout_toRightOf="@id/title_bar_rigth_iv"
+    android:src="@drawable/red_round"
+    android:visibility="gone" />

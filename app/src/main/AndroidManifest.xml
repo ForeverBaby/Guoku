@@ -16,16 +16,27 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.GuideActivity" />
-        <activity android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".activity.GuideActivity"
             android:configChanges="orientation"
-            android:theme="@style/login_theme"/>
-        <activity android:name=".activity.SettingActivity"></activity>
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/login_theme" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/login_theme"></activity>
     </application>
 
 </manifest>

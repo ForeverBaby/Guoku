@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:background="@color/colorbgBlack"
+    tools:context="com.zzh.dell.guoku.activity.RegisterActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip">
+
+        <ImageView
+            android:id="@+id/reg_tv_l"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8.0dip"
+            android:src="@mipmap/login_cancle" />
+
+        <TextView
+            android:id="@id/reg_tv_r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8.0dip"
+            android:drawableRight="@mipmap/foward"
+            android:text="去登录"
+            android:textColor="@color/colorWhite"
+            android:textSize="16.0sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="12.0dip"
+        android:scaleType="centerInside"
+        android:src="@mipmap/login_logo" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24.0dip"
+            android:text="邮箱"
+            android:textColor="@color/colorWhite" />
+
+        <EditText
+            android:id="@+id/register_email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.0dip"
+            android:layout_marginRight="24.0dip"
+            android:background="#00ffffff"
+            android:hint="example@guoku.com"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="#ffffffff"
+            android:textCursorDrawable="@null"
+            android:textSize="14.0sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_marginLeft="24.0dip"
+        android:layout_marginRight="24.0dip"
+        android:background="#40ffffff" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24.0dip"
+            android:text="密码"
+            android:textColor="@color/colorWhite" />
+
+        <EditText
+            android:id="@+id/register_pass"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.0dip"
+            android:layout_marginRight="24.0dip"
+            android:background="#00ffffff"
+            android:hint="8-16位字母/数字"
+            android:inputType="textCapWords"
+            android:password="true"
+            android:singleLine="true"
+            android:textColor="#ffffffff"
+            android:textCursorDrawable="@null"
+            android:textSize="14.0sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_marginLeft="24.0dip"
+        android:layout_marginRight="24.0dip"
+        android:background="#40ffffff" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24.0dip"
+            android:text="昵称"
+            android:textColor="@color/colorWhite" />
+
+        <EditText
+            android:id="@+id/register_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.0dip"
+            android:layout_marginRight="24.0dip"
+            android:background="#00ffffff"
+            android:hint="3位以上文字/字母"
+            android:singleLine="true"
+            android:textColor="#ffffffff"
+            android:textCursorDrawable="@null"
+            android:textSize="14.0sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_marginLeft="24.0dip"
+        android:layout_marginRight="24.0dip"
+        android:background="#40ffffff" />
+
+    <Button
+        android:id="@+id/register_btn"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10.0dip"
+        android:background="@drawable/login_shap"
+        android:paddingBottom="5.0dip"
+        android:paddingLeft="24.0dip"
+        android:paddingRight="24.0dip"
+        android:paddingTop="5.0dip"
+        android:text="注册"
+        android:textColor="@color/colorWhite" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0"
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10.0dip"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用果库，表示你已同意 "
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用协议"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+</LinearLayout>
