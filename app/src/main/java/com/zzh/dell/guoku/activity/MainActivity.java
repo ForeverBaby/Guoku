@@ -1,6 +1,5 @@
 package com.zzh.dell.guoku.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -147,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     category = new CategoryFragment();
                 }
                 currentRb = 2;
-                transaction.hide(category);
+                transaction.show(category);
                 break;
             case R.id.notification:
                 if (message == null) {
