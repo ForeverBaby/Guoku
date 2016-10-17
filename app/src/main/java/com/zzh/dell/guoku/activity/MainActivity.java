@@ -1,6 +1,5 @@
 package com.zzh.dell.guoku.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -32,16 +30,22 @@ import butterknife.ButterKnife;
  * 王立鹏 + 朱张华
  */
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+
     @BindView(R.id.rl_content)
     RelativeLayout rl_content;
+
     @BindView(R.id.rl_bottom)
     RadioGroup rl_bottom;
+
     @BindView(R.id.me)
     RadioButton me_rb;
+
     @BindView(R.id.selection)
     RadioButton selection;
+
     @BindView(R.id.discover)
     RadioButton discover;
+
     @BindView(R.id.notification)
     RadioButton notification;
 
