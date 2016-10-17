@@ -9,5 +9,5 @@
     <color name="g_line">#ffebebeb</color>  <!--分割线的颜色-->
     <color name="g_main">#ff414243</color>
     <color name="red_read">#fff74812</color>
-    <color name="title_bar_gray">#ff9d9e9f</color><!--标题的颜色-->
+    <color name="title_bar_gray">#dd9d9e9f</color><!--标题的颜色-->
 </resources>
