@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <!--主界面底部button -->
-    <style name="home_bottomer_tab" >
+    <style name="home_bottomer_tab">
         <item name="android:layout_width">0dp</item>
         <item name="android:background">@drawable/btn_backgroud</item>
         <item name="android:layout_height">match_parent</item>
@@ -20,4 +20,25 @@
         <item name="android:cacheColorHint">@android:color/transparent</item>
     </style>
 
+    <style name="layout_width_more">
+        <item name="android:layout_width">25.0dip</item>
+        <item name="android:layout_height">25.0dip</item>
+    </style>
+
+    <style name="right_top_bar_tv">
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/title_bar_gray</item>
+        <item name="android:paddingRight">16.0dip</item>
+    </style>
+
+    <!-- login主题 -->
+    <style name="login_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>  
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <!--<item name="android:windowActionBar">false</item>-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+    </style>
 </resources>
