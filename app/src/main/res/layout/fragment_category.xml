@@ -28,8 +28,11 @@
             <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
                 android:id="@+id/category_view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
-                android:layout_margin="5dp" />
+                android:layout_height="175dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/category_background"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,16 +43,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="@string/category_recommend_user" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/category_user_pager"
+                <HorizontalScrollView
+                    android:scrollbars="none"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="95dp" >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:id="@+id/category_user_pager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+                </HorizontalScrollView>
             </LinearLayout>
-
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/category_background"/>
+            6<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -59,14 +71,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/category_recommend_category" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/category_category_pager"
+                <HorizontalScrollView
+                    android:scrollbars="none"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp" />
+                    android:layout_height="120dp" >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:id="@+id/category_category_pager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+                </HorizontalScrollView>
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/category_background"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,21 +107,25 @@
                     android:layout_height="225dp" />
             </LinearLayout>
 
-
             <LinearLayout
+                android:background="@color/category_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/category_recommend_entity" />
 
                 <com.zzh.dell.guoku.view.CustomMeasureGridView
-                    android:id="@+id/category_entity_list"
+                    android:padding="5dp"
+                    android:numColumns="2"
+                    android:horizontalSpacing="10dp"
+                    android:verticalSpacing="10dp"
+                    android:id="@+id/category_entity_grid"
                     android:layout_width="match_parent"
                     android:layout_height="225dp" />
             </LinearLayout>

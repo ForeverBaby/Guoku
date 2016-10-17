@@ -12,6 +12,11 @@ public final class Contants {
      * 登录
      */
     public static final String LOGIN = "http://api.guoku.com/mobile/v4/login/";
+    /**
+     * 分类界面总接口
+     */
+    public static final String CATEGORY_MAIN_PATH = "http://api.guoku.com/mobile/v4/discover/?sign=%s&api_key=%s";
+    public static final String IMAGE_PATH = "http://imgcdn.guoku.com";
 
 
     /**
@@ -20,5 +25,6 @@ public final class Contants {
     //用户信息
     public static final String SP_USERINFO = "sp_userinfo";
     public static final String SP_CODEPIC = "SP_CODEPIC";
+
 
 }

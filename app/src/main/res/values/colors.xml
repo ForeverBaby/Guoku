@@ -10,7 +10,8 @@
     <color name="g_main">#ff414243</color>
     <color name="red_read">#fff74812</color>
     <color name="title_bar_gray">#ff9d9e9f</color><!--标题的颜色-->
-    <color name="category_search_background">#F0F0F0</color>
+    <color name="category_search_background">#F0F0F0</color><!--分类页面的搜索控件背景颜色-->
+    <color name="category_background">#E0E0E0</color><!--分类页面的背景颜色-->
     <color name="g_blue">#ff427ec0</color>
     <color name="like_buy_blue">#ff6eaaf0</color><!--设置页button的颜色-->
     <color name="gray_fzxx">#ff9d9e9f</color>
