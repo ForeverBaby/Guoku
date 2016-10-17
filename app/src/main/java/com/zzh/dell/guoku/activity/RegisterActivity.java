@@ -1,12 +1,15 @@
 package com.zzh.dell.guoku.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.zzh.dell.guoku.R;
 
@@ -47,8 +50,15 @@ public class RegisterActivity extends AppCompatActivity {
         win.setAttributes(winParams);
     }
 
+
+
     @OnClick(R.id.reg_tv_r)
     void login(View view){
+        finish();
+    }
+
+    @OnClick(R.id.reg_tv_l)
+    void finished(View view){
         finish();
     }
 }

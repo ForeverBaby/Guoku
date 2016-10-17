@@ -2,10 +2,13 @@ package com.zzh.dell.guoku.utils.http;
 
 import android.os.Handler;
 
+import com.zzh.dell.guoku.app.GuokuApp;
 import com.zzh.dell.guoku.callback.HttpCallBack;
+import com.zzh.dell.guoku.utils.StringUtils;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.TreeMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -49,9 +52,17 @@ public final class HttpUtils {
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder body = new FormBody.Builder();
         int size = map.size();
+        TreeMap<String,String> treeMap = new TreeMap<>();
         for(Map.Entry<String,String> header:map.entrySet()){
+            treeMap.put(header.getKey(),header.getValue());
             body.add(header.getKey(),header.getValue());
         }
+        if (GuokuApp.getIntance().getAccount() != null) {
+            body.add("session", GuokuApp.getIntance().getAccount().getSession());
+            treeMap.put("session", GuokuApp.getIntance().getAccount().getSession());
+        }
+        body.add("sign", StringUtils.getSign(treeMap));
+        body.add("api_key", "0b19c2b93687347e95c6b6f5cc91bb87");
         Request request = new Request.Builder().post(body.build()).url(path).build();
         if(callBack!=null) {
             callBack.sendStrbefore(type);

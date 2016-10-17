@@ -10,16 +10,18 @@ import com.zzh.dell.guoku.utils.SharedPrefUtils;
  */
 public class GuokuApp extends Application {
     private static GuokuApp intance = null;
-    public static GuokuApp getIntance(){
-        if(intance==null){
-            synchronized (GuokuApp.class){
-                if(intance==null){
+
+    public static GuokuApp getIntance() {
+        if (intance == null) {
+            synchronized (GuokuApp.class) {
+                if (intance == null) {
                     intance = new GuokuApp();
                 }
             }
         }
         return intance;
     }
+
     private Account account;
 
     private String session;
@@ -37,14 +39,14 @@ public class GuokuApp extends Application {
     public String getSession() {
         return session;
     }
-    public void login(Account paramAccountBean)
-    {
+
+    public void login(Account paramAccountBean) {
         this.session = paramAccountBean.getSession();
         this.account = paramAccountBean;
         SharedPrefUtils.setUserBean(intance, this.account);
     }
-    public void logout()
-    {
+
+    public void logout() {
         this.account = null;
         this.session = null;
         SharedPrefUtils.setUserBean(intance, null);
