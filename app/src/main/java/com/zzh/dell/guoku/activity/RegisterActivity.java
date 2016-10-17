@@ -7,24 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.zzh.dell.guoku.R;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         initActivity();
         ButterKnife.bind(this);
     }
-
     private void initActivity() {
         overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -50,15 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         win.setAttributes(winParams);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
-        finish();
-    }
     @OnClick(R.id.reg_tv_r)
-    void register(View view){
-        Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-        startActivity(intent);
+    void login(View view){
+        finish();
     }
 }

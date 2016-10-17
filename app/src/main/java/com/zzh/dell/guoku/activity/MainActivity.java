@@ -140,14 +140,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
                 currentRb = 1;
                 transaction.show(recommend);
-
                 break;
             case R.id.discover:
                 if (category == null) {
                     category = new CategoryFragment();
                 }
                 currentRb = 2;
-                transaction.hide(category);
+                transaction.show(category);
                 break;
             case R.id.notification:
                 if (message == null) {
