@@ -104,7 +104,7 @@ public class RotateLoadingLayout extends LoadingLayout {
 
 	@Override
 	protected int getDefaultDrawableResId() {
-		return R.drawable.default_ptr_rotate;
+		return R.drawable.pull_refresh_progress_bar17;
 	}
 
 }

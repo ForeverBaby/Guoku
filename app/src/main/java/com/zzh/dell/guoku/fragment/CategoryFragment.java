@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.activity.SubCategoryActivity;
 import com.zzh.dell.guoku.adapter.CategoryADAdapter;
 import com.zzh.dell.guoku.adapter.CategoryEntityAdapter;
 import com.zzh.dell.guoku.adapter.CategoryImageTextAdapter;
@@ -31,6 +34,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 /**
@@ -58,6 +62,9 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     @BindView(R.id.category_search_view)
     SearchView searchView;
 
+    @BindView(R.id.category_scrollview)
+    ScrollView scrollView;
+
     public CategoryFragment() {
         // Required empty public constructor
     }
@@ -71,46 +78,67 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
         ButterKnife.bind(this, view);
         HttpUtils httpUtils = HttpUtils.getIntance();
         httpUtils.setCallBack(this);
-        httpUtils.getStrGET("GET", String.format(Contants.CATEGORY_MAIN_PATH, "b6fbc461c473452b1fa344ae6d1af2c2", "0b19c2b93687347e95c6b6f5cc91bb87"));
+        httpUtils.getStrGET("CategoryFragment",
+                String.format(Contants.CATEGORY_MAIN_PATH,
+                        "b6fbc461c473452b1fa344ae6d1af2c2",
+                        "0b19c2b93687347e95c6b6f5cc91bb87"));
 
         return view;
     }
 
     @Override
     public void sendStr(String type, String str) {
-        Gson gson = GsonUtils.getGson();
-        mainBean = gson.fromJson(str, CategoryMainBean.class);
+        if ("CategoryFragment".equals(type)) {
+            Gson gson = GsonUtils.getGson();
+            mainBean = gson.fromJson(str, CategoryMainBean.class);
 
-        autoScorllViewInit();
-        userPagerInit();
-        categoryPagerInit();
-        imagetextListInit();
-        entityGridInit();
+            autoScorllViewInit();
+            userPagerInit();
+            categoryPagerInit();
+            imagetextListInit();
+            entityGridInit();
+            imagetextList.setFocusable(false);
+            entityGrid.setFocusable(false);
+            scrollView.smoothScrollTo(0, 0);
+        }
     }
 
     private void entityGridInit() {
         List<CategoryMainBean.EntitiesBean> bean = mainBean.getEntities();
-        CategoryEntityAdapter adapter = new CategoryEntityAdapter(bean,getActivity());
+        CategoryEntityAdapter adapter = new CategoryEntityAdapter(bean, getActivity());
         entityGrid.setAdapter(adapter);
-        entityGrid.setListViewHeightBasedOnChildren(entityGrid,2);
+        entityGrid.setListViewHeightBasedOnChildren(entityGrid, 2);
+
     }
 
     private void imagetextListInit() {
         List<CategoryMainBean.ArticlesBean> bean = mainBean.getArticles();
-        CategoryImageTextAdapter adapter = new CategoryImageTextAdapter(bean,getActivity());
+        CategoryImageTextAdapter adapter = new CategoryImageTextAdapter(bean, getActivity());
         imagetextList.setAdapter(adapter);
         imagetextList.setListViewHeightBasedOnChildren(imagetextList);
+
     }
 
     private void categoryPagerInit() {
-        List<CategoryMainBean.CategoriesBean> bean = mainBean.getCategories();
+        final List<CategoryMainBean.CategoriesBean> bean = mainBean.getCategories();
         CategoryViewHolder viewHolder;
         for (int i = 0; i < bean.size(); i++) {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.category_category_item, null);
             viewHolder = new CategoryViewHolder(view);
-            String [] title = bean.get(i).getCategory().getTitle().split(" ");
+            String[] title = bean.get(i).getCategory().getTitle().split(" ");
             viewHolder.tv_title1.setText(title[0]);
             viewHolder.tv_title2.setText(title[1]);
+
+            final int pos = i;
+            viewHolder.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = bean.get(pos).getCategory().getId();
+                    Intent intent = new Intent(getActivity(), SubCategoryActivity.class);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
+                }
+            });
             Picasso.with(getActivity()).load(bean.get(i).getCategory().getCover_url()).into(viewHolder.img);
             categoryPager.addView(view);
         }
@@ -195,4 +223,10 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     public void sendStrAfter(String type) {
 
     }
+
+    @OnClick(R.id.category_user_recommend)
+    protected void recommendUser() {
+
+    }
+
 }

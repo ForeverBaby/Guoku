@@ -139,6 +139,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int indicator_arrow=0x7f020002;
         public static int indicator_bg_bottom=0x7f020003;
         public static int indicator_bg_top=0x7f020004;
+        public static int pull_refresh_progress_bar17=0x7f020005;
     }
     public static final class id {
         public static int both=0x7f060003;
@@ -153,8 +154,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int pullUpFromBottom=0x7f060006;
         public static int pull_to_refresh_image=0x7f06000d;
         public static int pull_to_refresh_progress=0x7f06000e;
-        public static int pull_to_refresh_sub_text=0x7f060010;
-        public static int pull_to_refresh_text=0x7f06000f;
         public static int rotate=0x7f060007;
         public static int scrollview=0x7f06000a;
         public static int webview=0x7f06000b;

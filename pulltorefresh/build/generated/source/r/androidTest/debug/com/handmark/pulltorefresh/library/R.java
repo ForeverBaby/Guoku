@@ -61,8 +61,6 @@ public final class R {
 		public static final int pullUpFromBottom = 0x7f060006;
 		public static final int pull_to_refresh_image = 0x7f06000d;
 		public static final int pull_to_refresh_progress = 0x7f06000e;
-		public static final int pull_to_refresh_sub_text = 0x7f060010;
-		public static final int pull_to_refresh_text = 0x7f06000f;
 		public static final int rotate = 0x7f060007;
 		public static final int scrollview = 0x7f06000a;
 		public static final int webview = 0x7f06000b;
