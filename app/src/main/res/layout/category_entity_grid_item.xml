@@ -10,7 +10,6 @@
         android:id="@+id/category_entity_grid_item_img"
         android:layout_width="110dp"
         android:layout_height="130dp"
-        android:background="@color/colorbgBlack"
         android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

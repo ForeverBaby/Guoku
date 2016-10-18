@@ -12,7 +12,7 @@ import com.zzh.dell.guoku.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ImageTextFragment extends LazyFragment {
+class ImageTextFragment extends LazyFragment {
 
     public static ImageTextFragment newInstance() {
 
