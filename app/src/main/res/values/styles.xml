@@ -1,0 +1,81 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--主界面底部button -->
+    <style name="home_bottomer_tab">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@drawable/btn_backgroud</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">0sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+    </style>
+
+    <style name="layout_width_more">
+        <item name="android:layout_width">25.0dip</item>
+        <item name="android:layout_height">25.0dip</item>
+    </style>
+
+    <style name="right_top_bar_tv">
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/title_bar_gray</item>
+        <item name="android:paddingRight">16.0dip</item>
+    </style>
+
+    <!-- login主题 -->
+    <style name="login_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>  
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <!--<item name="android:windowActionBar">false</item>-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+    </style>
+
+    <style name="pullProgressBarStyleLarge">
+        <item name="android:indeterminateDrawable">@drawable/pull_refresh_progress</item>
+    </style>
+
+    <style name="therm_tab_title_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="share_popwindos">
+        <item name="android:textSize">10.0sp</item>
+        <item name="android:textColor">@color/g_main</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">5.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="edit_item">
+        <item name="android:textColor">@color/g_main</item>
+        <item name="android:padding">10.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="edit_item2">
+        <item name="android:textColor">@color/g_main</item>
+        <item name="android:paddingLeft">10.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="edit_item_left2">
+        <item name="android:textColor">@color/title_bar_gray</item>
+        <item name="android:paddingLeft">10.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+</resources>

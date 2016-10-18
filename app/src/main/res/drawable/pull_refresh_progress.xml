@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@mipmap/pull_refresh_progress_bar1" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar2" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar3" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar4" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar5" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar6" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar7" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar8" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar9" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar10" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar11" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar12" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar13" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar14" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar15" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar16" android:duration="100"/>
+    <item android:drawable="@mipmap/pull_refresh_progress_bar17" android:duration="100"/>
+</animation-list>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LayoutItemView">
+        <attr name="textLeft" format="string" />
+        <attr name="textColorLeft" format="color" />
+    </declare-styleable>
+</resources>
