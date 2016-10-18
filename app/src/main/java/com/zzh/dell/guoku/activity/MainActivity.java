@@ -30,16 +30,22 @@ import butterknife.ButterKnife;
  * 王立鹏 + 朱张华
  */
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+
     @BindView(R.id.rl_content)
     RelativeLayout rl_content;
+
     @BindView(R.id.rl_bottom)
     RadioGroup rl_bottom;
+
     @BindView(R.id.me)
     RadioButton me_rb;
+
     @BindView(R.id.selection)
     RadioButton selection;
+
     @BindView(R.id.discover)
     RadioButton discover;
+
     @BindView(R.id.notification)
     RadioButton notification;
 

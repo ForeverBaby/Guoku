@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/guide_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.zzh.dell.guoku.activity.GuideActivity">
 
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="88dp"
+        android:src="@mipmap/splash_guoku"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"/>
 </RelativeLayout>

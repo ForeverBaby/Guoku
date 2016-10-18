@@ -1,11 +1,14 @@
 package com.zzh.dell.guoku.utils;
 
+import com.zzh.dell.guoku.app.GuokuApp;
+
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 /**
@@ -33,6 +36,26 @@ public final class StringUtils {
         return md5(localStringBuffer.toString());
     }
 
+    /**
+     * 获取get要的url
+     * @return
+     */
+    public static String getGetUrl(String path,Map<String, String> paramMap){
+        int size = paramMap.size();
+        StringBuffer buffer = new StringBuffer(path).append("?");
+        TreeMap<String,String> treeMap = new TreeMap<>();
+        for(Map.Entry<String,String> header:paramMap.entrySet()){
+            buffer.append(header.getKey()).append("=").append(header.getValue()).append("&");
+            treeMap.put(header.getKey(),header.getValue());
+        }
+        if (GuokuApp.getIntance().getAccount() != null) {
+            buffer.append("session").append("=").append(GuokuApp.getIntance().getAccount().getSession()).append("&");
+            treeMap.put("session", GuokuApp.getIntance().getAccount().getSession());
+        }
+        buffer.append("sign").append("=").append(StringUtils.getSign(treeMap)).append("&");
+        buffer.append("api_key").append("=").append("0b19c2b93687347e95c6b6f5cc91bb87");
+        return buffer.toString();
+    }
     /**
      * md5算法
      *

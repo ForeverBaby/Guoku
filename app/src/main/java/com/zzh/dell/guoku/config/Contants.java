@@ -25,6 +25,8 @@ public final class Contants {
     //用户信息
     public static final String SP_USERINFO = "sp_userinfo";
     public static final String SP_CODEPIC = "SP_CODEPIC";
+    public static final String  SP_FIRST_INTO = "sp_first_into";
+    public static final String  SP_KEY = "sp_key";
 
 
 }

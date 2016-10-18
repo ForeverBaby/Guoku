@@ -9,7 +9,6 @@ so manually move them:
 
 * .gitignore
 * LICENSE
-* README.md
 * pom.xml
 * proguard-project.txt
 
@@ -46,6 +45,9 @@ To install it, open the SDK manager, and in the Extras category,
 select "Android Support Repository". You may also want to install the
 "Google Repository" if you want to use libraries like Google Play
 Services.
+* AndroidManifest.xml => library\src\main\AndroidManifest.xml
+* res\ => library\src\main\res\
+* src\ => library\src\main\java\
 
 Next Steps:
 -----------
