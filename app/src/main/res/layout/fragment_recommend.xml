@@ -1,10 +1,53 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:orientation="vertical"
     tools:context="com.zzh.dell.guoku.fragment.RecommendFragment">
 
+    <RadioGroup
+        android:id="@+id/rg_group"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rb_goods"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="@string/goods"
+            android:gravity="center"/>
+        <RadioButton
+            android:id="@+id/rb_imageText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="@string/imageText"
+            android:gravity="center"/>
+    </RadioGroup>
 
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="60dp"
+        android:layout_height="2dp"
+        android:layout_marginLeft="70dp"
+        android:background="@mipmap/tab_focus" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/g_line"/>
 
-</FrameLayout>
+    <!--viewpager的容器-->
+    <RelativeLayout
+        android:id="@+id/contains_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+</LinearLayout>

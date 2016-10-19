@@ -17,6 +17,22 @@ public final class Contants {
 
     public static final String  FORGET = "http://api.guoku.com/mobile/v4/forget/password/";
     public static final String FORGETTYPE = "forget";
+    /**
+     * 分类界面总接口
+     */
+    public static final String CATEGORY_MAIN_PATH = "http://api.guoku.com/mobile/v4/discover/?sign=%s&api_key=%s";
+
+    /**
+     * 子品类页面图文接口
+     */
+    public static final String SUBCATEGORYARTICLES_PATH = "http://api.guoku.com/mobile/v4/category/%s/articles/?page=%s&size=%s&sign=%s&api_key=%s";
+
+    public static final String SUBCATEGORYSELECTION_PATH = "http://api.guoku.com/mobile/v4/category/%s/selection/?page=%s&sort=%s&sign=%s&api_key=%s";
+
+    /**
+     * 果库的图片库
+     */
+    public static final String IMAGE_PATH = "http://imgcdn.guoku.com";
 
 
     /**
@@ -25,5 +41,8 @@ public final class Contants {
     //用户信息
     public static final String SP_USERINFO = "sp_userinfo";
     public static final String SP_CODEPIC = "SP_CODEPIC";
+    public static final String  SP_FIRST_INTO = "sp_first_into";
+    public static final String  SP_KEY = "sp_key";
+
 
 }
