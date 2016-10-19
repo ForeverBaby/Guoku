@@ -1,7 +1,6 @@
 package com.zzh.dell.guoku.adapter;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,25 +11,23 @@ import android.widget.TextView;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
-import com.zzh.dell.guoku.bean.CategoryMainBean;
-import com.zzh.dell.guoku.config.Contants;
+import com.zzh.dell.guoku.bean.SubCategorySelectionBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Ishinagi_moeta on 2016/10/17.
+ * Created by Ishinagi_moeta on 2016/10/19.
  */
-public class CategoryImageTextAdapter extends BaseAdapter {
-    List<CategoryMainBean.ArticlesBean> bean = new ArrayList<>();
+public class SubCategorySelectionAdapter extends BaseAdapter {
     Context context;
+    List<SubCategorySelectionBean.BeanBean> bean;
 
-    public CategoryImageTextAdapter(List<CategoryMainBean.ArticlesBean> bean, Context context) {
-        this.bean = bean;
+    public SubCategorySelectionAdapter(Context context, List<SubCategorySelectionBean.BeanBean> bean) {
         this.context = context;
+        this.bean = bean;
     }
 
     @Override
@@ -52,30 +49,33 @@ public class CategoryImageTextAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.category_imagetext_list_item,null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.category_entity_grid_item,null);
             viewHolder = new ViewHolder(convertView);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tv_title.setText(bean.get(position).getArticle().getTitle());
-        viewHolder.tv_desc.setText(Html.fromHtml(bean.get(position).getArticle().getContent()));
+        viewHolder.tv_factory.setText(bean.get(position).getBrand());
+        viewHolder.tv_name.setText(bean.get(position).getTitle());
+        viewHolder.tv_price.setText("￥"+bean.get(position).getPrice());
         Picasso.with(context)
-                .load(Contants.IMAGE_PATH+"/"+bean.get(position).getArticle().getCover())
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .resize(240,200)
+                .load(bean.get(position).getChief_image())
+                .resize(200,240)
                 .centerCrop()
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .into(viewHolder.imageView);
-        Picasso.with(context).invalidate(Contants.IMAGE_PATH+"/"+bean.get(position).getArticle().getCover());
+        Picasso.with(context).invalidate(bean.get(position).getChief_image());
         return convertView;
     }
 
     class ViewHolder {
-        @BindView(R.id.category_imagetext_list_img)
+        @BindView(R.id.category_entity_grid_item_img)
         ImageView imageView;
-        @BindView(R.id.category_imagetext_list_title)
-        TextView tv_title;
-        @BindView(R.id.category_imagetext_list_desc)
-        TextView tv_desc;
+        @BindView(R.id.category_entity_grid_item_factory)
+        TextView tv_factory;
+        @BindView(R.id.category_entity_grid_item_name)
+        TextView tv_name;
+        @BindView(R.id.category_entity_grid_item_price)
+        TextView tv_price;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.bean.CategoryMainBean;
@@ -58,7 +59,13 @@ public class CategoryEntityAdapter extends BaseAdapter {
         viewHolder.tv_factory.setText(bean.get(position).getEntity().getBrand());
         viewHolder.tv_name.setText(bean.get(position).getEntity().getTitle());
         viewHolder.tv_price.setText("￥"+bean.get(position).getEntity().getPrice());
-        Picasso.with(context).load(bean.get(position).getEntity().getChief_image()).into(viewHolder.imageView);
+        Picasso.with(context)
+                .load(bean.get(position).getEntity().getChief_image())
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .resize(200,240)
+                .centerCrop()
+                .into(viewHolder.imageView);
+        Picasso.with(context).invalidate(bean.get(position).getEntity().getChief_image());
 
         return convertView;
     }
