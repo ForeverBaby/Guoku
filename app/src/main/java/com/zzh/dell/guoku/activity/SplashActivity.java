@@ -34,17 +34,14 @@ import butterknife.OnClick;
  */
 public class SplashActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+
     int[] img = new int[]{
             R.mipmap.android1,
             R.mipmap.android2,
             R.mipmap.android3,
             R.mipmap.android4
     };
-    SharedPreferences preferences;
+   SharedPreferences preferences;
 
     @BindView(R.id.splash_viewpager)
     ViewPager viewPager;

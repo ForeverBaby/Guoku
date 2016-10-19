@@ -190,10 +190,9 @@ public class LoginActivity extends AppCompatActivity implements HttpCallBack {
             } else {
                 Account account = gson.fromJson(str, Account.class);
                 GuokuApp.getIntance().login(account);
-                finishAct();
-                Intent intent = new Intent();
-                intent.setAction("Main.Login.btn.type1");
-                sendBroadcast(intent);
+                Intent intent2 = new Intent(this,MainActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+               startActivity(intent2);
             }
         } catch (JSONException e) {
             e.printStackTrace();

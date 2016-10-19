@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Guoku.iml" filepath="$PROJECT_DIR$/Guoku.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PullToRefreshlibrary/PullToRefreshlibrary.iml" filepath="$PROJECT_DIR$/PullToRefreshlibrary/PullToRefreshlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidautoscrollviewpager/androidautoscrollviewpager.iml" filepath="$PROJECT_DIR$/androidautoscrollviewpager/androidautoscrollviewpager.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" filepath="$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" />

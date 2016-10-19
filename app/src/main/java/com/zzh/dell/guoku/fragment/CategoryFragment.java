@@ -78,10 +78,10 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
         ButterKnife.bind(this, view);
         HttpUtils httpUtils = HttpUtils.getIntance();
         httpUtils.setCallBack(this);
-        httpUtils.getStrGET("CategoryFragment",
-                String.format(Contants.CATEGORY_MAIN_PATH,
-                        "b6fbc461c473452b1fa344ae6d1af2c2",
-                        "0b19c2b93687347e95c6b6f5cc91bb87"));
+//        httpUtils.getStrGET("CategoryFragment",
+//                String.format(Contants.CATEGORY_MAIN_PATH,
+//                        "b6fbc461c473452b1fa344ae6d1af2c2",
+//                        "0b19c2b93687347e95c6b6f5cc91bb87"));
 
         return view;
     }

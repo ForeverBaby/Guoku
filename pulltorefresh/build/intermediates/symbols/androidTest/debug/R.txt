@@ -31,6 +31,7 @@ int drawable default_ptr_rotate 0x7f020001
 int drawable indicator_arrow 0x7f020002
 int drawable indicator_bg_bottom 0x7f020003
 int drawable indicator_bg_top 0x7f020004
+int drawable pull_refresh_progress_bar17 0x7f020005
 int id both 0x7f060003
 int id disabled 0x7f060000
 int id fl_inner 0x7f06000c
