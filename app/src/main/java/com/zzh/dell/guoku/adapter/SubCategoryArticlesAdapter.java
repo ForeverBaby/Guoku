@@ -1,8 +1,6 @@
 package com.zzh.dell.guoku.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.bean.SubCategoryArticlesBean;
 import com.zzh.dell.guoku.config.Contants;
@@ -60,9 +60,13 @@ public class SubCategoryArticlesAdapter extends BaseAdapter {
         viewHolder.tv_title.setText(bean.get(position).getTitle());
         viewHolder.tv_desc.setText(Html.fromHtml(bean.get(position).getContent()));
         String path = Contants.IMAGE_PATH+"/"+bean.get(position).getCover();
-        Bitmap bmp = BitmapFactory.decodeFile(path);
-        viewHolder.imageView.setImageBitmap(bmp);
-//        Picasso.with(context).load(Contants.IMAGE_PATH+"/"+bean.get(position).getCover()).resize(240,200).centerCrop().into(viewHolder.imageView);
+        Picasso.with(context)
+                .load(path)
+                .resize(240,200)
+                .centerCrop()
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(viewHolder.imageView);
+        Picasso.with(context).invalidate(path);
         return convertView;
     }
 

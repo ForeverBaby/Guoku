@@ -10,7 +10,7 @@
         android:layout_height="50dp">
 
         <ImageView
-            android:id="@+id/sub_category_back"
+            android:id="@+id/category_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -24,13 +24,13 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/sub_category_back"
+            android:layout_toEndOf="@+id/category_back"
             android:background="@color/category_background"
             android:orientation="horizontal" />
 
 
         <TextView
-            android:id="@+id/sub_category_title"
+            android:id="@+id/category_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -40,13 +40,35 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/category_linearlayout"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/category_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more"/>
+        <ImageView
+            android:src="@mipmap/product_right_row"
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+    </LinearLayout>
+
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
-        android:id="@+id/sub_category_pulltorefresh"
+        android:id="@+id/category_pulltorefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fitsSystemWindows="true"
         android:layout_weight="1"
         tools:context="com.zzh.dell.guoku.activity.SubCategoryActivity">
+
 
         <LinearLayout
             android:background="@color/category_background"
@@ -55,10 +77,10 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/category_relative"
                 android:background="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/sub_category_articles_relative"
                 android:padding="5dp"
                 android:orientation="vertical">
 
@@ -71,7 +93,7 @@
                     android:text="@string/imageText" />
 
                 <TextView
-                    android:id="@+id/sub_category_more"
+                    android:id="@+id/category_articles_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -82,7 +104,7 @@
 
             <com.zzh.dell.guoku.view.CustomMeasureListView
                 android:background="@color/colorWhite"
-                android:id="@+id/sub_category_articles_list"
+                android:id="@+id/category_articles_list"
                 android:layout_width="match_parent"
                 android:layout_height="225dp" />
 
@@ -93,7 +115,7 @@
                 android:text="@string/goods" />
 
             <com.zzh.dell.guoku.view.CustomMeasureGridView
-                android:id="@+id/sub_category_entity_grid"
+                android:id="@+id/category_entity_grid"
                 android:layout_width="match_parent"
                 android:layout_height="225dp"
                 android:horizontalSpacing="10dp"

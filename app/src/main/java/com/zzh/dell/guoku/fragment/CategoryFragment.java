@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
-import com.zzh.dell.guoku.activity.SubCategoryActivity;
+import com.zzh.dell.guoku.activity.CategoryActivity;
 import com.zzh.dell.guoku.adapter.CategoryADAdapter;
 import com.zzh.dell.guoku.adapter.CategoryEntityAdapter;
 import com.zzh.dell.guoku.adapter.CategoryImageTextAdapter;
@@ -134,8 +134,10 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
                 @Override
                 public void onClick(View v) {
                     String id = bean.get(pos).getCategory().getId();
-                    Intent intent = new Intent(getActivity(), SubCategoryActivity.class);
+                    String title = bean.get(pos).getCategory().getTitle();
+                    Intent intent = new Intent(getActivity(), CategoryActivity.class);
                     intent.putExtra("id", id);
+                    intent.putExtra("title",title);
                     startActivity(intent);
                 }
             });
