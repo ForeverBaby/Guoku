@@ -3,6 +3,7 @@ package com.zzh.dell.guoku.activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -25,12 +26,15 @@ import com.zzh.dell.guoku.config.Contants;
 import com.zzh.dell.guoku.utils.CategoryDBInfo;
 import com.zzh.dell.guoku.utils.CategoryDBManager;
 import com.zzh.dell.guoku.utils.GsonUtils;
+import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
 import com.zzh.dell.guoku.view.CustomMeasureGridView;
 import com.zzh.dell.guoku.view.CustomMeasureListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +45,7 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
     private int page = 1;
     private int tag = 0;
     private String id;
+    private String title;
     private String api_key = "0b19c2b93687347e95c6b6f5cc91bb87";
     HttpUtils httpUtils;
 
@@ -107,11 +112,11 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
                 , LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-        params.setMargins(10,15,10,15);
+        params.setMargins(10, 15, 10, 15);
         for (int i = 0; i < list.size(); i++) {
             Button btn = new Button(CategoryActivity.this);
             btn.setLayoutParams(params);
-            btn.setPadding(0,0,0,0);
+            btn.setPadding(0, 0, 0, 0);
             btn.setBackgroundResource(R.drawable.category_btn_background);
             btn.setText(list.get(i).getCategory_title());
             btn.setTextSize(12);
@@ -122,53 +127,72 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
                     int id = list.get(pos).getCategory_id();
                     String title = list.get(pos).getCategory_title();
                     Intent intent = new Intent(CategoryActivity.this, SubCategoryActivity.class);
-                    intent.putExtra("id", id);
-                    intent.putExtra("title",title);
+                    intent.putExtra("id", String.valueOf(id));
+                    intent.putExtra("title", title);
                     startActivity(intent);
                 }
             });
             linearLayout.addView(btn);
         }
+
+        tv_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryActivity.this, AllCategoryActivity.class);
+                intent.putParcelableArrayListExtra("category", (ArrayList<? extends Parcelable>) list);
+                intent.putExtra("title", title);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initGetIntent() {
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        String title = intent.getStringExtra("title");
+        title = intent.getStringExtra("title");
         tv_title.setText(title);
     }
 
     private void HttpUtilsUpdata() {
-        httpUtils.setCallBack(this);
-        httpUtils.getStrGET("CategorySelectionUpdata",
-                String.format(Contants.CATEGORYSELECTION_PATH, id, "1", "time",
-                        "2a42c35005f57af37a930629b5e00aa5",
-                        api_key));
+        page++;
+        Map<String, String> map = new TreeMap<>();
+        map.put("page", String.valueOf(page));
+        map.put("sort", "time");
+        String str = StringUtils.getGetUrl(Contants.CATEGORYSELECTION_PATH, map);
+        httpUtils.getStrGET("CategorySelectionUpdata", String.format(str, id));
     }
 
     private void HttpUtilsRefresh() {
-        httpUtils.setCallBack(this);
-        httpUtils.getStrGET("CategoryArticlesRefresh",
-                String.format(Contants.CATEGORYARTICLES_PATH, id, "1", "3",
-                        "7f45ec66700b30a54fb30c30cfaf72b4",
-                        api_key));
-        httpUtils.getStrGET("CategorySelectionRefresh",
-                String.format(Contants.CATEGORYSELECTION_PATH, id, "1", "time",
-                        "2a42c35005f57af37a930629b5e00aa5",
-                        api_key));
+        page = 1;
+        Map<String, String> map = new TreeMap<>();
+        map.put("page", String.valueOf(page));
+        map.put("size", "3");
+        String str = StringUtils.getGetUrl(Contants.CATEGORYARTICLES_PATH, map);
+        httpUtils.getStrGET("CategoryArticlesRefresh", String.format(str, id));
+
+        map.clear();
+        map.put("page", String.valueOf(page));
+        map.put("sort", "time");
+        str = StringUtils.getGetUrl(Contants.CATEGORYSELECTION_PATH, map);
+        httpUtils.getStrGET("CategorySelectionRefresh", String.format(str, id));
     }
 
     private void HttpUtilsInit() {
+        page = 1;
         httpUtils = new HttpUtils();
         httpUtils.setCallBack(this);
-        httpUtils.getStrGET("CategoryArticles",
-                String.format(Contants.CATEGORYARTICLES_PATH, id, "1", "3",
-                        "7f45ec66700b30a54fb30c30cfaf72b4",
-                        api_key));
-        httpUtils.getStrGET("CategorySelection",
-                String.format(Contants.CATEGORYSELECTION_PATH, id, "1", "time",
-                        "2a42c35005f57af37a930629b5e00aa5",
-                        api_key));
+
+        Map<String, String> map = new TreeMap<>();
+        map.put("page", String.valueOf(page));
+        map.put("size", "4");
+        String str = StringUtils.getGetUrl(Contants.CATEGORYARTICLES_PATH, map);
+        httpUtils.getStrGET("CategoryArticles", String.format(str, id));
+
+        map.clear();
+        map.put("page", String.valueOf(page));
+        map.put("sort", "time");
+        str = StringUtils.getGetUrl(Contants.CATEGORYSELECTION_PATH, map);
+        httpUtils.getStrGET("CategorySelection", String.format(str, id));
     }
 
     private void pullToRefreshInit() {
@@ -212,8 +236,10 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
     private void SelectionUpdata(String str) {
         Gson gson = GsonUtils.getGson();
         SubCategorySelectionBean new_entityBean = gson.fromJson("{\"bean\": " + str + "}", SubCategorySelectionBean.class);
-        selectionBean.getBean().addAll(new_entityBean.getBean());
-        entityAdapter.notifyDataSetChanged();
+        if (new_entityBean != null && new_entityBean.getBean().size() != 0) {
+            selectionBean.getBean().addAll(new_entityBean.getBean());
+            entityAdapter.notifyDataSetChanged();
+        }
         pullView.onRefreshComplete();
     }
 
@@ -233,10 +259,11 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
     private void ArticlesRefresh(String str) {
         Gson gson = GsonUtils.getGson();
         SubCategoryArticlesBean new_articlesBean = gson.fromJson(str, SubCategoryArticlesBean.class);
-
-        articlesBean.getArticles().clear();
-        articlesBean.getArticles().addAll(new_articlesBean.getArticles());
-        articlesAdapter.notifyDataSetChanged();
+        if (new_articlesBean != null && new_articlesBean.getArticles().size() != 0) {
+            articlesBean.getArticles().clear();
+            articlesBean.getArticles().addAll(new_articlesBean.getArticles());
+            articlesAdapter.notifyDataSetChanged();
+        }
         tag++;
         if (tag == 2) {
             pullView.onRefreshComplete();
@@ -261,6 +288,16 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
         } else {
             if (articlesBean.getArticles().size() > 3) {
                 articlesBean.getArticles().remove(3);
+                tv_articles_more.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(CategoryActivity.this, CategoryMoreArticlesActivity.class);
+                        intent.putExtra("id", id);
+                        intent.putExtra("title", title);
+                        intent.putExtra("path", Contants.CATEGORYARTICLES_PATH);
+                        startActivity(intent);
+                    }
+                });
             } else {
                 tv_articles_more.setVisibility(View.GONE);
             }

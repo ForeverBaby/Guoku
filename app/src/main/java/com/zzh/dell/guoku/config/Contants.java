@@ -25,18 +25,18 @@ public final class Contants {
      * 分类总接口
      * type:    CategoryGet
      */
-    public static final String CATEGORY_PATH = "http://api.guoku.com/mobile/v4/category/?sign=%s&api_key=%s";
+    public static final String CATEGORY_PATH = "http://api.guoku.com/mobile/v4/category/";
     /**
      * 分类界面总接口
      * type:    CategoryFragment
      */
-    public static final String CATEGORY_MAIN_PATH = "http://api.guoku.com/mobile/v4/discover/?sign=%s&api_key=%s";
+    public static final String CATEGORY_MAIN_PATH = "http://api.guoku.com/mobile/v4/discover/";
 
     /**
      * 子品类页面图文接口
      * type:    SubCategoryArticles
      */
-    public static final String SUBCATEGORYARTICLES_PATH = "http://api.guoku.com/mobile/v4/category/sub/%s/articles/?page=%s&size=%s&sign=%s&api_key=%s";
+    public static final String SUBCATEGORYARTICLES_PATH = "http://api.guoku.com/mobile/v4/category/sub/%s/articles/";
 
     /**
      * 子品类页面商品接口
@@ -44,20 +44,20 @@ public final class Contants {
      * SubCategorySelectionRefres
      * SubCategorySelectionUpdata
      */
-    public static final String SUBCATEGORYSELECTION_PATH = "http://api.guoku.com/mobile/v4/category/%s/entity/?offset=%s&count=%s&reverse=%s&sort=%s&sign=%s&api_key=%s";
+    public static final String SUBCATEGORYSELECTION_PATH = "http://api.guoku.com/mobile/v4/category/%s/entity/";
 
     /**
      * 品类页面图文接口
      * type:    CategoryArticles
-     * SubCategoryArticlesRefresh
+     *          SubCategoryArticlesRefresh
      */
-    public static final String CATEGORYARTICLES_PATH = "http://api.guoku.com/mobile/v4/category/%s/articles/?page=%s&size=%s&sign=%s&api_key=%s";
+    public static final String CATEGORYARTICLES_PATH = "http://api.guoku.com/mobile/v4/category/%s/articles/";
 
     /**
      * 品类页面商品接口
      * type:    CategorySelection
      */
-    public static final String CATEGORYSELECTION_PATH = "http://api.guoku.com/mobile/v4/category/%s/selection/?page=%s&sort=%s&sign=%s&api_key=%s";
+    public static final String CATEGORYSELECTION_PATH = "http://api.guoku.com/mobile/v4/category/%s/selection/";
 
     /**
      * 果库的图片库

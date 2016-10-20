@@ -31,7 +31,11 @@ import com.zzh.dell.guoku.fragment.MessageFragment;
 import com.zzh.dell.guoku.fragment.RecommendFragment;
 import com.zzh.dell.guoku.utils.CategoryDBManager;
 import com.zzh.dell.guoku.utils.GsonUtils;
+import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -120,10 +124,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
                 }
             });
-            httpUtils.getStrGET("CategoryGet",
-                    String.format(Contants.CATEGORY_PATH,
-                            "b6fbc461c473452b1fa344ae6d1af2c2",
-                            Contants.API_KEY));
+            Map<String, String> map = new TreeMap<>();
+            String str = StringUtils.getGetUrl(Contants.CATEGORY_PATH, map);
+            httpUtils.getStrGET("CategoryGet", str);
         }
     }
 

@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.activity.CategoryActivity;
+import com.zzh.dell.guoku.activity.SearchActivity;
 import com.zzh.dell.guoku.adapter.CategoryADAdapter;
 import com.zzh.dell.guoku.adapter.CategoryEntityAdapter;
 import com.zzh.dell.guoku.adapter.CategoryImageTextAdapter;
@@ -25,12 +26,15 @@ import com.zzh.dell.guoku.bean.CategoryMainBean;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.config.Contants;
 import com.zzh.dell.guoku.utils.GsonUtils;
+import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
 import com.zzh.dell.guoku.view.CustomMeasureGridView;
 import com.zzh.dell.guoku.view.CustomMeasureListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +44,7 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoryFragment extends Fragment implements HttpCallBack {
+public class CategoryFragment extends Fragment implements HttpCallBack, SearchView.OnQueryTextListener {
 
     CategoryMainBean mainBean;
 
@@ -78,12 +82,30 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
         ButterKnife.bind(this, view);
         HttpUtils httpUtils = new HttpUtils();
         httpUtils.setCallBack(this);
-//        httpUtils.getStrGET("CategoryFragment",
-//                String.format(Contants.CATEGORY_MAIN_PATH,
-//                        "b6fbc461c473452b1fa344ae6d1af2c2",
-//                        "0b19c2b93687347e95c6b6f5cc91bb87"));
+        Map<String,String> map = new TreeMap<>();
+        String str = StringUtils.getGetUrl(Contants.CATEGORY_MAIN_PATH,map);
+        httpUtils.getStrGET("CategoryFragment", str);
 
+        initSearchView();
+        
         return view;
+    }
+
+
+    private void initSearchView() {
+        searchView.setOnQueryTextListener(this);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Intent intent = new Intent(getActivity(),SearchActivity.class);
+        startActivity(intent);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 
     @Override
@@ -192,7 +214,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
             ImageView img = new ImageView(getActivity());
             view.addView(img);
             view.setBackgroundColor(Color.TRANSPARENT);
-            Picasso.with(getActivity()).load(bean.get(i).getImg()).resize(493, 226).centerCrop().into(img);
+            Picasso.with(getActivity()).load(bean.get(i).getImg()).resize(986, 453).centerCrop().into(img);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             params.setMargins(15, 5, 15, 15);

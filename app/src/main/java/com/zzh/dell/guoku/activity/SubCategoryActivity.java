@@ -19,9 +19,13 @@ import com.zzh.dell.guoku.bean.SubCategoryEntityBean;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.config.Contants;
 import com.zzh.dell.guoku.utils.GsonUtils;
+import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
 import com.zzh.dell.guoku.view.CustomMeasureGridView;
 import com.zzh.dell.guoku.view.CustomMeasureListView;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +36,9 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
 
     private int offset = 0;
     private int tag = 0;
+    private int page = 1;
     private String id;
+    private String title;
     private String sign = "2a42c35005f57af37a930629b5e00aa5";
     private String api_key = "0b19c2b93687347e95c6b6f5cc91bb87";
     HttpUtils httpUtils;
@@ -100,45 +106,58 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
 
     private void HttpUtilsUpdata() {
         offset += 30;
-        httpUtils.setCallBack(this);
-        httpUtils.getStrGET("SubCategorySelectionUpdata",
-                String.format(Contants.SUBCATEGORYSELECTION_PATH, id, "0", "30", "0", "time",
-                        "2a10b080ae6a172a3bbf1e28662894d4",
-                        api_key));
+        Map<String, String> map = new TreeMap<>();
+        map.put("offset", String.valueOf(offset));
+        map.put("count", "30");
+        map.put("reverse", "0");
+        map.put("sort", "time");
+        String str = StringUtils.getGetUrl(Contants.SUBCATEGORYSELECTION_PATH, map);
+        httpUtils.getStrGET("SubCategorySelectionUpdata", String.format(str, id));
     }
 
     private void HttpUtilsRefresh() {
-        httpUtils.setCallBack(this);
-        httpUtils.getStrGET("SubCategoryArticlesRefresh",
-                String.format(Contants.SUBCATEGORYARTICLES_PATH, id, "1", "3",
-                        "7f45ec66700b30a54fb30c30cfaf72b4",
-                        api_key));
+        page = 1;
         offset = 0;
-        httpUtils.getStrGET("SubCategorySelectionRefres",
-                String.format(Contants.SUBCATEGORYSELECTION_PATH, id, String.valueOf(offset), "30", "0", "time",
-                        "2a10b080ae6a172a3bbf1e28662894d4",
-                        api_key));
+        Map<String, String> map = new TreeMap<>();
+        map.put("page", String.valueOf(page));
+        map.put("size", "3");
+        String str = StringUtils.getGetUrl(Contants.SUBCATEGORYARTICLES_PATH, map);
+        httpUtils.getStrGET("SubCategoryArticlesRefresh", String.format(str, id));
+
+        map.clear();
+        map.put("offset", String.valueOf(offset));
+        map.put("count", "30");
+        map.put("reverse", "0");
+        map.put("sort", "time");
+        str = StringUtils.getGetUrl(Contants.SUBCATEGORYSELECTION_PATH, map);
+        httpUtils.getStrGET("SubCategorySelectionRefres", String.format(str, id));
     }
 
     private void HttpUtilsInit() {
-        id = "125";
         httpUtils = new HttpUtils();
         httpUtils.setCallBack(this);
-        httpUtils.getStrGET("SubCategoryArticles",
-                String.format(Contants.SUBCATEGORYARTICLES_PATH, id, "1", "3",
-                        "7f45ec66700b30a54fb30c30cfaf72b4",
-                        api_key));
+
+        page = 1;
         offset = 0;
-        httpUtils.getStrGET("SubCategorySelection",
-                String.format(Contants.SUBCATEGORYSELECTION_PATH, id, String.valueOf(offset), "30", "0", "time",
-                        "2a10b080ae6a172a3bbf1e28662894d4",
-                        api_key));
+        Map<String, String> map = new TreeMap<>();
+        map.put("page", String.valueOf(page));
+        map.put("size", "4");
+        String str = StringUtils.getGetUrl(Contants.SUBCATEGORYARTICLES_PATH, map);
+        httpUtils.getStrGET("SubCategoryArticles", String.format(str, id));
+
+        map.clear();
+        map.put("offset", String.valueOf(offset));
+        map.put("count", "30");
+        map.put("reverse", "0");
+        map.put("sort", "time");
+        str = StringUtils.getGetUrl(Contants.SUBCATEGORYSELECTION_PATH, map);
+        httpUtils.getStrGET("SubCategorySelection", String.format(str, id));
     }
 
     private void initGetIntent() {
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        String title = intent.getStringExtra("title");
+        title = intent.getStringExtra("title");
         tv_title.setText(title);
     }
 
@@ -166,8 +185,10 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
     private void SelectionUpdata(String str) {
         Gson gson = GsonUtils.getGson();
         SubCategoryEntityBean new_entityBean = gson.fromJson("{\"bean\": " + str + "}", SubCategoryEntityBean.class);
-        entityBean.getBean().addAll(new_entityBean.getBean());
-        entityAdapter.notifyDataSetChanged();
+        if (new_entityBean != null && new_entityBean.getBean().size() != 0) {
+            entityBean.getBean().addAll(new_entityBean.getBean());
+            entityAdapter.notifyDataSetChanged();
+        }
         pullView.onRefreshComplete();
     }
 
@@ -185,12 +206,14 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
     }
 
     private void ArticlesRefresh(String str) {
+
         Gson gson = GsonUtils.getGson();
         SubCategoryArticlesBean new_articlesBean = gson.fromJson(str, SubCategoryArticlesBean.class);
-
-        articlesBean.getArticles().clear();
-        articlesBean.getArticles().addAll(new_articlesBean.getArticles());
-        articlesAdapter.notifyDataSetChanged();
+        if (new_articlesBean != null && new_articlesBean.getArticles().size() != 0) {
+            articlesBean.getArticles().clear();
+            articlesBean.getArticles().addAll(new_articlesBean.getArticles());
+            articlesAdapter.notifyDataSetChanged();
+        }
         tag++;
         if (tag == 2) {
             pullView.onRefreshComplete();
@@ -216,6 +239,16 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
         } else {
             if (articlesBean.getArticles().size() > 3) {
                 articlesBean.getArticles().remove(3);
+                tv_more.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(SubCategoryActivity.this, CategoryMoreArticlesActivity.class);
+                        intent.putExtra("id", id);
+                        intent.putExtra("title", title);
+                        intent.putExtra("path", Contants.SUBCATEGORYARTICLES_PATH);
+                        startActivity(intent);
+                    }
+                });
             } else {
                 tv_more.setVisibility(View.GONE);
             }
