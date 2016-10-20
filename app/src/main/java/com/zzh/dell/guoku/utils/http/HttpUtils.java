@@ -28,7 +28,7 @@ public final class HttpUtils {
         this.callBack = callBack;
     }
 
-    private HttpUtils(){}
+    public HttpUtils(){}
     private static HttpUtils intance = null;
     public static HttpUtils getIntance(){
         if(intance==null){

@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,12 +17,19 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.app.GuokuApp;
+import com.zzh.dell.guoku.bean.CategoryBean;
+import com.zzh.dell.guoku.callback.HttpCallBack;
+import com.zzh.dell.guoku.config.Contants;
 import com.zzh.dell.guoku.fragment.CategoryFragment;
 import com.zzh.dell.guoku.fragment.MeFragment;
 import com.zzh.dell.guoku.fragment.MessageFragment;
 import com.zzh.dell.guoku.fragment.RecommendFragment;
+import com.zzh.dell.guoku.utils.CategoryDBManager;
+import com.zzh.dell.guoku.utils.GsonUtils;
+import com.zzh.dell.guoku.utils.http.HttpUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     RadioButton notification;
 
     Handler handler = new Handler();
+    CategoryDBManager dbManager;
 
     //标志1,2
     public int currentRb = 1;
@@ -65,6 +74,55 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         ButterKnife.bind(this);
         initView();
         initListener();
+        initCategoryDB();
+    }
+
+    private void initCategoryDB() {
+        dbManager = CategoryDBManager.getDbManager(MainActivity.this);
+        Cursor cursor = dbManager.queryNoSelection();
+        int num = cursor.getCount();
+
+        if (num==0){
+            HttpUtils httpUtils = new HttpUtils();
+            httpUtils.setCallBack(new HttpCallBack() {
+                @Override
+                public void sendStr(String type, String str) {
+                    if ("CategoryGet".equals(type)){
+                        Gson gson = GsonUtils.getGson();
+                        CategoryBean bean = gson.fromJson("{\"bean\":"+str+"}",CategoryBean.class);
+                        for (int i = 0; i < bean.getBean().size(); i++) {
+                            CategoryBean.BeanBean beanBean = bean.getBean().get(i);
+                            dbManager.insert(MainActivity.this
+                                    ,beanBean.getGroup_id()
+                                    ,beanBean.getTitle());
+                            for (int j = 0; j < beanBean.getContent().size(); j++) {
+                                CategoryBean.BeanBean.ContentBean contentBean = beanBean.getContent().get(j);
+                                dbManager.subInsert(MainActivity.this
+                                        ,beanBean.getGroup_id()
+                                        ,contentBean.getCategory_id()
+                                        ,contentBean.getCategory_title()
+                                        ,contentBean.getCategory_icon_small()
+                                        ,contentBean.getCategory_icon_large());
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void sendStrbefore(String type) {
+
+                }
+
+                @Override
+                public void sendStrAfter(String type) {
+
+                }
+            });
+            httpUtils.getStrGET("CategoryGet",
+                    String.format(Contants.CATEGORY_PATH,
+                            "b6fbc461c473452b1fa344ae6d1af2c2",
+                            Contants.API_KEY));
+        }
     }
 
     private void initColor() {
@@ -216,6 +274,4 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         return false;
     }
-
-
 }

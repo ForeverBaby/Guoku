@@ -4,6 +4,8 @@ package com.zzh.dell.guoku.config;
  * Created by DELL on 2016/10/15.
  */
 public final class Contants {
+
+    public static final String API_KEY = "0b19c2b93687347e95c6b6f5cc91bb87";
     /**
      * 注册
      */
@@ -13,10 +15,14 @@ public final class Contants {
      */
     public static final String LOGIN = "http://api.guoku.com/mobile/v4/login/";
 
-
+    /**
+     * 分类总接口
+     * type:    CategoryGet
+     */
+    public static final String CATEGORY_PATH = "http://api.guoku.com/mobile/v4/category/?sign=%s&api_key=%s";
     /**
      * 分类界面总接口
-     * type:    CategoryGet
+     * type:    CategoryFragment
      */
     public static final String CATEGORY_MAIN_PATH = "http://api.guoku.com/mobile/v4/discover/?sign=%s&api_key=%s";
 

@@ -1,9 +1,11 @@
 package com.zzh.dell.guoku.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -20,10 +22,15 @@ import com.zzh.dell.guoku.bean.SubCategoryArticlesBean;
 import com.zzh.dell.guoku.bean.SubCategorySelectionBean;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.config.Contants;
+import com.zzh.dell.guoku.utils.CategoryDBInfo;
+import com.zzh.dell.guoku.utils.CategoryDBManager;
 import com.zzh.dell.guoku.utils.GsonUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
 import com.zzh.dell.guoku.view.CustomMeasureGridView;
 import com.zzh.dell.guoku.view.CustomMeasureListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,10 +42,11 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
     private int tag = 0;
     private String id;
     private String api_key = "0b19c2b93687347e95c6b6f5cc91bb87";
+    HttpUtils httpUtils;
 
     SubCategoryArticlesBean articlesBean;
     SubCategorySelectionBean selectionBean;
-    CategoryBean categoryBean;
+    CategoryDBManager dbManager;
 
     SubCategoryArticlesAdapter articlesAdapter;
     SubCategorySelectionAdapter entityAdapter;
@@ -82,12 +90,33 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
         initGetIntent();
         HttpUtilsInit();
         pullToRefreshInit();
+        linearLayoutInit();
     }
 
-    private void linearLayoutInit(String str) {
-        Gson gson = GsonUtils.getGson();
-//        categoryBean = gson.fromJson("{\"bean\": " + str + "}", CategoryBean.class);
-
+    private void linearLayoutInit() {
+        List<CategoryBean.BeanBean.ContentBean> list = new ArrayList<>();
+        dbManager = CategoryDBManager.getDbManager(CategoryActivity.this);
+        Cursor cursor = dbManager.subQueryByGroupId(Integer.parseInt(id));
+        while (cursor.moveToNext()) {
+            CategoryBean.BeanBean.ContentBean contentBean = new CategoryBean.BeanBean.ContentBean();
+            int id = cursor.getInt(cursor.getColumnIndex(CategoryDBInfo.CATEGORY_ID));
+            String title = cursor.getString(cursor.getColumnIndex(CategoryDBInfo.CATEGORY_TITLE));
+            contentBean.setCategory_id(id);
+            contentBean.setCategory_title(title);
+            list.add(contentBean);
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
+                , LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        params.setMargins(10,15,10,15);
+        for (int i = 0; i < list.size(); i++) {
+            Button btn = new Button(CategoryActivity.this);
+            btn.setLayoutParams(params);
+            btn.setPadding(0,0,0,0);
+            btn.setBackgroundResource(R.drawable.category_btn_background);
+            btn.setText(list.get(i).getCategory_title());
+            btn.setTextSize(12);
+            linearLayout.addView(btn);
+        }
     }
 
     private void initGetIntent() {
@@ -98,7 +127,6 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
     }
 
     private void HttpUtilsUpdata() {
-        HttpUtils httpUtils = HttpUtils.getIntance();
         httpUtils.setCallBack(this);
         httpUtils.getStrGET("CategorySelectionUpdata",
                 String.format(Contants.CATEGORYSELECTION_PATH, id, "1", "time",
@@ -107,7 +135,6 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
     }
 
     private void HttpUtilsRefresh() {
-        HttpUtils httpUtils = HttpUtils.getIntance();
         httpUtils.setCallBack(this);
         httpUtils.getStrGET("CategoryArticlesRefresh",
                 String.format(Contants.CATEGORYARTICLES_PATH, id, "1", "3",
@@ -120,7 +147,7 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
     }
 
     private void HttpUtilsInit() {
-        HttpUtils httpUtils = HttpUtils.getIntance();
+        httpUtils = new HttpUtils();
         httpUtils.setCallBack(this);
         httpUtils.getStrGET("CategoryArticles",
                 String.format(Contants.CATEGORYARTICLES_PATH, id, "1", "3",
@@ -130,9 +157,6 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
                 String.format(Contants.CATEGORYSELECTION_PATH, id, "1", "time",
                         "2a42c35005f57af37a930629b5e00aa5",
                         api_key));
-        httpUtils.getStrGET("CategoryGet", String.format(Contants.CATEGORY_MAIN_PATH
-                , "b6fbc461c473452b1fa344ae6d1af2c2"
-                , api_key));
     }
 
     private void pullToRefreshInit() {
@@ -169,9 +193,6 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
                 break;
             case "CategorySelectionUpdata":
                 SelectionUpdata(str);
-                break;
-            case "CategoryGet":
-                linearLayoutInit(str);
                 break;
         }
     }

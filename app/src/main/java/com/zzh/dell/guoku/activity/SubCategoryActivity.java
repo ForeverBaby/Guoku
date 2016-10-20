@@ -35,6 +35,7 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
     private String id;
     private String sign = "2a42c35005f57af37a930629b5e00aa5";
     private String api_key = "0b19c2b93687347e95c6b6f5cc91bb87";
+    HttpUtils httpUtils;
 
 
     SubCategoryArticlesBean articlesBean;
@@ -99,7 +100,6 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
 
     private void HttpUtilsUpdata() {
         offset += 30;
-        HttpUtils httpUtils = HttpUtils.getIntance();
         httpUtils.setCallBack(this);
         httpUtils.getStrGET("SubCategorySelectionUpdata",
                 String.format(Contants.SUBCATEGORYSELECTION_PATH, id, "0", "30", "0", "time",
@@ -108,7 +108,6 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
     }
 
     private void HttpUtilsRefresh() {
-        HttpUtils httpUtils = HttpUtils.getIntance();
         httpUtils.setCallBack(this);
         httpUtils.getStrGET("SubCategoryArticlesRefresh",
                 String.format(Contants.SUBCATEGORYARTICLES_PATH, id, "1", "3",
@@ -123,7 +122,7 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
 
     private void HttpUtilsInit() {
         id = "125";
-        HttpUtils httpUtils = HttpUtils.getIntance();
+        httpUtils = new HttpUtils();
         httpUtils.setCallBack(this);
         httpUtils.getStrGET("SubCategoryArticles",
                 String.format(Contants.SUBCATEGORYARTICLES_PATH, id, "1", "3",

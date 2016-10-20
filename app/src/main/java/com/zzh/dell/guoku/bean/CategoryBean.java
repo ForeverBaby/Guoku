@@ -1,5 +1,8 @@
 package com.zzh.dell.guoku.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -80,12 +83,34 @@ public class CategoryBean {
             this.content = content;
         }
 
-        public static class ContentBean {
+        public static class ContentBean implements Parcelable {
             private int status;
             private int category_id;
             private String category_icon_small;
             private String category_title;
             private String category_icon_large;
+
+            public ContentBean() {}
+
+            protected ContentBean(Parcel in) {
+                status = in.readInt();
+                category_id = in.readInt();
+                category_icon_small = in.readString();
+                category_title = in.readString();
+                category_icon_large = in.readString();
+            }
+
+            public static final Creator<ContentBean> CREATOR = new Creator<ContentBean>() {
+                @Override
+                public ContentBean createFromParcel(Parcel in) {
+                    return new ContentBean(in);
+                }
+
+                @Override
+                public ContentBean[] newArray(int size) {
+                    return new ContentBean[size];
+                }
+            };
 
             public int getStatus() {
                 return status;
@@ -125,6 +150,20 @@ public class CategoryBean {
 
             public void setCategory_icon_large(String category_icon_large) {
                 this.category_icon_large = category_icon_large;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(status);
+                dest.writeInt(category_id);
+                dest.writeString(category_icon_small);
+                dest.writeString(category_title);
+                dest.writeString(category_icon_large);
             }
         }
     }

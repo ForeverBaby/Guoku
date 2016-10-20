@@ -47,6 +47,7 @@ public final class R {
 		public static final int indicator_arrow = 0x7f020002;
 		public static final int indicator_bg_bottom = 0x7f020003;
 		public static final int indicator_bg_top = 0x7f020004;
+		public static final int pull_refresh_progress_bar17 = 0x7f020005;
 	}
 	public static final class id {
 		public static final int both = 0x7f060003;

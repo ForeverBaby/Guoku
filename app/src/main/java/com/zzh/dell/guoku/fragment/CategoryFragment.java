@@ -76,7 +76,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         ButterKnife.bind(this, view);
-        HttpUtils httpUtils = HttpUtils.getIntance();
+        HttpUtils httpUtils = new HttpUtils();
         httpUtils.setCallBack(this);
         httpUtils.getStrGET("CategoryFragment",
                 String.format(Contants.CATEGORY_MAIN_PATH,
