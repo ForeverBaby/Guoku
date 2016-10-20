@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    tools:context="com.zzh.dell.guoku.activity.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom"
+        android:background="@color/colorWhite">
+        <!-- Fragment -->
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBlack"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/selection"
+            style="@style/home_bottomer_tab"
+            android:checked="true"
+            android:drawableTop="@drawable/main_btn01" />
+
+        <RadioButton
+            android:id="@+id/discover"
+            style="@style/home_bottomer_tab"
+            android:drawableTop="@drawable/main_btn02" />
+
+        <RadioButton
+            android:id="@+id/notification"
+            style="@style/home_bottomer_tab"
+            android:drawableTop="@drawable/main_btn03" />
+
+        <RadioButton
+            android:id="@+id/me"
+            style="@style/home_bottomer_tab"
+            android:drawableTop="@drawable/main_btn04" />
+    </RadioGroup>
+</RelativeLayout>

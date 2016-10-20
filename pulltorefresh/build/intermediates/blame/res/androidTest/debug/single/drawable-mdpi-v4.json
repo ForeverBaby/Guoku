@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\AndroidStudioProjects\\Guoku\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
+        "source": "E:\\AndroidStudioProjects\\Guoku\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects\\Guoku\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
+        "source": "E:\\AndroidStudioProjects\\Guoku\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects\\Guoku\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\pull_refresh_progress_bar17.png",
+        "source": "E:\\AndroidStudioProjects\\Guoku\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\pull_refresh_progress_bar17.png"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects\\Guoku\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
+        "source": "E:\\AndroidStudioProjects\\Guoku\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
+    }
+]

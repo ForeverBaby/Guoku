@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ImagetextFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pullListView02"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="10dp">
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+</FrameLayout>
