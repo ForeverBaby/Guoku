@@ -7,6 +7,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="no_click">
+        <item name="android:background">@drawable/btn_backgroud</item>
+    </style>
     <!--主界面底部button -->
     <style name="home_bottomer_tab">
         <item name="android:layout_width">0dp</item>
@@ -42,8 +45,53 @@
         <!--<item name="android:windowFullscreen">true</item>-->
     </style>
 
+    <style name="pullProgressBarStyleLarge">
+        <item name="android:indeterminateDrawable">@drawable/pull_refresh_progress</item>
+    </style>
+
+    <style name="therm_tab_title_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="share_popwindos">
+        <item name="android:textSize">10.0sp</item>
+        <item name="android:textColor">@color/g_main</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">5.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="edit_item">
+        <item name="android:textColor">@color/g_main</item>
+        <item name="android:padding">10.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="edit_item2">
+        <item name="android:textColor">@color/g_main</item>
+        <item name="android:paddingLeft">10.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="edit_item_left2">
+        <item name="android:textColor">@color/title_bar_gray</item>
+        <item name="android:paddingLeft">10.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
     <style name="GuideEnter">
         <item name="android:windowEnterAnimation">@anim/guide_in</item>
+    </style>
+
+    <style name="edit_item_left">
+        <item name="android:textColor">@color/title_bar_gray</item>
+        <item name="android:padding">10.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="act_style">
+        <item name="android:background">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

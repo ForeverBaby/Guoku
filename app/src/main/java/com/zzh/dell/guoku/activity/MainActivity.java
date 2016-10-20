@@ -1,5 +1,7 @@
 package com.zzh.dell.guoku.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -45,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @BindView(R.id.rl_bottom)
     RadioGroup rl_bottom;
 
-    @BindView(R.id.me)
-    RadioButton me_rb;
+
+    static RadioButton me_rb;
 
     @BindView(R.id.selection)
     RadioButton selection;
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     private void initColor() {
         Window window = getWindow();
-        if(Build.VERSION.SDK_INT>=21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             window.setStatusBarColor(getResources().getColor(R.color.colorbgBlack));
         }
 
@@ -159,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     MeFragment me;
 
     private void initView() {
+        me_rb = (RadioButton) findViewById(R.id.me);
         recommend = new RecommendFragment();
         category = new CategoryFragment();
         message = new MessageFragment();
@@ -169,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         transaction.add(R.id.rl_content, me).hide(me);
         transaction.add(R.id.rl_content, message).hide(message);
         transaction.add(R.id.rl_content, category).hide(category);
-        transaction.add(R.id.rl_content, recommend);
+        transaction.add(R.id.rl_content, recommend).show(recommend);
         transaction.commit();
         chexBean();
     }
@@ -193,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         hide(transaction);
         switch (checkedId) {
@@ -219,10 +223,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
-                    if(currentRb==1){
+                    if (currentRb == 1) {
                         selection.setChecked(true);
-                    }else {
+                        transaction.show(recommend);
+                    } else {
                         discover.setChecked(true);
+                        transaction.show(category);
                     }
                 }
                 break;
@@ -232,13 +238,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
                 if (chexBean()) {
                     transaction.show(me);
+                    me.init();
                 } else {
                     Intent intent = new Intent(this, SettingActivity.class);
                     startActivity(intent);
-                    if(currentRb==1){
+                    if (currentRb == 1) {
                         selection.setChecked(true);
-                    }else {
+                        transaction.show(recommend);
+
+                    } else {
                         discover.setChecked(true);
+                        transaction.show(category);
                     }
                 }
                 break;
@@ -274,4 +284,24 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         return false;
     }
+
+    public static class ChangeListener extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Drawable startDra;
+            if ("Main.Login.btn.type1".equals(intent.getAction())) {
+                startDra = context.getResources().getDrawable(R.drawable.main_btn04);
+                startDra.setBounds(0, 0, startDra.getMinimumWidth(), startDra.getMinimumHeight());
+                me_rb.setCompoundDrawables(null, startDra, null, null);
+            } else if ("Main.Login.btn.type2".equals(intent.getAction())) {
+                startDra = context.getResources().getDrawable(R.drawable.main_btn05);
+                startDra.setBounds(0, 0, startDra.getMinimumWidth(), startDra.getMinimumHeight());
+                me_rb.setCompoundDrawables(null, startDra, null, null);
+            }
+
+        }
+    }
+
+
 }

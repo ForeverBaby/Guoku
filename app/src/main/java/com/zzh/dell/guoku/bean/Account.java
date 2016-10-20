@@ -40,6 +40,7 @@ public class Account implements Parcelable{
      */
 
     private UserBean user;
+    public  Account(){}
 
     protected Account(Parcel in) {
         session = in.readString();

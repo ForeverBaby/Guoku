@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zzh.dell.guoku.activity.ChangeEmailActivity">
+
+    <include layout="@layout/title" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20.0dip"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/edit_item2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_email_now" />
+
+        <TextView
+            android:id="@+id/tv_emali_now"
+            style="@style/edit_item_left2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <com.zzh.dell.guoku.view.LayoutItemEdit
+            android:id="@+id/layout_emali_new"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.0dip" />
+
+        <include layout="@layout/line_gray" />
+
+        <TextView
+            style="@style/edit_item2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.0dip"
+            android:text="@string/tv_email_psd_toast" />
+
+        <com.zzh.dell.guoku.view.LayoutItemEdit
+            android:id="@+id/layout_email_psd"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/line_gray" />
+    </LinearLayout>
+
+</LinearLayout>

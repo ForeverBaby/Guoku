@@ -11,10 +11,12 @@ import java.util.List;
  */
 public class MyGoodsAdapter extends FragmentStatePagerAdapter{
     List<Fragment> fragmentList;
+    String[] str;
 
-    public MyGoodsAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    public MyGoodsAdapter(FragmentManager fm, List<Fragment> fragmentList,String[] str) {
         super(fm);
         this.fragmentList = fragmentList;
+        this.str = str;
     }
 
     @Override
@@ -25,5 +27,10 @@ public class MyGoodsAdapter extends FragmentStatePagerAdapter{
     @Override
     public int getCount() {
         return fragmentList.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return str[position];
     }
 }
