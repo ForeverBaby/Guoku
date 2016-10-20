@@ -54,6 +54,17 @@ public final class Contants {
      */
     public static final String IMAGE_PATH = "http://imgcdn.guoku.com";
 
+    /**
+     * 邮箱
+     */
+    public static final String  EMAIL_VER = "http://api.guoku.com/mobile/v4/user/email/verified/";
+    public static final String EMAIL_VER_TYPE = "email_send";
+
+    public static final String EMAIL_UPDATE = "http://api.guoku.com/mobile/v4/user/update/email/";
+    public static final String EMAIL_UPDATE_T = "update";
+    public static final String PASS_CHANGE = "http://api.guoku.com/mobile/v4/user/reset/password/";
+    public static final String PASS_TYPE = "pass";
+
 
     /**
      * SharedPreferenced类

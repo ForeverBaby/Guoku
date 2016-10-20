@@ -20,7 +20,10 @@ import android.widget.TextView;
 
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.SplashViewPagerAdapter;
+import com.zzh.dell.guoku.app.GuokuApp;
+import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.config.Contants;
+import com.zzh.dell.guoku.utils.SharedPrefUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +62,21 @@ public class SplashActivity extends AppCompatActivity {
         int flas = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setFlags(flas,flas);
         setContentView(R.layout.activity_splash);
-
+        initAccount();
         //让状态栏去掉
         ButterKnife.bind(this);
 
         preferences = getSharedPreferences(Contants.SP_FIRST_INTO,MODE_PRIVATE);
         boolean aBoolean = preferences.getBoolean(Contants.SP_KEY, false);
         JudgeFirst(aBoolean);
+    }
+
+    private void initAccount() {
+        Account userBean = SharedPrefUtils.getUserBean(this);
+        if(userBean!=null){
+            GuokuApp.getIntance().login(userBean);
+        }
+
     }
 
     private void JudgeFirst(boolean aBoolean) {

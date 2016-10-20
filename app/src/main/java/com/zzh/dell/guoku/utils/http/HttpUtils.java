@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.utils.http;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.zzh.dell.guoku.app.GuokuApp;
 import com.zzh.dell.guoku.callback.HttpCallBack;
@@ -28,7 +29,7 @@ public final class HttpUtils {
         this.callBack = callBack;
     }
 
-    private HttpUtils(){}
+    public  HttpUtils(){}
     private static HttpUtils intance = null;
     public static HttpUtils getIntance(){
         if(intance==null){

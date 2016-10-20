@@ -14,12 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.MyGoodsAdapter;
-import com.zzh.dell.guoku.view.ShapeIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,21 +85,23 @@ public class RecommendFragment extends Fragment {
 
     private void addFraToPager() {
         List<Fragment> listFragment = new ArrayList<>();
-        listFragment.add(new MeFragment());
         listFragment.add(goodsFragment);
+        listFragment.add(new MessageFragment());
         String[] str = new String[]{
             "商品","图文"
         };
-        MyGoodsAdapter adapter = new MyGoodsAdapter(manager, listFragment,str);
+        MyGoodsAdapter adapter = new MyGoodsAdapter(getFragmentManager(), listFragment,str);
         viewPaget.setAdapter(adapter);
+
         indicator.setSelectedTabIndicatorColor(getResources().getColor(android.R.color.transparent));
         indicator.setupWithViewPager(viewPaget);
 
     }
     int width = 0;
     private void initFragment() {
-        manager = getFragmentManager();
+
         goodsFragment = GoodsFragment.newInstance();
+
         DisplayMetrics m = new DisplayMetrics();
         Display defaultDisplay = getActivity().getWindowManager().getDefaultDisplay();
         defaultDisplay.getMetrics(m);

@@ -19,4 +19,5 @@
     <color name="gray">#ffd9d8d8</color>
     <color name="category_search_background">#F0F0F0</color><!--分类页面的搜索控件背景颜色-->
     <color name="category_background">#E0E0E0</color><!--分类页面的背景颜色-->
+    <color name="title_bar_blue">#ff427ec0</color>
 </resources>

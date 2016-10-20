@@ -85,6 +85,15 @@
         <item name="android:windowEnterAnimation">@anim/guide_in</item>
     </style>
 
+    <style name="edit_item_left">
+        <item name="android:textColor">@color/title_bar_gray</item>
+        <item name="android:padding">10.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="act_style">
+        <item name="android:background">@color/colorWhite</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

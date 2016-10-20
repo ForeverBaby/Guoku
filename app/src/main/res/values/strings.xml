@@ -27,7 +27,7 @@
     <string name="tv_email_uncheck">(未验证)</string>
     <string name="tv_email_now">当前邮箱：</string>
     <string name="tv_email_new">新邮箱</string>
-    <string name="tv_email_psd">密码</string>
+    <string name="tv_email_psd">密     码</string>
     <string name="tv_email_psd_toast">为保证账号安全，请输入密码：</string>
     <string name="tv_email_update_ok">邮箱修改成功</string>
     <string name="tv_email_update_error">邮箱修改失败，请稍后重试</string>
@@ -38,6 +38,14 @@
     <string name="tv_send_email_again">重新发送  </string>
     <string name="tv_send_email">发送验证邮件</string>
     <string name="tv_check_email_title">验证邮件</string>
+    <string name="tv_change_psd">修改密码</string>
+    <string name="tv_psd_old">原密码</string>
+    <string name="tv_psd_new">新密码</string>
+    <string name="tv_psd_ok">确认密码</string>
+    <string name="tv_psd_update_ok">密码修改成功</string>
+    <string name="tv_psd_update_error">密码修改失败，请稍后重试</string>
+    <string name="tv_psd_disaffinity">两次输入的新密码不正确</string>
+    <string name="tv_psd_length">密码长度不能小于8位</string>
 
     <string name="goods">商品</string>
     <string name="imageText">图文</string>

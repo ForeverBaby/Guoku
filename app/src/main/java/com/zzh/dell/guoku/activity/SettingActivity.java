@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -91,7 +92,8 @@ public class SettingActivity extends AppCompatActivity {
                 isCheckEmail(false);
             }
         }
-            setting_tv_code.setText(StringUtils.getViesion(this));
+
+        setting_tv_code.setText(StringUtils.getViesion(this));
 
     }
 
@@ -138,7 +140,10 @@ public class SettingActivity extends AppCompatActivity {
     {
         startActivity(new Intent(this, LoginActivity.class));
     }
-
-
-
+    @OnClick(R.id.user_info_ll_pass)
+    void ChangePass(){
+        Intent intent = new Intent();
+        intent.setClass(this,ChangePassActivity.class);
+        startActivity(intent);
+    }
 }
