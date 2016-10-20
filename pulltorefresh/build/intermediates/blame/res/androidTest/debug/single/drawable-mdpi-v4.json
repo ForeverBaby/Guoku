@@ -20,6 +20,10 @@
         "source": "G:\\Android\\Guoku\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\pull_refresh_progress_bar17.png"
     },
     {
+        "merged": "D:\\Android\\Guoku\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\pull_refresh_progress_bar17.png",
+        "source": "D:\\Android\\Guoku\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\pull_refresh_progress_bar17.png"
+    },
+    {
         "merged": "D:\\Android\\Guoku\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
         "source": "D:\\Android\\Guoku\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
     },

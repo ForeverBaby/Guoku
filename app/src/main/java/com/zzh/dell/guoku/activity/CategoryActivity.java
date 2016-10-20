@@ -94,7 +94,7 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
     }
 
     private void linearLayoutInit() {
-        List<CategoryBean.BeanBean.ContentBean> list = new ArrayList<>();
+        final List<CategoryBean.BeanBean.ContentBean> list = new ArrayList<>();
         dbManager = CategoryDBManager.getDbManager(CategoryActivity.this);
         Cursor cursor = dbManager.subQueryByGroupId(Integer.parseInt(id));
         while (cursor.moveToNext()) {
@@ -115,6 +115,18 @@ public class CategoryActivity extends AppCompatActivity implements HttpCallBack 
             btn.setBackgroundResource(R.drawable.category_btn_background);
             btn.setText(list.get(i).getCategory_title());
             btn.setTextSize(12);
+            final int pos = i;
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int id = list.get(pos).getCategory_id();
+                    String title = list.get(pos).getCategory_title();
+                    Intent intent = new Intent(CategoryActivity.this, SubCategoryActivity.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("title",title);
+                    startActivity(intent);
+                }
+            });
             linearLayout.addView(btn);
         }
     }

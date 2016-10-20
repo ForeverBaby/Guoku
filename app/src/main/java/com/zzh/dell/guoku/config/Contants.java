@@ -11,11 +11,15 @@ public final class Contants {
      */
     public static final String REGISTER = "http://api.guoku.com/mobile/v4/register/";
     public static final String REGIDTERTYPE = "register";
+
     /**
      * 登录
      */
     public static final String LOGIN = "http://api.guoku.com/mobile/v4/login/";
     public static final String LOGINTYPE = "login";
+
+    public static final String FORGET = "http://api.guoku.com/mobile/v4/forget/password/";
+    public static final String FORGETTYPE = "forget";
 
     /**
      * 分类总接口
@@ -37,15 +41,15 @@ public final class Contants {
     /**
      * 子品类页面商品接口
      * type:    SubCategorySelection
-     *          SubCategorySelectionRefres
-     *          SubCategorySelectionUpdata
+     * SubCategorySelectionRefres
+     * SubCategorySelectionUpdata
      */
     public static final String SUBCATEGORYSELECTION_PATH = "http://api.guoku.com/mobile/v4/category/%s/entity/?offset=%s&count=%s&reverse=%s&sort=%s&sign=%s&api_key=%s";
 
     /**
      * 品类页面图文接口
      * type:    CategoryArticles
-     *          SubCategoryArticlesRefresh
+     * SubCategoryArticlesRefresh
      */
     public static final String CATEGORYARTICLES_PATH = "http://api.guoku.com/mobile/v4/category/%s/articles/?page=%s&size=%s&sign=%s&api_key=%s";
 
@@ -59,11 +63,10 @@ public final class Contants {
      * 果库的图片库
      */
     public static final String IMAGE_PATH = "http://imgcdn.guoku.com";
-
     /**
      * 邮箱
      */
-    public static final String  EMAIL_VER = "http://api.guoku.com/mobile/v4/user/email/verified/";
+    public static final String EMAIL_VER = "http://api.guoku.com/mobile/v4/user/email/verified/";
     public static final String EMAIL_VER_TYPE = "email_send";
 
     public static final String EMAIL_UPDATE = "http://api.guoku.com/mobile/v4/user/update/email/";
@@ -78,8 +81,8 @@ public final class Contants {
     //用户信息
     public static final String SP_USERINFO = "sp_userinfo";
     public static final String SP_CODEPIC = "SP_CODEPIC";
-    public static final String  SP_FIRST_INTO = "sp_first_into";
-    public static final String  SP_KEY = "sp_key";
+    public static final String SP_FIRST_INTO = "sp_first_into";
+    public static final String SP_KEY = "sp_key";
 
 
 }
