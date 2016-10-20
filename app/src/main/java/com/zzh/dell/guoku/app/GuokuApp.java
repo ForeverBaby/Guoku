@@ -9,6 +9,7 @@ import com.zzh.dell.guoku.utils.SharedPrefUtils;
  * Created by DELL on 2016/10/15.
  */
 public class GuokuApp extends Application {
+
     private static GuokuApp intance = null;
 
     public static GuokuApp getIntance() {

@@ -8,7 +8,7 @@ public interface HttpCallBack {
      * 传送str
      * @param str
      */
-    void sendStr(String type,String str);
+    void sendStr(String type, String str);
 
     /**
      * 传送前

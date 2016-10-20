@@ -1,5 +1,10 @@
 package com.zzh.dell.guoku.activity;
 
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import com.zzh.dell.guoku.R;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
@@ -16,6 +21,10 @@ import android.widget.TextView;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.SplashViewPagerAdapter;
 import com.zzh.dell.guoku.config.Contants;
+import com.zzh.dell.guoku.app.GuokuApp;
+import com.zzh.dell.guoku.bean.Account;
+import com.zzh.dell.guoku.config.Contants;
+import com.zzh.dell.guoku.utils.SharedPrefUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +38,7 @@ import butterknife.OnClick;
  */
 public class SplashActivity extends AppCompatActivity {
 
+
     int[] img = new int[]{
             R.mipmap.android1,
             R.mipmap.android2,
@@ -36,6 +46,7 @@ public class SplashActivity extends AppCompatActivity {
             R.mipmap.android4
     };
     SharedPreferences preferences;
+   SharedPreferences preferences;
 
     @BindView(R.id.splash_viewpager)
     ViewPager viewPager;
@@ -50,6 +61,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        int flas = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setFlags(flas,flas);
+        setContentView(R.layout.activity_splash);
+        initAccount();
         int flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setFlags(flags,flags);
         setContentView(R.layout.activity_splash);
@@ -60,6 +75,14 @@ public class SplashActivity extends AppCompatActivity {
         preferences = getSharedPreferences(Contants.SP_FIRST_INTO,MODE_PRIVATE);
         boolean aBoolean = preferences.getBoolean(Contants.SP_KEY, false);
         JudgeFirst(aBoolean);
+    }
+
+    private void initAccount() {
+        Account userBean = SharedPrefUtils.getUserBean(this);
+        if(userBean!=null){
+            GuokuApp.getIntance().login(userBean);
+        }
+
     }
 
     private void JudgeFirst(boolean aBoolean) {
@@ -127,6 +150,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void goToGuideActivity(){
         startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this,GuideActivity.class));
         finish();
     }
 }

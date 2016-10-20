@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zzh.dell.guoku.activity.EmailCheckActivity">
+
+    <include layout="@layout/title" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="20.0dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_emali_now"
+            style="@style/edit_item_left2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="@string/tv_check_email" />
+
+        <TextView
+            android:id="@+id/tv_email_hint"
+            style="@style/edit_item2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20.0dip"
+            android:text="@string/tv_send_email_now" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            style="@style/edit_item_left2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20.0dip"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/send_num_bt"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/bt_blue_bg"
+                android:text="@string/tv_send_email"
+                android:textColor="@color/colorWhite"
+                android:textSize="14.0sp" />
+
+            <Button
+                android:id="@+id/modify_email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/bt_blue_bg"
+                android:text="@string/tv_change_email"
+                android:textColor="@color/colorWhite"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

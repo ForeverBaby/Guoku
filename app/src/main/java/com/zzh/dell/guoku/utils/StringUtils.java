@@ -1,5 +1,8 @@
 package com.zzh.dell.guoku.utils;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+
 import com.zzh.dell.guoku.app.GuokuApp;
 
 import java.security.MessageDigest;
@@ -138,5 +141,17 @@ public final class StringUtils {
         localDecimalFormat.setMaximumFractionDigits(paramInt);
         localDecimalFormat.setMinimumFractionDigits(paramInt);
         return localDecimalFormat.format(paramDouble);
+    }
+
+
+    public static String getViesion(Context context){
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            return packageManager.getPackageInfo(context.getPackageName(),0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 }

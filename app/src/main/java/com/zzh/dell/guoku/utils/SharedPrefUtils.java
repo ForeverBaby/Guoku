@@ -2,6 +2,7 @@ package com.zzh.dell.guoku.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.zzh.dell.guoku.bean.Account;
@@ -18,9 +19,9 @@ public class SharedPrefUtils {
      */
     public static void setUserBean(Context paramContext, Account paramAccountBean) {
         Gson gson = new Gson();
-        if (paramAccountBean != null)  return;
         for (String str = gson.toJson(paramAccountBean); ; str = "") {
             paramContext.getSharedPreferences(Contants.SP_USERINFO, Context.MODE_PRIVATE).edit().putString(Contants.SP_CODEPIC, str).commit();
+            return;
         }
     }
 

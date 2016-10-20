@@ -1,6 +1,52 @@
 <resources>
     <string name="app_name">果库</string>
     <string name="call_fail">访问失败</string>
+    <!-- 分享自定义popwindow -->
+    <string name="tv_share">分享</string>
+    <string name="tv_share_wxpyq">微信朋友圈</string>
+    <string name="tv_share_wxhy">微信好友</string>
+    <string name="tv_share_sina">新浪微博</string>
+    <string name="tv_share_ie">在浏览器中打开</string>
+    <string name="tv_share_mail">Mail</string>
+    <string name="tv_share_refresh">刷新</string>
+    <string name="tv_share_copy">复制链接</string>
+    <string name="tv_share_report">举报</string>
+    <string name="tv_cancel">取消</string>
+    <string name="tv_static_title">果库－精英消费指南</string>
+
+    <!-- personnal-->
+    <string name="tv_user_my">我</string>
+    <string name="tv_user_he">TA </string>
+    <string name="tv_user_like">的喜爱</string>
+    <string name="tv_user_comment">的点评</string>
+    <string name="tv_user_article">的图文</string>
+    <string name="tv_user_tag">参与的标签</string>
+    <string name="tv_user_article_zan">赞过的图文</string>
+    <!--setting-->
+    <string name="tv_change_email">修改邮箱</string>
+    <string name="tv_email_uncheck">(未验证)</string>
+    <string name="tv_email_now">当前邮箱：</string>
+    <string name="tv_email_new">新邮箱</string>
+    <string name="tv_email_psd">密     码</string>
+    <string name="tv_email_psd_toast">为保证账号安全，请输入密码：</string>
+    <string name="tv_email_update_ok">邮箱修改成功</string>
+    <string name="tv_email_update_error">邮箱修改失败，请稍后重试</string>
+    <string name="tv_email_input_email_error">请输入正确的邮箱</string>
+    <string name="tv_check_email">为保证更好使用果库的各项功能，请进入邮箱查看验证邮件，并点击邮件中的链接完成验证。</string>
+    <string name="tv_send_email_already">已发送至当前邮箱</string>
+    <string name="tv_send_email_now">发送至当前邮箱</string>
+    <string name="tv_send_email_again">重新发送  </string>
+    <string name="tv_send_email">发送验证邮件</string>
+    <string name="tv_check_email_title">验证邮件</string>
+    <string name="tv_change_psd">修改密码</string>
+    <string name="tv_psd_old">原密码</string>
+    <string name="tv_psd_new">新密码</string>
+    <string name="tv_psd_ok">确认密码</string>
+    <string name="tv_psd_update_ok">密码修改成功</string>
+    <string name="tv_psd_update_error">密码修改失败，请稍后重试</string>
+    <string name="tv_psd_disaffinity">两次输入的新密码不正确</string>
+    <string name="tv_psd_length">密码长度不能小于8位</string>
+
     <string name="goods">商品</string>
     <string name="imageText">图文</string>
     <string name="splash_btn">点击进入</string>

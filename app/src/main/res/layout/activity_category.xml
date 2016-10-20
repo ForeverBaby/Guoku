@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/category_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/aliwx_common_back_btn_normal" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/category_back"
+            android:background="@color/category_background"
+            android:orientation="horizontal" />
+
+
+        <TextView
+            android:id="@+id/category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="29dp"
+            android:layout_toEndOf="@+id/linearLayout"
+            android:gravity="center" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:id="@+id/category_horizontal_scrollview"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/category_linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        </HorizontalScrollView>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/category_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more"/>
+        <ImageView
+            android:visibility="gone"
+            android:src="@mipmap/product_right_row"
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/category_pulltorefresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fitsSystemWindows="true"
+        android:layout_weight="1"
+        tools:context="com.zzh.dell.guoku.activity.SubCategoryActivity">
+
+
+        <LinearLayout
+            android:background="@color/category_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/category_relative"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/imageText" />
+
+                <TextView
+                    android:id="@+id/category_articles_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/more" />
+
+            </RelativeLayout>
+
+            <com.zzh.dell.guoku.view.CustomMeasureListView
+                android:background="@color/colorWhite"
+                android:id="@+id/category_articles_list"
+                android:layout_width="match_parent"
+                android:layout_height="225dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_margin="5dp"
+                android:text="@string/goods" />
+
+            <com.zzh.dell.guoku.view.CustomMeasureGridView
+                android:id="@+id/category_entity_grid"
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="2"
+                android:padding="5dp"
+                android:verticalSpacing="10dp" />
+        </LinearLayout>
+
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+</LinearLayout>

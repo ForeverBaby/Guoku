@@ -113,21 +113,4 @@ public final class DateUtils {
         return null;
     }
 
-
-    /**时间字符串转换成时间戳
-     * @param time  格式 2016-10-17 17:08:23
-     * @return
-     */
-    public static String getTimeStamp(String time){
-        String timeStamp = null;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        try {
-            Date date = format.parse(time);
-            timeStamp = String.valueOf(date.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return timeStamp;
-    }
-
 }
