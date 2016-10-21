@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
     tools:context="com.zzh.dell.guoku.fragment.CategoryFragment">
 
     <ScrollView
@@ -11,101 +12,178 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.SearchView
-                android:id="@+id/category_search_view"
+            <LinearLayout
+                android:id="@+id/category_1"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/category_search_background"
-                app:queryHint="@string/category_search_hint" />
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="16"
+                    android:background="@color/category_background"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:src="@mipmap/aliwx_search_icon" />
+
+                    <EditText
+                        android:id="@+id/category_search_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="14"
+                        android:background="@color/category_background"
+                        android:hint="@string/category_search_hint"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/category_img_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@mipmap/aliwx_search_icon_delete_normal"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/category_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
                 android:id="@+id/category_view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="175dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/category_background"/>
+                android:layout_height="175dp"
+                android:layout_below="@+id/category_1" />
 
             <LinearLayout
+                android:id="@+id/category_2"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@+id/category_view_pager"
+                android:background="@color/category_background"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/category_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/category_2"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
+
                 <RelativeLayout
                     android:id="@+id/category_user_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="@string/category_recommend_user" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/product_right_row"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="9dp" />
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="9dp"
+                        android:src="@mipmap/product_right_row" />
 
                 </RelativeLayout>
 
 
                 <HorizontalScrollView
-                    android:scrollbars="none"
+                    android:id="@+id/category_user_scrollview"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp" >
+                    android:layout_height="95dp"
+                    android:scrollbars="none">
+
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:id="@+id/category_user_pager"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" />
                 </HorizontalScrollView>
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/category_4"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@color/category_background"/>
+                android:layout_below="@+id/category_3"
+                android:background="@color/category_background"
+                android:orientation="horizontal" />
+
             <LinearLayout
+                android:id="@+id/category_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/category_4"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
                     android:text="@string/category_recommend_category" />
 
                 <HorizontalScrollView
-                    android:scrollbars="none"
+                    android:id="@+id/category_category_scrollview"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp" >
+                    android:layout_height="120dp"
+                    android:scrollbars="none">
+
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:id="@+id/category_category_pager"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" />
                 </HorizontalScrollView>
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/category_6"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@color/category_background"/>
+                android:layout_below="@+id/category_5"
+                android:background="@color/category_background"
+                android:orientation="horizontal" />
+
             <LinearLayout
+                android:id="@+id/category_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/category_6"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
@@ -122,29 +200,67 @@
             </LinearLayout>
 
             <LinearLayout
-                android:background="@color/category_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/category_7"
+                android:background="@color/category_background"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/category_recommend_entity" />
 
                 <com.zzh.dell.guoku.view.CustomMeasureGridView
-                    android:padding="5dp"
-                    android:numColumns="2"
-                    android:horizontalSpacing="10dp"
-                    android:verticalSpacing="10dp"
                     android:id="@+id/category_entity_grid"
                     android:layout_width="match_parent"
-                    android:layout_height="225dp" />
+                    android:layout_height="225dp"
+                    android:horizontalSpacing="10dp"
+                    android:numColumns="2"
+                    android:padding="5dp"
+                    android:verticalSpacing="10dp" />
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/category_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/category_1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:background="@color/colorWhite"
+                        android:id="@+id/listView"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp" />
+
+
+                    <TextView
+                        android:background="@color/colorWhite"
+                        android:id="@+id/tv_clear"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="@string/search_history"
+                        android:textColor="@color/g_main" />
+                    <View
+                        android:id="@+id/search_background"
+                        android:background="@color/search_background"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="700dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </ScrollView>
 

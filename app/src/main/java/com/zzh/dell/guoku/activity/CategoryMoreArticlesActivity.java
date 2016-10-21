@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -148,8 +149,12 @@ public class CategoryMoreArticlesActivity extends AppCompatActivity implements H
     private void ArticlesInit(String str) {
         Gson gson = GsonUtils.getGson();
         articlesBean = gson.fromJson(str, SubCategoryArticlesBean.class);
-        articlesAdapter = new SubCategoryArticlesAdapter(CategoryMoreArticlesActivity.this, articlesBean.getArticles());
-        listView.setAdapter(articlesAdapter);
+        if (articlesBean != null && articlesBean.getArticles().size() != 0) {
+            articlesAdapter = new SubCategoryArticlesAdapter(CategoryMoreArticlesActivity.this, articlesBean.getArticles());
+            listView.setAdapter(articlesAdapter);
+        }else{
+            Toast.makeText(CategoryMoreArticlesActivity.this, "当前没有网络，数据加载失败", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

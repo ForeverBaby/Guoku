@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -21,6 +22,7 @@ import com.zzh.dell.guoku.config.Contants;
 import com.zzh.dell.guoku.utils.GsonUtils;
 import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
+import com.zzh.dell.guoku.view.CostumDialog;
 import com.zzh.dell.guoku.view.CustomMeasureGridView;
 import com.zzh.dell.guoku.view.CustomMeasureListView;
 
@@ -195,9 +197,11 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
     private void SelectionRefresh(String str) {
         Gson gson = GsonUtils.getGson();
         SubCategoryEntityBean new_entityBean = gson.fromJson("{\"bean\": " + str + "}", SubCategoryEntityBean.class);
-        entityBean.getBean().clear();
-        entityBean.getBean().addAll(new_entityBean.getBean());
-        entityAdapter.notifyDataSetChanged();
+        if (new_entityBean != null) {
+            entityBean.getBean().clear();
+            entityBean.getBean().addAll(new_entityBean.getBean());
+            entityAdapter.notifyDataSetChanged();
+        }
         tag++;
         if (tag == 2) {
             pullView.onRefreshComplete();
@@ -221,49 +225,70 @@ public class SubCategoryActivity extends AppCompatActivity implements HttpCallBa
         }
     }
 
+    int flag = 0;
+
     private void SelectionInit(String str) {
         Gson gson = GsonUtils.getGson();
         entityBean = gson.fromJson("{\"bean\": " + str + "}", SubCategoryEntityBean.class);
-        entityAdapter = new SubCategoryEntityAdapter(SubCategoryActivity.this, entityBean.getBean());
-        gridView.setAdapter(entityAdapter);
-        gridView.setListViewHeightBasedOnChildren(gridView, 2);
+        if (entityBean != null) {
+            entityAdapter = new SubCategoryEntityAdapter(SubCategoryActivity.this, entityBean.getBean());
+            gridView.setAdapter(entityAdapter);
+            gridView.setListViewHeightBasedOnChildren(gridView, 2);
+        } else {
+            Toast.makeText(SubCategoryActivity.this, "当前没有网络，数据加载失败", Toast.LENGTH_SHORT).show();
+        }
+        flag++;
+        if (flag==2){
+            dialog.dismiss();
+        }
 
     }
 
     private void ArticlesInit(String str) {
         Gson gson = GsonUtils.getGson();
         articlesBean = gson.fromJson(str, SubCategoryArticlesBean.class);
-        if (articlesBean.getArticles().size() == 0) {
-            relativeLayout.setVisibility(View.GONE);
-            listView.setVisibility(View.GONE);
-        } else {
-            if (articlesBean.getArticles().size() > 3) {
-                articlesBean.getArticles().remove(3);
-                tv_more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(SubCategoryActivity.this, CategoryMoreArticlesActivity.class);
-                        intent.putExtra("id", id);
-                        intent.putExtra("title", title);
-                        intent.putExtra("path", Contants.SUBCATEGORYARTICLES_PATH);
-                        startActivity(intent);
-                    }
-                });
+        if (articlesBean != null) {
+            if (articlesBean.getArticles().size() == 0) {
+                relativeLayout.setVisibility(View.GONE);
+                listView.setVisibility(View.GONE);
             } else {
-                tv_more.setVisibility(View.GONE);
+                if (articlesBean.getArticles().size() > 3) {
+                    articlesBean.getArticles().remove(3);
+                    tv_more.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(SubCategoryActivity.this, CategoryMoreArticlesActivity.class);
+                            intent.putExtra("id", id);
+                            intent.putExtra("title", title);
+                            intent.putExtra("path", Contants.SUBCATEGORYARTICLES_PATH);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    tv_more.setVisibility(View.GONE);
+                }
+
+                articlesAdapter = new SubCategoryArticlesAdapter(SubCategoryActivity.this, articlesBean.getArticles());
+                listView.setAdapter(articlesAdapter);
+                listView.setListViewHeightBasedOnChildren(listView);
             }
-
-            articlesAdapter = new SubCategoryArticlesAdapter(SubCategoryActivity.this, articlesBean.getArticles());
-            listView.setAdapter(articlesAdapter);
-            listView.setListViewHeightBasedOnChildren(listView);
         }
-
+        flag++;
+        if (flag==2){
+            dialog.dismiss();
+        }
     }
 
+    CostumDialog dialog;
+    boolean isFirst = true;
 
     @Override
     public void sendStrbefore(String type) {
-
+        if (isFirst) {
+            dialog = new CostumDialog(SubCategoryActivity.this);
+            dialog.show();
+            isFirst = false;
+        }
     }
 
     @Override
