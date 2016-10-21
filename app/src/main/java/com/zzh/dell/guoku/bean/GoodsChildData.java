@@ -1,5 +1,8 @@
 package com.zzh.dell.guoku.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -632,7 +635,7 @@ public class GoodsChildData {
         }
     }
 
-    public static class NoteListBean {
+    public static class NoteListBean implements Parcelable{
         private String entity_id;
         private String post_time;
         private String user_id;
@@ -671,6 +674,32 @@ public class GoodsChildData {
         private int poke_count;
         private double created_time;
         private List<?> poker_id_list;
+
+        protected NoteListBean(Parcel in) {
+            entity_id = in.readString();
+            post_time = in.readString();
+            user_id = in.readString();
+            is_selected = in.readInt();
+            poke_already = in.readInt();
+            updated_time = in.readDouble();
+            content = in.readString();
+            comment_count = in.readInt();
+            note_id = in.readInt();
+            poke_count = in.readInt();
+            created_time = in.readDouble();
+        }
+
+        public static final Creator<NoteListBean> CREATOR = new Creator<NoteListBean>() {
+            @Override
+            public NoteListBean createFromParcel(Parcel in) {
+                return new NoteListBean(in);
+            }
+
+            @Override
+            public NoteListBean[] newArray(int size) {
+                return new NoteListBean[size];
+            }
+        };
 
         public String getEntity_id() {
             return entity_id;
@@ -776,7 +805,27 @@ public class GoodsChildData {
             this.poker_id_list = poker_id_list;
         }
 
-        public static class CreatorBean {
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(entity_id);
+            dest.writeString(post_time);
+            dest.writeString(user_id);
+            dest.writeInt(is_selected);
+            dest.writeInt(poke_already);
+            dest.writeDouble(updated_time);
+            dest.writeString(content);
+            dest.writeInt(comment_count);
+            dest.writeInt(note_id);
+            dest.writeInt(poke_count);
+            dest.writeDouble(created_time);
+        }
+
+        public static class CreatorBean implements Parcelable{
             private boolean is_censor;
             private String avatar_large;
             private int following_count;
@@ -799,6 +848,43 @@ public class GoodsChildData {
             private int tag_count;
             private String gender;
             private boolean mail_verified;
+
+            protected CreatorBean(Parcel in) {
+                is_censor = in.readByte() != 0;
+                avatar_large = in.readString();
+                following_count = in.readInt();
+                avatar_small = in.readString();
+                entity_note_count = in.readInt();
+                like_count = in.readInt();
+                relation = in.readInt();
+                dig_count = in.readInt();
+                authorized_author = in.readByte() != 0;
+                city = in.readString();
+                user_id = in.readInt();
+                fan_count = in.readInt();
+                nick = in.readString();
+                location = in.readString();
+                email = in.readString();
+                website = in.readString();
+                bio = in.readString();
+                is_active = in.readString();
+                nickname = in.readString();
+                tag_count = in.readInt();
+                gender = in.readString();
+                mail_verified = in.readByte() != 0;
+            }
+
+            public static final Creator<CreatorBean> CREATOR = new Creator<CreatorBean>() {
+                @Override
+                public CreatorBean createFromParcel(Parcel in) {
+                    return new CreatorBean(in);
+                }
+
+                @Override
+                public CreatorBean[] newArray(int size) {
+                    return new CreatorBean[size];
+                }
+            };
 
             public boolean isIs_censor() {
                 return is_censor;
@@ -974,6 +1060,37 @@ public class GoodsChildData {
 
             public void setMail_verified(boolean mail_verified) {
                 this.mail_verified = mail_verified;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeByte((byte) (is_censor ? 1 : 0));
+                dest.writeString(avatar_large);
+                dest.writeInt(following_count);
+                dest.writeString(avatar_small);
+                dest.writeInt(entity_note_count);
+                dest.writeInt(like_count);
+                dest.writeInt(relation);
+                dest.writeInt(dig_count);
+                dest.writeByte((byte) (authorized_author ? 1 : 0));
+                dest.writeString(city);
+                dest.writeInt(user_id);
+                dest.writeInt(fan_count);
+                dest.writeString(nick);
+                dest.writeString(location);
+                dest.writeString(email);
+                dest.writeString(website);
+                dest.writeString(bio);
+                dest.writeString(is_active);
+                dest.writeString(nickname);
+                dest.writeInt(tag_count);
+                dest.writeString(gender);
+                dest.writeByte((byte) (mail_verified ? 1 : 0));
             }
         }
     }

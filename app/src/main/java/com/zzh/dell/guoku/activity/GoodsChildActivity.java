@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -19,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.AdAdapter;
 import com.zzh.dell.guoku.adapter.GoodsChildGridAdapter;
+import com.zzh.dell.guoku.adapter.MyGoodsListAdapter;
 import com.zzh.dell.guoku.adapter.MyViewPagerAdapter;
 import com.zzh.dell.guoku.adapter.SplashViewPagerAdapter;
 import com.zzh.dell.guoku.bean.AdData;
@@ -28,6 +31,7 @@ import com.zzh.dell.guoku.config.Contants;
 import com.zzh.dell.guoku.utils.DateUtils;
 import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
+import com.zzh.dell.guoku.view.MyListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +39,13 @@ import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 /**
  * http://api.guoku.com/mobile/v4/entity/4645416/?entity_id=4645416&sign=?&api_key=?
  */
-public class GoodsChildActivity extends AppCompatActivity implements HttpCallBack {
+public class GoodsChildActivity extends AppCompatActivity implements HttpCallBack, AdapterView.OnItemClickListener {
 
     @BindView(R.id.goods_child_image)
     ImageView image;
@@ -67,7 +72,7 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
     LinearLayout like_ll;
 
     @BindView(R.id.goods_child_contain)
-    LinearLayout ll_contain;
+    MyListView listView;
 
     @BindView(R.id.ad_grid)
     GridView ad_gridview;
@@ -76,6 +81,7 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
     private String imagePath;
     private String type_ad_data = "ad_data";
     private ArrayList<String> detail_images = new ArrayList<>();
+    private String buy_link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +130,7 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
         GoodsChildData data = gson.fromJson(str, GoodsChildData.class);
         final int like_size = data.getLike_user_list().size();
         String brand1 = data.getEntity().getBrand();
+        buy_link = data.getEntity().getItem_list().get(0).getBuy_link();
         if(brand1==null || "".equals(brand1)){
             title.setText(data.getEntity().getTitle());
         }else{
@@ -194,20 +201,12 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
             like_num.setText(like_size + " 人喜爱");
             GoodsChildGridAdapter adapter1 = new GoodsChildGridAdapter(like_user_list,this);
             gridView.setAdapter(adapter1);
+            gridView.setOnItemClickListener(this);
         }
 
         List<GoodsChildData.NoteListBean> note_list = data.getNote_list();
-        View view = LayoutInflater.from(this)
-                .inflate(R.layout.goods_child_list, null);
-        ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.note_name.setText(note_list.get(0).getCreator().getNickname());
-        Picasso.with(this).load(note_list.get(0).getCreator().getAvatar_small())
-                .fit().centerCrop().into(viewHolder.note_circle);
-        viewHolder.note_content.setText(note_list.get(0).getContent());
-        String s = String.valueOf(note_list.get(0).getUpdated_time());
-        String date = DateUtils.getStandardDate(s);
-        viewHolder.note_time.setText(date);
-        ll_contain.addView(view);
+        MyGoodsListAdapter adapter = new MyGoodsListAdapter(note_list,this);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -251,23 +250,49 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
 
     }
 
+    /**喜欢的gridview的点击
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.e("====","====="+position);
+    }
 
-    class ViewHolder{
-        @BindView(R.id.note_circle)
-        ImageView note_circle;
 
-        @BindView(R.id.note_name)
-        TextView note_name;
+    @OnClick(R.id.goods_child_btn)
+    public void onClick(){
+        Intent intent = new Intent(this,BuyActivity.class);
+        intent.putExtra("path",buy_link);
+        startActivity(intent);
+    }
 
-        @BindView(R.id.note_content)
-        TextView note_content;
+    @OnClick(R.id.click_rl)
+    public void onClick02(){
+        Log.e("====","==喜爱===");
+    }
 
-        @BindView(R.id.note_text_time)
-        TextView note_time;
 
-        public ViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
+    /**爱心的点击
+     * @param view
+     */
+    public void clickHeart(View view) {
+        Log.e("====","==爱心===");
+    }
 
+    /**评论的点击
+     * @param view
+     */
+    public void clickNote(View view) {
+        Log.e("====","==评论===");
+    }
+
+    /**更多的点击
+     * @param view
+     */
+    public void clickMore(View view) {
+        Log.e("====","==更多===");
     }
 }

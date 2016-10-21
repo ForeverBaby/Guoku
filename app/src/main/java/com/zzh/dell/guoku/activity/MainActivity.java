@@ -40,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 王立鹏 + 朱张华
+ * 朱张华
  */
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -50,10 +50,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @BindView(R.id.rl_bottom)
     RadioGroup rl_bottom;
 
-    @BindView(R.id.me)
-    RadioButton me_rb;
-
     static RadioButton me_rb;
+
 
     @BindView(R.id.selection)
     RadioButton selection;
@@ -135,10 +133,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private void initColor() {
         Window window = getWindow();
         if (Build.VERSION.SDK_INT >= 21) {
-        if(Build.VERSION.SDK_INT>=21) {
             window.setStatusBarColor(getResources().getColor(R.color.colorbgBlack));
         }
-
     }
 
     private void initListener() {
@@ -179,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         transaction.add(R.id.rl_content, message).hide(message);
         transaction.add(R.id.rl_content, category).hide(category);
         transaction.add(R.id.rl_content, recommend).show(recommend);
-        transaction.add(R.id.rl_content, recommend);
         transaction.commit();
         chexBean();
     }
@@ -236,10 +231,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     } else {
                         discover.setChecked(true);
                         transaction.show(category);
-                    if(currentRb==1){
-                        selection.setChecked(true);
-                    }else {
-                        discover.setChecked(true);
                     }
                 }
                 break;
@@ -260,19 +251,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     } else {
                         discover.setChecked(true);
                         transaction.show(category);
-                } else {
-                    Intent intent = new Intent(this, SettingActivity.class);
-                    startActivity(intent);
-                    if(currentRb==1){
-                        selection.setChecked(true);
-                    }else {
-                        discover.setChecked(true);
                     }
                 }
                 break;
         }
         transaction.commit();
-
     }
 
     private void hide(FragmentTransaction fragmentTransaction) {

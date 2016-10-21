@@ -100,4 +100,16 @@ public class PictureActivity extends AppCompatActivity {
     public void onClick(){
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_main_in,R.anim.activity_out);
+    }
 }

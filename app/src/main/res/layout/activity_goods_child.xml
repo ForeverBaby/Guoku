@@ -35,6 +35,7 @@
                 android:layout_height="40dp"
                 android:src="@mipmap/icon_like"
                 android:padding="10dp"
+                android:onClick="clickHeart"
                 android:layout_gravity="center_vertical"/>
             <ImageView
                 android:id="@+id/image_note"
@@ -42,6 +43,7 @@
                 android:layout_height="match_parent"
                 android:src="@mipmap/comment_2"
                 android:padding="10dp"
+                android:onClick="clickNote"
                 android:layout_gravity="center_vertical"/>
             <ImageView
                 android:id="@+id/image_more"
@@ -49,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/more_shop"
                 android:padding="10dp"
+                android:onClick="clickMore"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
     </RelativeLayout>
@@ -102,6 +105,7 @@
                     android:layout_height="40dp"
                     android:src="@mipmap/icon_like"
                     android:padding="10dp"
+                    android:onClick="clickHeart"
                     android:layout_gravity="center_vertical"/>
                 <ImageView
                     android:id="@+id/image_note01"
@@ -109,6 +113,7 @@
                     android:layout_height="match_parent"
                     android:src="@mipmap/comment_2"
                     android:padding="10dp"
+                    android:onClick="clickNote"
                     android:layout_gravity="center_vertical"/>
                 <ImageView
                     android:id="@+id/image_more01"
@@ -116,6 +121,7 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/more_shop"
                     android:padding="10dp"
+                    android:onClick="clickMore"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <Button
@@ -135,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <RelativeLayout
+                    android:id="@+id/click_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp">
@@ -143,6 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:clickable="false"
                         android:layout_centerVertical="true"/>
                     <ImageView
                         android:layout_width="12dp"
@@ -150,6 +158,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"
                         android:src="@mipmap/to_rigth"
+                        android:clickable="false"
                         android:layout_centerVertical="true"/>
                 </RelativeLayout>
                 <GridView
@@ -165,12 +174,11 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/g_line"/>
             </LinearLayout>
-           <LinearLayout
+           <com.zzh.dell.guoku.view.MyListView
                android:id="@+id/goods_child_contain"
-               android:orientation="horizontal"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content">
-           </LinearLayout>
+           </com.zzh.dell.guoku.view.MyListView>
             <com.zzh.dell.guoku.view.MyGridView
                 android:id="@+id/ad_grid"
                 android:layout_width="wrap_content"

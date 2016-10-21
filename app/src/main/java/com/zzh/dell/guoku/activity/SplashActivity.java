@@ -45,7 +45,6 @@ public class SplashActivity extends AppCompatActivity {
             R.mipmap.android3,
             R.mipmap.android4
     };
-    SharedPreferences preferences;
    SharedPreferences preferences;
 
     @BindView(R.id.splash_viewpager)
@@ -150,7 +149,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private void goToGuideActivity(){
         startActivity(new Intent(this,MainActivity.class));
-        startActivity(new Intent(this,GuideActivity.class));
         finish();
     }
 }
