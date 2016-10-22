@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.config;
 
 /**
+ * 接口类
  * Created by DELL on 2016/10/15.
  */
 public final class Contants {
@@ -58,6 +59,21 @@ public final class Contants {
      * type:    CategorySelection
      */
     public static final String CATEGORYSELECTION_PATH = "http://api.guoku.com/mobile/v4/category/%s/selection/";
+
+    /**
+     * 搜索商品接口
+     */
+    public static final String SEARCH_ENTITY_PATH = "http://api.guoku.com/mobile/v4/entity/search/";
+
+    /**
+     * 搜索图文接口
+     */
+    public static final String SEARCH_ARTICLES_PATH = "http://api.guoku.com/mobile/v4/articles/search/";
+
+    /**
+     * 搜索用户接口
+     */
+    public static final String SEARCH_USER_PATH = "http://api.guoku.com/mobile/v4/user/search/";
 
     /**
      * 果库的图片库
