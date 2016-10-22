@@ -2,6 +2,7 @@ package com.zzh.dell.guoku.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -16,9 +17,11 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -26,17 +29,24 @@ import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.MyGoodsAdapter;
 import com.zzh.dell.guoku.adapter.SearchArticlesAdapter;
 import com.zzh.dell.guoku.adapter.SearchEntityAdapter;
+import com.zzh.dell.guoku.adapter.SearchUserAdapter;
+import com.zzh.dell.guoku.bean.CategoryBean;
 import com.zzh.dell.guoku.bean.SearchArticlesBean;
 import com.zzh.dell.guoku.bean.SearchEntityBean;
+import com.zzh.dell.guoku.bean.SearchUserBean;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.callback.SearchListCallBack;
 import com.zzh.dell.guoku.config.Contants;
+import com.zzh.dell.guoku.fragment.SearchGridFragment;
 import com.zzh.dell.guoku.fragment.SearchListFragment;
+import com.zzh.dell.guoku.utils.CategoryDBInfo;
+import com.zzh.dell.guoku.utils.CategoryDBManager;
 import com.zzh.dell.guoku.utils.GsonUtils;
 import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -79,7 +89,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
     LinearLayout main_line;
     private SearchListFragment entityFragment;
     private SearchListFragment articlesFragment;
-    private SearchListFragment categoryFragment;
+    private SearchGridFragment categoryFragment;
     private SearchListFragment userFragment;
     HttpUtils httpUtils;
 
@@ -95,7 +105,8 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
         initFragment();
         addFraToPager();
         initListener();
-        searchString(search);
+        searchEntityString(search);
+        searchArticlesString(search);
     }
 
     int width = 0;
@@ -111,8 +122,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
         entityFragment.setCallBack(this);
         articlesFragment = new SearchListFragment(SearchListFragment.ARTICLESFRAGMENT);
         articlesFragment.setCallBack(this);
-        categoryFragment = new SearchListFragment(SearchListFragment.CATEGORYFRAGMENT);
-        categoryFragment.setCallBack(this);
+        categoryFragment = new SearchGridFragment();
         userFragment = new SearchListFragment(SearchListFragment.USERFRAGMENT);
         userFragment.setCallBack(this);
     }
@@ -129,7 +139,25 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
                     if (imm.isActive()) {
                         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     }
-                    searchString(search);
+                    switch (prePos){
+                        case 0:
+                            searchEntityString(search);
+                            searchArticlesString(search);
+                            break;
+                        case 1:
+                            searchEntityString(search);
+                            searchArticlesString(search);
+                            break;
+                        case 2:
+                            searchArticlesString(search);
+                            searchUserString(search);
+                            searchArticlesString(search);
+                            break;
+                        case 3:
+                            searchUserString(search);
+                            break;
+                    }
+
                     return true;
                 }
                 return false;
@@ -159,6 +187,24 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
 
             @Override
             public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        searchEntityString(search);
+                        searchArticlesString(search);
+                        break;
+                    case 1:
+                        searchEntityString(search);
+                        searchArticlesString(search);
+                        break;
+                    case 2:
+                        searchArticlesString(search);
+                        searchCategoryString(search);
+                        searchUserString(search);
+                        break;
+                    case 3:
+                        searchUserString(search);
+                        break;
+                }
                 startAnima(position, prePos);
                 prePos = position;
             }
@@ -202,12 +248,34 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
     SearchEntityAdapter entityAdapter;
     SearchArticlesBean articlesBean;
     SearchArticlesAdapter articlesAdapter;
+    SearchUserBean userBean;
+    SearchUserAdapter userAdapter;
 
-    void searchString(String searchStr) {
-        entityOffset = 0;
-        articlesPage = 1;
+    void searchUserString(String searchStr){
         userOffset = 0;
+        Map<String, String> map = new TreeMap<>();
+        map.put("count", "30");
+        map.put("offset", String.valueOf(userOffset));
+        map.put("q", searchStr);
+        map.put("type", "all");
 
+        String str = StringUtils.getGetUrl(Contants.SEARCH_USER_PATH, map);
+        httpUtils.getStrGET("UserSearch", str);
+    }
+
+    void searchArticlesString(String searchStr){
+        articlesPage = 1;
+        Map<String, String> map = new TreeMap<>();
+        map.put("q", searchStr);
+        map.put("page", String.valueOf(articlesPage));
+        map.put("size", "30");
+
+        String str = StringUtils.getGetUrl(Contants.SEARCH_ARTICLES_PATH, map);
+        httpUtils.getStrGET("ArticlesSearch", str);
+    }
+
+    void searchEntityString(String searchStr) {
+        entityOffset = 0;
         httpUtils = new HttpUtils();
         httpUtils.setCallBack(this);
         Map<String, String> map = new TreeMap<>();
@@ -218,24 +286,45 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
 
         String str = StringUtils.getGetUrl(Contants.SEARCH_ENTITY_PATH, map);
         httpUtils.getStrGET("EntitySearch", str);
+    }
 
-        map.clear();
-        map.put("q", searchStr);
-        map.put("page", String.valueOf(articlesPage));
-        map.put("size", "30");
+    void searchCategoryString(String searchStr){
+        CategoryDBManager manager;
+        manager = CategoryDBManager.getDbManager(SearchActivity.this);
+        Cursor cursor = manager.subQueryByTitle(searchStr);
+        final List<CategoryBean.BeanBean.ContentBean> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            CategoryBean.BeanBean.ContentBean contentBean = new CategoryBean.BeanBean.ContentBean();
+            int id = cursor.getInt(cursor.getColumnIndex(CategoryDBInfo.CATEGORY_ID));
+            String title = cursor.getString(cursor.getColumnIndex(CategoryDBInfo.CATEGORY_TITLE));
+            contentBean.setCategory_id(id);
+            contentBean.setCategory_title(title);
+            list.add(contentBean);
+        }
+        List<Map<String,String>> stringList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new HashMap<>();
+            map.put("string", list.get(i).getCategory_title());
+            stringList.add(map);
+        }
+        SimpleAdapter adapter = new SimpleAdapter(SearchActivity.this
+                , stringList
+                , R.layout.allcategoryactivity_text
+                , new String[]{"string"}
+                , new int[]{R.id.all_category_text});
 
-        str = StringUtils.getGetUrl(Contants.SEARCH_ARTICLES_PATH, map);
-        httpUtils.getStrGET("ArticlesSearch", str);
-
-        map.clear();
-        map.put("count", "30");
-        map.put("offset", String.valueOf(userOffset));
-        map.put("q", searchStr);
-        map.put("type", "all");
-
-        str = StringUtils.getGetUrl(Contants.SEARCH_USER_PATH, map);
-        httpUtils.getStrGET("UserSearch", str);
-
+        categoryFragment.setAdapter(adapter);
+        categoryFragment.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int cid = list.get(position).getCategory_id();
+                String title = list.get(position).getCategory_title();
+                Intent intent = new Intent(SearchActivity.this, SubCategoryActivity.class);
+                intent.putExtra("id", String.valueOf(cid));
+                intent.putExtra("title",title);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -280,9 +369,23 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
     }
 
     private void userSearch(String str) {
+        Gson gson = GsonUtils.getGson();
+        userBean = gson.fromJson("{\"bean\":"+str+"}", SearchUserBean.class);
+        if (userBean!=null&&userBean.getBean().size()!=0){
+            userAdapter = new SearchUserAdapter(SearchActivity.this,userBean.getBean(),getLayoutInflater());
+            userFragment.setAdapter(userAdapter);
+        }
+        userFragment.setComplete();
     }
 
     private void updateUser(String str) {
+        Gson gson = GsonUtils.getGson();
+        SearchUserBean new_bean = gson.fromJson("{\"bean\":"+str+"}", SearchUserBean.class);
+        if (new_bean != null && new_bean.getBean().size() != 0) {
+            userBean.getBean().addAll(new_bean.getBean());
+            userAdapter.notifyDataSetChanged();
+        }
+        userFragment.setComplete();
     }
 
 

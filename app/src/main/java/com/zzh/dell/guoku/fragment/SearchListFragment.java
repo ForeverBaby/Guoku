@@ -70,6 +70,9 @@ public class SearchListFragment extends ListFragment {
                 callBack.upDate(type);
             }
         });
+    }
+
+    public void setEmpty(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.search_list_empty, null);
         listView.setEmptyView(view);
     }
