@@ -143,7 +143,8 @@ public class MeFragment extends Fragment implements HttpCallBack {
         ButterKnife.bind(this, view);
         canAdd = true;
         getUserType();
-        init();
+
+
 
         return view;
     }
@@ -172,6 +173,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         init();
+        getInitData("like", "4", 1002);
     }
 
 
@@ -189,68 +191,46 @@ public class MeFragment extends Fragment implements HttpCallBack {
                     view_stub_user.setVisibility(View.VISIBLE);
                     accountBean = account;
                     userBean = accountBean.getUser();
-                    setInfo(userBean);
+
                     title_bar_rigth_iv.setImageResource(R.mipmap.setting);
                     red_round.setVisibility(View.GONE);
                     if (!userBean.isMail_verified()) {
                         red_round.setVisibility(View.VISIBLE);
                     }
-
-                    initUnUserAuthon(userBean);
                     getUserInfo(userBean);
-                    initUnUser();
-                    initUnUserAuthon(userBean);
+
                 }
                 break;
             case 1:
                 title_bar_left_iv.setImageResource(R.drawable.back_selector);
                 title_bar_centrt_tv.setText(userBean.getNickname());
                 view_stub_user.setVisibility(View.VISIBLE);
-                setInfo(userBean);
-                initUnUserAuthon(userBean);
-                initUnUser();
                 getUserInfo(userBean);
-                initUnUserAuthon(userBean);
                 break;
             case 2:
                 title_bar_left_iv.setImageResource(R.drawable.back_selector);
                 title_bar_centrt_tv.setText(userBean.getNickname());
                 view_stub_user.setVisibility(View.VISIBLE);
-                setInfo(userBean);
-                initUnUserAuthon(userBean);
-                initUnUser();
+
                 getUserInfo(userBean);
-                initUnUserAuthon(userBean);
                 break;
             case 3:
                 title_bar_left_iv.setImageResource(R.drawable.back_selector);
                 title_bar_centrt_tv.setText(userBean.getNickname());
                 view_stub_user.setVisibility(View.VISIBLE);
-                setInfo(userBean);
-                initUnUserAuthon(userBean);
-                initUnUser();
                 getUserInfo(userBean);
-                initUnUserAuthon(userBean);
                 break;
 
         }
 
 
-//            pull_listview.setMode(PullToRefreshBase.Mode.BOTH);
-//            Account.UserBean user = accountBean.getUser();
-//            this.psrson_tv_fans.setText(user.getFan_count());
-//            this.psrson_tv_guanzhu.setText(user.getFollowing_count());
-//            this.psrson_tv_name.setText(user.getNick());
-//            this.psrson_tv_sign.setText((String) user.getBio());
-//        this.psrson_iv_pic.setImageURI(Uri.parse(this.uBean.get240()));
-//            setConcem(user);
-//        getUserInfo();
-//        return;
-//        this.viewUserList.setVisibility(0);
-//        this.uBean = GuokuApplication.getInstance().getBean().getUser();
-//        this.iv_set.setVisibility(0);
-//        title_bar_rigth_iv.setText("我");
-//        this.iv_set.setImageResource(2130838087);
+//
+    }
+
+    private void getData2() {
+        setInfo(userBean);
+        initUnUserAuthon(userBean);
+        initUnUser();
 
     }
 
@@ -309,14 +289,14 @@ public class MeFragment extends Fragment implements HttpCallBack {
         utils.getStrGET("userBean", getUrl);
     }
 
-    private void getInitData(String paramString1, String paramString2, int paramInt, String type) {
+    private void getInitData(String paramString1, String paramString2, int paramInt) {
         if (paramInt == 1004) {
             String str2 = "http://api.guoku.com/mobile/v4/user/" + userBean.getUser_id() + "/" + paramString1 + "/";
             Map<String, String> map = new ArrayMap<>();
             map.put("size", paramString2);
             map.put("page", pageArticle + "");
             String getUrl = StringUtils.getGetUrl(str2, map);
-            utils.getStrGET(type, getUrl);
+            utils.getStrGET(paramString1, getUrl);
             return;
         }
         String str1 = "http://api.guoku.com/mobile/v4/user/" + userBean.getUser_id() + "/" + paramString1 + "/";
@@ -325,7 +305,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
         map.put("count", paramString2);
         map.put("timestamp", (System.currentTimeMillis() / 1000L + ""));
         String getUrl = StringUtils.getGetUrl(str1, map);
-        utils.getStrGET(type, getUrl);
+        utils.getStrGET(paramString1, getUrl);
 
     }
 
@@ -492,6 +472,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
                 if (str != null) {
                     Mebean mebean = gson.fromJson(str, Mebean.class);
                     user2 = mebean.getUser();
+                    getData2();
                 }
 
                 break;
