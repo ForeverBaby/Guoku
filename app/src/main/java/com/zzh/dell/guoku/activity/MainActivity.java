@@ -3,7 +3,6 @@ package com.zzh.dell.guoku.activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.app.GuokuApp;
+import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.CategoryBean;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.config.Contants;
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     RecommendFragment recommend;
     CategoryFragment category;
     MessageFragment message;
-    MeFragment me;
+    static MeFragment me;
 
     private void initView() {
         me_rb = (RadioButton) findViewById(R.id.me);
@@ -294,20 +295,27 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     public static class ChangeListener extends BroadcastReceiver {
-
+        static int count = 0;
         @Override
         public void onReceive(Context context, Intent intent) {
-            Drawable startDra;
             if ("Main.Login.btn.type1".equals(intent.getAction())) {
-                startDra = context.getResources().getDrawable(R.drawable.main_btn04);
-                startDra.setBounds(0, 0, startDra.getMinimumWidth(), startDra.getMinimumHeight());
-                me_rb.setCompoundDrawables(null, startDra, null, null);
-            } else if ("Main.Login.btn.type2".equals(intent.getAction())) {
-                startDra = context.getResources().getDrawable(R.drawable.main_btn05);
-                startDra.setBounds(0, 0, startDra.getMinimumWidth(), startDra.getMinimumHeight());
-                me_rb.setCompoundDrawables(null, startDra, null, null);
-            }
+                String name = intent.getStringExtra("name");
+                Account account = GuokuApp.getIntance().getAccount();
+                Account.UserBean user = account.getUser();
+                count = user.getFollowing_count();
+                if ("add".equals(name)) {
+                    user.setFollowing_count(++count);
 
+
+                } else if("add2".equals(name)){
+                    user.setRelation(--count);
+
+                }
+                account.getUser().setFollowing_count(count);
+                GuokuApp.getIntance().login(account);
+                me.init();
+
+            }
         }
     }
 

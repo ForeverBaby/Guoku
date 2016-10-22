@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:padding="8.0dip">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fans_item_iv_pic"
+            android:layout_width="40.0dip"
+            android:layout_height="40.0dip"
+           />
+
+        <ImageView
+            android:id="@+id/img_authon"
+            android:layout_width="12.0dip"
+            android:layout_height="12.0dip"
+            android:layout_gravity="bottom|center|right"
+            android:src="@mipmap/official"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8.0dip"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fans_item_tv_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.0dip"
+                    android:layout_weight="1.0"
+                    android:text="name"
+                    android:textColor="@color/g_main" />
+
+                <TextView
+                    android:id="@+id/fans_item_tv_fans"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="粉丝30 关注20"
+                    android:textColor="@color/black_body" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/fans_item_iv_status"
+                android:layout_width="40.0dip"
+                android:layout_height="40.0dip" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="2.0px"
+            android:background="@color/g_line"
+            android:visibility="invisible" />
+    </LinearLayout>
+</LinearLayout>

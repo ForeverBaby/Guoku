@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by DELL on 2016/10/15.
  */
-public class Account implements Parcelable{
+public class Account implements Parcelable {
 
     /**
      * session : 8a17420cb1df5c4ef7ffdec6af6d7eec
@@ -40,7 +40,9 @@ public class Account implements Parcelable{
      */
 
     private UserBean user;
-    public  Account(){}
+
+    public Account() {
+    }
 
     protected Account(Parcel in) {
         session = in.readString();
@@ -86,7 +88,7 @@ public class Account implements Parcelable{
         this.user = user;
     }
 
-    public static class UserBean implements Parcelable{
+    public static class UserBean implements Parcelable {
         private boolean is_censor;
         private String avatar_large;
         private int following_count;
