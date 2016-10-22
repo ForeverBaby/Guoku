@@ -1,5 +1,7 @@
 package com.zzh.dell.guoku.config;
 
+import android.os.Environment;
+
 /**
  * Created by DELL on 2016/10/15.
  */
@@ -64,6 +66,9 @@ public final class Contants {
     public static final String EMAIL_UPDATE_T = "update";
     public static final String PASS_CHANGE = "http://api.guoku.com/mobile/v4/user/reset/password/";
     public static final String PASS_TYPE = "pass";
+
+    public static String IMAGES_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/GuoKu/" + "/images/";
+
 
 
     /**

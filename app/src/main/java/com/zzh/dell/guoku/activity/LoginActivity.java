@@ -3,12 +3,14 @@ package com.zzh.dell.guoku.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -119,6 +121,10 @@ public class LoginActivity extends AppCompatActivity implements HttpCallBack {
         Map<String, String> map = new ArrayMap<>();
         map.put("email", name);
         map.put("password", pwd);
+        SharedPreferences pwd1 = this.getSharedPreferences("pwd", MODE_PRIVATE);
+        SharedPreferences.Editor edit = pwd1.edit();
+        edit.putString("pass",pwd);
+        edit.commit();
         HttpUtils.getIntance().getStrPOST(Contants.LOGINTYPE, Contants.LOGIN, map);
     }
 
@@ -168,6 +174,7 @@ public class LoginActivity extends AppCompatActivity implements HttpCallBack {
                         break;
                     case Contants.LOGINTYPE:
                         getNetData(str, gson);
+                        Log.e("===","==="+str);
                         break;
                 }
             }

@@ -6,16 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.zzh.dell.guoku.R;
-import com.zzh.dell.guoku.view.CustomShareBoard;
 
 import java.util.ArrayList;
 
@@ -54,7 +51,7 @@ public class WebActivity extends AppCompatActivity {
 
     private void initView() {
         Window window = getWindow();
-        if(Build.VERSION.SDK_INT>=21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             window.setStatusBarColor(getResources().getColor(R.color.colorbgBlack));
         }
         WebChromeClient client = new WebChromeClient() {
