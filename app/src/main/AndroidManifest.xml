@@ -3,8 +3,6 @@
     package="com.zzh.dell.guoku">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".app.GuokuApp"
@@ -49,7 +47,8 @@
             android:theme="@style/login_theme" />
         <activity android:name=".activity.ProductInfoActivity" />
         <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.ChangeEmailActivity" />
+        <activity android:name=".activity.ChangeEmailActivity"
+            />
         <activity
             android:name=".activity.EmailCheckActivity"
             android:configChanges="orientation"
@@ -67,6 +66,10 @@
         <activity android:name=".activity.Picture2Activity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.ChangePassActivity" />
+        <activity android:name=".activity.AllCategoryActivity" />
+        <activity android:name=".activity.CategoryMoreArticlesActivity" />
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

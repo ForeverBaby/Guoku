@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -41,48 +42,59 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/category_linearlayout"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <View
-            android:layout_weight="1"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <HorizontalScrollView
+            android:id="@+id/category_horizontal_scrollview"
             android:layout_width="0dp"
-            android:layout_height="1dp"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/category_linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
         <TextView
             android:id="@+id/category_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/more"/>
+            android:text="@string/more" />
+
         <ImageView
-            android:src="@mipmap/product_right_row"
             android:layout_width="10dp"
-            android:layout_height="10dp" />
+            android:layout_height="10dp"
+            android:src="@mipmap/product_right_row" />
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/category_pulltorefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fitsSystemWindows="true"
         android:layout_weight="1"
+        android:fitsSystemWindows="true"
         tools:context="com.zzh.dell.guoku.activity.SubCategoryActivity">
 
 
         <LinearLayout
-            android:background="@color/category_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/category_background"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/category_relative"
-                android:background="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/textView"
@@ -103,10 +115,10 @@
             </RelativeLayout>
 
             <com.zzh.dell.guoku.view.CustomMeasureListView
-                android:background="@color/colorWhite"
                 android:id="@+id/category_articles_list"
                 android:layout_width="match_parent"
-                android:layout_height="225dp" />
+                android:layout_height="225dp"
+                android:background="@color/colorWhite" />
 
             <TextView
                 android:layout_width="match_parent"
