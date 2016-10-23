@@ -35,8 +35,6 @@ public class MessageFragment extends Fragment implements HttpCallBack {
 
     private String dynamic_type = "dynamic_data";
 
-    AnimationDrawable drawable;
-
     public MessageFragment() {
         // Required empty public constructor
     }
@@ -59,9 +57,6 @@ public class MessageFragment extends Fragment implements HttpCallBack {
     @BindView(R.id.message_list)
     PullToRefreshListView message_list;
 
-    @BindView(R.id.anim_image)
-    ImageView anim_image;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +65,6 @@ public class MessageFragment extends Fragment implements HttpCallBack {
         ButterKnife.bind(this,view);
         dynamic_list.setMode(PullToRefreshBase.Mode.BOTH);
         message_list.setMode(PullToRefreshBase.Mode.BOTH);
-        drawable = (AnimationDrawable) anim_image.getDrawable();
         onClick01();
         return view;
     }
@@ -120,24 +114,18 @@ public class MessageFragment extends Fragment implements HttpCallBack {
     @Override
     public void sendStr(String type, String str) {
         if(type.equals(dynamic_type)){
-            initListView(str);
+            //登录了才调用
+//            initListView(str);
         }
     }
 
     @Override
     public void sendStrbefore(String type) {
-        if(type.equals(dynamic_type)){
-            anim_image.setVisibility(View.VISIBLE);
-            drawable.start();
-        }
     }
 
     @Override
     public void sendStrAfter(String type) {
-        if(type.equals(dynamic_type)){
-            drawable.stop();
-            anim_image.setVisibility(View.GONE);
-        }
+
     }
 
     private void initListView(String str) {

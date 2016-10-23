@@ -139,19 +139,28 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
         }
         btn.setText("￥" + data.getEntity().getPrice() +" 去购买");
         detail_images = (ArrayList<String>) data.getEntity().getDetail_images();
-        int size = detail_images.size();
         detail_images.add(0, imagePath);
+        int size = detail_images.size();
         if(size==1){
             viewPager.setVisibility(View.GONE);
             ll.setVisibility(View.GONE);
             image.setVisibility(View.VISIBLE);
             Picasso.with(this).load(imagePath).fit().into(image);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(GoodsChildActivity.this,PictureActivity.class);
+                    intent.putExtra("flag",true);
+                    intent.putExtra("detail_image",detail_images.get(0));
+                    startActivity(intent);
+                }
+            });
         }else {
             viewPager.setVisibility(View.VISIBLE);
             ll.setVisibility(View.VISIBLE);
             image.setVisibility(View.GONE);
             List<ImageView> viewList = new ArrayList<>();
-            for (int i = 0; i < size + 1; i++) {
+            for (int i = 0; i < size; i++) {
                 ImageView image_item = new ImageView(this);
                 Picasso.with(this).load(detail_images.get(i)).fit().into(image_item);
                 viewList.add(image_item);
