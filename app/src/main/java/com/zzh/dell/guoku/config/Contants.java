@@ -107,4 +107,10 @@ public final class Contants {
     public static final String SP_KEY = "sp_key";
 
 
+    /**
+     * 动态的
+     */
+    public static final String DYNAMIC_PATH = "http://api.guoku.com/mobile/v4/feed/";
+
+
 }

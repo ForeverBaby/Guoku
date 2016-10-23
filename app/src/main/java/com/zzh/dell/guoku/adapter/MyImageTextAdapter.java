@@ -23,10 +23,11 @@ import butterknife.ButterKnife;
 /**
  * Created by 32014 on 2016/10/18.
  */
-public class MyImageTextAdapter extends BaseAdapter{
+public class MyImageTextAdapter extends BaseAdapter implements View.OnClickListener {
     List<ImageTextData.DataBean> dataList;
 
     Context context;
+    private int pos = 0;
 
     public MyImageTextAdapter(List<ImageTextData.DataBean> dataList, Context context) {
         this.dataList = dataList;
@@ -50,6 +51,7 @@ public class MyImageTextAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        pos = position;
         ViewHolder viewHolder = null;
         if(convertView == null){
             convertView = LayoutInflater.from(context)
@@ -66,7 +68,13 @@ public class MyImageTextAdapter extends BaseAdapter{
         viewHolder.time.setText(date);
         Picasso.with(context).load(Contants.IMAGE_TOP_PATH + dataList.get(position).getCover())
                 .fit().centerCrop().into(viewHolder.image);
+        convertView.setOnClickListener(this);
         return convertView;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     class ViewHolder{

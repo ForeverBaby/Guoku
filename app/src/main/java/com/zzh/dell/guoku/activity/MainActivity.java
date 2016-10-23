@@ -220,19 +220,20 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 if (message == null) {
                     message = new MessageFragment();
                 }
-                if (chexBean()) {
-                    transaction.show(message);
-                } else {
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                    if (currentRb == 1) {
-                        selection.setChecked(true);
-                        transaction.show(recommend);
-                    } else {
-                        discover.setChecked(true);
-                        transaction.show(category);
-                    }
-                }
+                transaction.show(message);
+//                if (chexBean()) {
+//                    transaction.show(message);
+//                } else {
+//                    Intent intent = new Intent(this, LoginActivity.class);
+//                    startActivity(intent);
+//                    if (currentRb == 1) {
+//                        selection.setChecked(true);
+//                        transaction.show(recommend);
+//                    } else {
+//                        discover.setChecked(true);
+//                        transaction.show(category);
+//                    }
+//                }
                 break;
             case R.id.me:
                 if (me == null) {

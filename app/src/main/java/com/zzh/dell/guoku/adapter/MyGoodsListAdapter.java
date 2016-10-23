@@ -28,6 +28,8 @@ import butterknife.ButterKnife;
 public class MyGoodsListAdapter extends BaseAdapter implements View.OnClickListener {
     List<GoodsChildData.NoteListBean> note_list;
     Context context;
+    private int pos = 0;
+    private String date;
 
     public MyGoodsListAdapter(List<GoodsChildData.NoteListBean> note_list, Context context) {
         this.note_list = note_list;
@@ -51,6 +53,7 @@ public class MyGoodsListAdapter extends BaseAdapter implements View.OnClickListe
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        pos = position;
         ViewHolder viewHolder = null;
         if(convertView==null) {
             convertView = LayoutInflater.from(context)
@@ -65,7 +68,7 @@ public class MyGoodsListAdapter extends BaseAdapter implements View.OnClickListe
                 .fit().centerCrop().into(viewHolder.note_circle);
         viewHolder.note_content.setText(note_list.get(position).getContent());
         String s = String.valueOf(note_list.get(position).getUpdated_time());
-        String date = DateUtils.getStandardDate(s);
+        date = DateUtils.getStandardDate(s);
         viewHolder.note_time.setText(date);
         convertView.setOnClickListener(this);
         viewHolder.note_circle.setOnClickListener(this);
@@ -84,7 +87,10 @@ public class MyGoodsListAdapter extends BaseAdapter implements View.OnClickListe
                 break;
             default:
                 Intent intent = new Intent(context, CommentActivity.class);
-
+                intent.putExtra("circle",note_list.get(pos).getCreator().getAvatar_small());
+                intent.putExtra("content",note_list.get(pos).getContent());
+                intent.putExtra("name",note_list.get(pos).getCreator().getNickname());
+                intent.putExtra("time",date);
                 context.startActivity(intent);
                 break;
         }

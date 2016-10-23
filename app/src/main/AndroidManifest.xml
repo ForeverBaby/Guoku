@@ -52,7 +52,8 @@
         <activity android:name=".activity.SubCategoryActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.BuyActivity" />
-        <activity android:name=".activity.CommentActivity"></activity>
+        <activity android:name=".activity.CommentActivity" />
+        <activity android:name=".activity.ImageTextActivity"></activity>
     </application>
 
 </manifest>

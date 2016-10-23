@@ -59,6 +59,11 @@
     <string name="buy">购买</string>
     <string name="buy_detail">宝贝详情</string>
     <string name="comment">点评</string>
+    <string name="notification">通知</string>
+    <string name="notification_dynamic">动态</string>
+    <string name="notification_message">消息</string>
+    <string name="dynamic_like">开始关注</string>
+    <string name="dynamic_sen">喜欢了1件商品</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
