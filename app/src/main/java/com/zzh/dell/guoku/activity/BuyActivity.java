@@ -34,8 +34,14 @@ public class BuyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String path = intent.getStringExtra("path");
         Log.e("========","======"+path);
-        webView.loadUrl(path);
-
+        webView.loadUrl("https://item.taobao.com/item.htm?id=533308245373");
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
     }
 
     public void back01(View view) {

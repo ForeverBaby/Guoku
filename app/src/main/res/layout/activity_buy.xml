@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.zzh.dell.guoku.activity.BuyActivity">
-
+<!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp">
@@ -30,6 +30,7 @@
             android:layout_centerVertical="true"
             android:onClick="back02"/>
     </RelativeLayout>
+    -->
 
     <WebView
         android:id="@+id/buy_web"
