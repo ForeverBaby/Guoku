@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.zzh.dell.guoku.activity.UserLikeListActivity">
+
+    <include
+        layout="@layout/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <include layout="@layout/line_gray" />
+
+    <LinearLayout
+        android:id="@+id/layout_data"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout_comment_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:padding="10.0dip">
+
+            <TextView
+                android:id="@+id/tv_tag_select"
+                style="@style/home_page_item_article_title"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/tv_all"
+                android:textSize="14.0sp" />
+
+            <ImageView
+                android:id="@+id/img_arrws"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrws_open" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+                android:id="@+id/sv"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="2.0dip">
+
+                <include layout="@layout/grid_view_count3" />
+            </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+            <include layout="@layout/empty_data_layout" />
+
+            <View
+                android:id="@+id/view_back_black"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/gray_btm"
+                android:clickable="true"
+                android:visibility="invisible" />
+
+            <ListView
+                android:id="@+id/list_tag"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_bg"
+                android:visibility="invisible" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <include layout="@layout/layout_user_empty" />
+</LinearLayout>

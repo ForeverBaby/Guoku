@@ -279,8 +279,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     @Override
     public void sendStr(String type, String str) {
         if ("CategoryFragment".equals(type)) {
-            Gson gson = GsonUtils.getGson();
-            mainBean = gson.fromJson(str, CategoryMainBean.class);
+            Gson gson = GsonUtils.getGson();mainBean = gson.fromJson(str, CategoryMainBean.class);
             if (mainBean != null && mainBean.getArticles().size() != 0) {
                 autoScorllViewInit();
                 userPagerInit();

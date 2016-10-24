@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="68dp">
+
+    <ImageView
+        android:id="@+id/img_walkthrough_trgl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="65dp"
+        android:src="@mipmap/walkthrough_trgl" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_walkthrough_trgl"
+        android:background="@color/like_buy_blue"
+        android:gravity="center"
+        android:padding="10.0dip"
+        android:text="赞过的图文，可以在个人页找到"
+        android:textColor="@color/colorWhite"
+        android:textSize="17.0sp" />
+</RelativeLayout>

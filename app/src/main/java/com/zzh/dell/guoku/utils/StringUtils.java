@@ -39,17 +39,22 @@ public final class StringUtils {
         return md5(localStringBuffer.toString());
     }
 
+    public static String setSubstring(String paramString, int paramInt1, int paramInt2) {
+        return paramString.substring(-2 + paramString.length(), paramString.length());
+    }
+
     /**
      * 获取get要的url
+     *
      * @return
      */
-    public static String getGetUrl(String path,Map<String, String> paramMap){
+    public static String getGetUrl(String path, Map<String, String> paramMap) {
         int size = paramMap.size();
         StringBuffer buffer = new StringBuffer(path).append("?");
-        TreeMap<String,String> treeMap = new TreeMap<>();
-        for(Map.Entry<String,String> header:paramMap.entrySet()){
+        TreeMap<String, String> treeMap = new TreeMap<>();
+        for (Map.Entry<String, String> header : paramMap.entrySet()) {
             buffer.append(header.getKey()).append("=").append(header.getValue()).append("&");
-            treeMap.put(header.getKey(),header.getValue());
+            treeMap.put(header.getKey(), header.getValue());
         }
         if (GuokuApp.getIntance().getAccount() != null) {
             buffer.append("session").append("=").append(GuokuApp.getIntance().getAccount().getSession()).append("&");
@@ -59,6 +64,7 @@ public final class StringUtils {
         buffer.append("api_key").append("=").append("0b19c2b93687347e95c6b6f5cc91bb87");
         return buffer.toString();
     }
+
     /**
      * md5算法
      *
@@ -144,10 +150,10 @@ public final class StringUtils {
     }
 
 
-    public static String getViesion(Context context){
+    public static String getViesion(Context context) {
         PackageManager packageManager = context.getPackageManager();
         try {
-            return packageManager.getPackageInfo(context.getPackageName(),0).versionName;
+            return packageManager.getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

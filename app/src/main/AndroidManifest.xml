@@ -21,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.EntityActivity"  android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation"
@@ -47,8 +49,7 @@
             android:theme="@style/login_theme" />
         <activity android:name=".activity.ProductInfoActivity" />
         <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.ChangeEmailActivity"
-            />
+        <activity android:name=".activity.ChangeEmailActivity" />
         <activity
             android:name=".activity.EmailCheckActivity"
             android:configChanges="orientation"
@@ -63,12 +64,18 @@
         <activity android:name=".activity.FansActivity" />
         <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".activity.UserBaseActivity" />
-        <activity android:name=".activity.Picture2Activity"
+        <activity
+            android:name=".activity.Picture2Activity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.AllCategoryActivity" />
         <activity android:name=".activity.CategoryMoreArticlesActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.WebShareActivity" />
+        <activity android:name=".activity.UserArticleListActivity" />
+        <activity android:name=".activity.UserCommentListActivity" />
+        <activity android:name=".activity.UserLikeListActivity"></activity>
+        <activity android:name=".activity.UserTagActivity"></activity>
     </application>
 
 </manifest>

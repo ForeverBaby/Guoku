@@ -12,6 +12,7 @@ public class GuokuApp extends Application {
 
     private static GuokuApp intance = null;
 
+
     public static GuokuApp getIntance() {
         if (intance == null) {
             synchronized (GuokuApp.class) {

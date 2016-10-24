@@ -40,32 +40,14 @@ public class Picture2Activity extends AppCompatActivity {
         }
         init();
     }
-
+    String s="temp";
     private void init() {
         Intent intent = getIntent();
         final String path = intent.getStringExtra("path");
         overridePendingTransition(R.anim.act_fade_in, R.anim.push_down_out);
         img.setImageResource(R.mipmap.item240);
-        final String fileName = BitmapUtils.getFileName(path);
-        Picasso.with(this).load(path).transform(new Transformation() {
-            @Override
-            public Bitmap transform(Bitmap source) {
-                String s = BitmapUtils.saveImageToSDCard(source, fileName);
-                Bitmap bitmapByPath = BitmapUtils.getBitmapByPath(s);
-                if(source!=null){
-                    source.recycle();
-                    source = null;
-                }
 
-
-                return bitmapByPath;
-            }
-
-            @Override
-            public String key() {
-                return path;
-            }
-        }).memoryPolicy(MemoryPolicy.NO_CACHE).fit().centerCrop().into(img);
+        Picasso.with(this).load(path).fit().centerCrop().into(img);
 
 //        Picasso.with(this).load(uri).fit().centerCrop().into(img);
 

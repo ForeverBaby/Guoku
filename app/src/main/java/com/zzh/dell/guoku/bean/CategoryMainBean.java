@@ -1,5 +1,8 @@
 package com.zzh.dell.guoku.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -324,7 +327,7 @@ public class CategoryMainBean {
         }
     }
 
-    public static class ArticlesBean {
+    public static class ArticlesBean implements Parcelable{
         /**
          * read_count : 731
          * pub_time : null
@@ -402,6 +405,32 @@ public class CategoryMainBean {
 
         private ArticleBean article;
 
+        protected ArticlesBean(Parcel in) {
+            article = in.readParcelable(ArticleBean.class.getClassLoader());
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeParcelable(article, flags);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<ArticlesBean> CREATOR = new Creator<ArticlesBean>() {
+            @Override
+            public ArticlesBean createFromParcel(Parcel in) {
+                return new ArticlesBean(in);
+            }
+
+            @Override
+            public ArticlesBean[] newArray(int size) {
+                return new ArticlesBean[size];
+            }
+        };
+
         public ArticleBean getArticle() {
             return article;
         }
@@ -410,7 +439,7 @@ public class CategoryMainBean {
             this.article = article;
         }
 
-        public static class ArticleBean {
+        public static class ArticleBean implements Parcelable{
             private int read_count;
             private Object pub_time;
             /**
@@ -454,6 +483,56 @@ public class CategoryMainBean {
             private int article_id;
             private String digest;
             private List<String> tags;
+
+            protected ArticleBean(Parcel in) {
+                read_count = in.readInt();
+                creator = in.readParcelable(CreatorBean.class.getClassLoader());
+                url = in.readString();
+                title = in.readString();
+                cover = in.readString();
+                publish = in.readInt();
+                is_dig = in.readByte() != 0;
+                content = in.readString();
+                comment_count = in.readInt();
+                dig_count = in.readInt();
+                article_id = in.readInt();
+                digest = in.readString();
+                tags = in.createStringArrayList();
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(read_count);
+                dest.writeParcelable(creator, flags);
+                dest.writeString(url);
+                dest.writeString(title);
+                dest.writeString(cover);
+                dest.writeInt(publish);
+                dest.writeByte((byte) (is_dig ? 1 : 0));
+                dest.writeString(content);
+                dest.writeInt(comment_count);
+                dest.writeInt(dig_count);
+                dest.writeInt(article_id);
+                dest.writeString(digest);
+                dest.writeStringList(tags);
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            public static final Creator<ArticleBean> CREATOR = new Creator<ArticleBean>() {
+                @Override
+                public ArticleBean createFromParcel(Parcel in) {
+                    return new ArticleBean(in);
+                }
+
+                @Override
+                public ArticleBean[] newArray(int size) {
+                    return new ArticleBean[size];
+                }
+            };
 
             public int getRead_count() {
                 return read_count;
@@ -567,7 +646,7 @@ public class CategoryMainBean {
                 this.tags = tags;
             }
 
-            public static class CreatorBean {
+            public static class CreatorBean implements Parcelable{
                 private String avatar_large;
                 private int following_count;
                 private String avatar_small;
@@ -594,6 +673,76 @@ public class CategoryMainBean {
                 private Object taobao_nick;
                 private String gender;
                 private boolean mail_verified;
+
+                protected CreatorBean(Parcel in) {
+                    avatar_large = in.readString();
+                    following_count = in.readInt();
+                    avatar_small = in.readString();
+                    entity_note_count = in.readInt();
+                    like_count = in.readInt();
+                    relation = in.readInt();
+                    dig_count = in.readInt();
+                    authorized_author = in.readInt();
+                    city = in.readString();
+                    user_id = in.readInt();
+                    fan_count = in.readInt();
+                    article_count = in.readInt();
+                    nick = in.readString();
+                    location = in.readString();
+                    email = in.readString();
+                    website = in.readString();
+                    bio = in.readString();
+                    is_active = in.readInt();
+                    authorized_seller = in.readInt();
+                    nickname = in.readString();
+                    tag_count = in.readInt();
+                    gender = in.readString();
+                    mail_verified = in.readByte() != 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(avatar_large);
+                    dest.writeInt(following_count);
+                    dest.writeString(avatar_small);
+                    dest.writeInt(entity_note_count);
+                    dest.writeInt(like_count);
+                    dest.writeInt(relation);
+                    dest.writeInt(dig_count);
+                    dest.writeInt(authorized_author);
+                    dest.writeString(city);
+                    dest.writeInt(user_id);
+                    dest.writeInt(fan_count);
+                    dest.writeInt(article_count);
+                    dest.writeString(nick);
+                    dest.writeString(location);
+                    dest.writeString(email);
+                    dest.writeString(website);
+                    dest.writeString(bio);
+                    dest.writeInt(is_active);
+                    dest.writeInt(authorized_seller);
+                    dest.writeString(nickname);
+                    dest.writeInt(tag_count);
+                    dest.writeString(gender);
+                    dest.writeByte((byte) (mail_verified ? 1 : 0));
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                public static final Creator<CreatorBean> CREATOR = new Creator<CreatorBean>() {
+                    @Override
+                    public CreatorBean createFromParcel(Parcel in) {
+                        return new CreatorBean(in);
+                    }
+
+                    @Override
+                    public CreatorBean[] newArray(int size) {
+                        return new CreatorBean[size];
+                    }
+                };
 
                 public String getAvatar_large() {
                     return avatar_large;
