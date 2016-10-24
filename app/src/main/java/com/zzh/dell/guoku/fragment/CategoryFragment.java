@@ -113,7 +113,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     ListView historyListView;
 
     @OnClick(R.id.tv_clear)
-    void clearSearchHistory() {
+    void clearSearchHistory(){
         helper.deleteData(db);
         querryHistory("");
     }
@@ -283,8 +283,8 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     @Override
     public void sendStr(String type, String str) {
         if ("CategoryFragment".equals(type)) {
-            Gson gson = GsonUtils.getGson();
-            if (str.length() >= 1000) {
+            if (str!=null&&str.length()>20) {
+                Gson gson = GsonUtils.getGson();
                 mainBean = gson.fromJson(str, CategoryMainBean.class);
                 if (mainBean != null && mainBean.getArticles().size() != 0) {
                     autoScorllViewInit();
@@ -295,13 +295,10 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
                     imagetextList.setFocusable(false);
                     entityGrid.setFocusable(false);
                     scrollView.smoothScrollTo(0, 0);
-                } else {
-                    Toast.makeText(getActivity(), "当前没有网络，请链接网络后在加载", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(getActivity(), "当前没有网络，请链接网络后在加载", Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -371,34 +368,34 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
             final CategoryMainBean.AuthorizeduserBean.UserBean authorizeduserBean = bean.get(i).getUser();
             viewHolder.tv_title.setText(authorizeduserBean.getNick());
             Picasso.with(getActivity()).load(authorizeduserBean.getAvatar_small()).into(viewHolder.img);
-//            viewHolder.img.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(getActivity(), UserBaseActivity.class);
-//                    Account.UserBean userBean = new Account.UserBean();
-//                    userBean.setAuthorized_author(true);
-//                    userBean.setAvatar_large(authorizeduserBean.getAvatar_large());
-//                    userBean.setAvatar_small(authorizeduserBean.getAvatar_small());
-//                    userBean.setFollowing_count(authorizeduserBean.getFollowing_count());
-//                    userBean.setEntity_note_count(authorizeduserBean.getEntity_note_count());
-//                    userBean.setLike_count(authorizeduserBean.getLike_count());
-//                    userBean.setRelation(authorizeduserBean.getRelation());
-//                    userBean.setDig_count(authorizeduserBean.getDig_count());
-//                    userBean.setUser_id(authorizeduserBean.getUser_id());
-//                    userBean.setFan_count(authorizeduserBean.getFan_count());
-//                    userBean.setNick(authorizeduserBean.getNick());
-//                    userBean.setLocation(authorizeduserBean.getLocation());
-//                    userBean.setEmail(authorizeduserBean.getEmail());
-//                    userBean.setWebsite(authorizeduserBean.getWebsite());
-//                    userBean.setBio(authorizeduserBean.getBio());
-//                    userBean.setNickname(authorizeduserBean.getNickname());
-//                    userBean.setTag_count(authorizeduserBean.getTag_count());
-//                    userBean.setGender(authorizeduserBean.getGender());
-//                    userBean.setMail_verified(true);
-//                    intent.putExtra("data", userBean);
-//                    startActivity(intent);
-//                }
-//            });
+            viewHolder.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), UserBaseActivity.class);
+                    Account.UserBean userBean = new Account.UserBean();
+                    userBean.setAuthorized_author(true);
+                    userBean.setAvatar_large(authorizeduserBean.getAvatar_large());
+                    userBean.setAvatar_small(authorizeduserBean.getAvatar_small());
+                    userBean.setFollowing_count(authorizeduserBean.getFollowing_count());
+                    userBean.setEntity_note_count(authorizeduserBean.getEntity_note_count());
+                    userBean.setLike_count(authorizeduserBean.getLike_count());
+                    userBean.setRelation(authorizeduserBean.getRelation());
+                    userBean.setDig_count(authorizeduserBean.getDig_count());
+                    userBean.setUser_id(authorizeduserBean.getUser_id());
+                    userBean.setFan_count(authorizeduserBean.getFan_count());
+                    userBean.setNick(authorizeduserBean.getNick());
+                    userBean.setLocation(authorizeduserBean.getLocation());
+                    userBean.setEmail(authorizeduserBean.getEmail());
+                    userBean.setWebsite(authorizeduserBean.getWebsite());
+                    userBean.setBio(authorizeduserBean.getBio());
+                    userBean.setNickname(authorizeduserBean.getNickname());
+                    userBean.setTag_count(authorizeduserBean.getTag_count());
+                    userBean.setGender(authorizeduserBean.getGender());
+                    userBean.setMail_verified(true);
+                    intent.putExtra("data", userBean);
+                    startActivity(intent);
+                }
+            });
             userPager.addView(view);
         }
     }

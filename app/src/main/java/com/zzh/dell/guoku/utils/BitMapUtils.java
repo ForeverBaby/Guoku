@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * Created by bluesky on 16/9/20.
  */
-public class BitMapUtils {
+public class BitmapUtils {
 
 
     /**

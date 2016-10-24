@@ -1,10 +1,12 @@
 package com.zzh.dell.guoku.activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -18,6 +20,8 @@ import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.ListImgLeftAdapter;
 import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.Comment;
+import com.zzh.dell.guoku.bean.Entity2;
+import com.zzh.dell.guoku.bean.MeEntity;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.fragment.MeFragment;
 import com.zzh.dell.guoku.utils.StringUtils;
@@ -157,6 +161,13 @@ public class UserCommentListActivity extends AppCompatActivity implements HttpCa
                 adapter.notifyDataSetChanged();
                 break;
             case "1002":
+                Intent intent = new Intent();
+                intent.setClass(this, GoodsChildActivity.class);
+                MeEntity entityListBean = gson.fromJson(str, MeEntity.class);
+                intent.putExtra("cid", entityListBean.getEntity().getCategory_id());
+                intent.putExtra("id", entityListBean.getEntity().getEntity_id());
+                intent.putExtra("imagePath", entityListBean.getEntity().getChief_image());
+                startActivity(intent);
                 break;
         }
 

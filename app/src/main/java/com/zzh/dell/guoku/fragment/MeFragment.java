@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.activity.FansActivity;
+import com.zzh.dell.guoku.activity.GoodsChildActivity;
 import com.zzh.dell.guoku.activity.Picture2Activity;
 import com.zzh.dell.guoku.activity.SettingActivity;
 import com.zzh.dell.guoku.activity.UserArticleListActivity;
@@ -47,6 +49,7 @@ import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.CategoryMainBean;
 import com.zzh.dell.guoku.bean.Comment;
 import com.zzh.dell.guoku.bean.LikeBean;
+import com.zzh.dell.guoku.bean.MeEntity;
 import com.zzh.dell.guoku.bean.Mebean;
 import com.zzh.dell.guoku.bean.MyLikeActBean;
 import com.zzh.dell.guoku.bean.Sharebean;
@@ -210,7 +213,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
         pull_listview.getLoadingLayoutProxy(true, true).setRefreshingLabel("");
         pull_listview.getLoadingLayoutProxy(true, true).setReleaseLabel("");
         pull_listview.setMode(PullToRefreshBase.Mode.BOTH);
-        if (userBean!=null&&userBean.isAuthorized_author()) {
+        if (userBean != null && userBean.isAuthorized_author()) {
             setIcon(userBean.getNick());
             setInfo(userBean);
             refreshUI();
@@ -326,7 +329,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
     }
 
     ArticlesCategoryAdapter articlesCategoryAdapter;
-    List<MyLikeActBean.ArticlesBean>  articleBeen;
+    List<MyLikeActBean.ArticlesBean> articleBeen;
 
     private void initArticle() {
         articleBeen = new ArrayList<>();
@@ -469,8 +472,8 @@ public class MeFragment extends Fragment implements HttpCallBack {
             this.userArticle.tv2.setText(String.valueOf(user2.getArticle_count()));
         if (isUnZero(user.getTag_count()))
             this.userTag.tv2.setText(String.valueOf(user.getTag_count()));
-        if (isUnZero(user.getDig_count()))
-            this.userArticleZan.tv2.setText(String.valueOf(user.getDig_count()));
+        if (isUnZero(user2.getDig_count()))
+            this.userArticleZan.tv2.setText(String.valueOf(user2.getDig_count()));
     }
 
     private boolean isUnZero(int paramString) {
@@ -504,6 +507,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
         Map<String, String> map = new ArrayMap<>();
         map.put("entity_id", paramString);
         String getUrl = StringUtils.getGetUrl("http://api.guoku.com/mobile/v4/entity/" + paramString + "/", map);
+        Log.e("===", "===" + getUrl);
         utils.getStrGET(type, getUrl);
     }
 
@@ -557,7 +561,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
 
         switch (type) {
             case "userBean":
-                if (str != null) {
+                if (str != null && str.length() > 20) {
                     Mebean mebean = gson.fromJson(str, Mebean.class);
                     user2 = mebean.getUser();
                     getData2();
@@ -607,14 +611,21 @@ public class MeFragment extends Fragment implements HttpCallBack {
                 }
                 break;
             case "Entity":
-                Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
-                if (str != null) {
+                if (str != null && str.length() > 20) {
+
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), GoodsChildActivity.class);
+                    MeEntity entityListBean = gson.fromJson(str, MeEntity.class);
+                    intent.putExtra("cid", entityListBean.getEntity().getCategory_id());
+                    intent.putExtra("id", entityListBean.getEntity().getEntity_id());
+                    intent.putExtra("imagePath", entityListBean.getEntity().getChief_image());
+                    startActivity(intent);
 
 
                 }
                 break;
             case "articles":
-                if (str != null) {
+                if (str != null && str.length() > 20) {
                     articleBeen.clear();
                     MyLikeActBean myLikeActBean = gson.fromJson(str, MyLikeActBean.class);
                     articleBeen.addAll(myLikeActBean.getArticles());
@@ -622,9 +633,8 @@ public class MeFragment extends Fragment implements HttpCallBack {
                 }
                 break;
             case "entity/note":
-                if (str != null) {
+                if (str != null && str.length() > 50) {
                     beanList.clear();
-
                     List<Comment.CommentBean> o = gson.fromJson(str, new TypeToken<List<Comment.CommentBean>>() {
                     }.getType());
                     beanList.addAll(o);
@@ -669,9 +679,9 @@ public class MeFragment extends Fragment implements HttpCallBack {
                 localSharebean.setAricleUrl(articlesCategoryAdapter.getItem(paramInt).getUrl());
                 localSharebean.setImgUrl(articlesCategoryAdapter.getItem(paramInt).getCover());
                 localSharebean.setIs_dig(articlesCategoryAdapter.getItem(paramInt).isIs_dig());
-                localBundle.putParcelable(WebShareActivity.class.getName(), localSharebean);
                 localSharebean.setAricleId(String.valueOf(articlesCategoryAdapter.getItem(paramInt).getArticle_id()));
                 localSharebean.setContext(articlesCategoryAdapter.getItem(paramInt).getContent());
+                localBundle.putParcelable(WebShareActivity.class.getName(), localSharebean);
                 Intent intent = new Intent(getActivity(), WebShareActivity.class);
                 intent.putExtra("share", localBundle);
                 startActivity(intent);
@@ -707,27 +717,27 @@ public class MeFragment extends Fragment implements HttpCallBack {
     }
 
     @OnClick(R.id.tv_user_article)
-     void userArticleClick(View paramView) {
+    void userArticleClick(View paramView) {
         onStartAct(UserArticleListActivity.class, this.userArticle.tv1.getText().toString(), this.userArticle.tv2.getText().toString());
     }
 
     @OnClick({R.id.tv_user_article_zan})
-     void userArticleZan(View paramView) {
+    void userArticleZan(View paramView) {
         onStartAct(UserArticleListActivity.class, this.userArticleZan.tv1.getText().toString(), this.userArticleZan.tv2.getText().toString());
     }
 
     @OnClick(R.id.tv_user_comment)
-     void userCommentClick(View paramView) {
+    void userCommentClick(View paramView) {
         onStartAct(UserCommentListActivity.class, this.userComment.tv1.getText().toString(), this.userComment.tv2.getText().toString());
     }
 
     @OnClick(R.id.tv_user_like)
-     void userLikeClick(View paramView) {
+    void userLikeClick(View paramView) {
         onStartAct(UserLikeListActivity.class, this.userLike.tv1.getText().toString(), this.userLike.tv2.getText().toString());
     }
 
     @OnClick(R.id.tv_user_tag)
-     void userTagClick(View paramView) {
+    void userTagClick(View paramView) {
         onStartAct(UserTagActivity.class, this.userTag.tv1.getText().toString(), this.userTag.tv2.getText().toString());
     }
 
@@ -742,8 +752,8 @@ public class MeFragment extends Fragment implements HttpCallBack {
         localBundle.putParcelable("INTENT_CODE", userBean);
 
         Intent intent = new Intent();
-        intent.putExtra("data",localBundle);
-        intent.setClass(getActivity(),paramClass);
+        intent.putExtra("data", localBundle);
+        intent.setClass(getActivity(), paramClass);
         startActivity(intent);
     }
 

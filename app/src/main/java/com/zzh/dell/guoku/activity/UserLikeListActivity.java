@@ -1,5 +1,6 @@
 package com.zzh.dell.guoku.activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,7 +29,9 @@ import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.LikeGridAdapter;
 import com.zzh.dell.guoku.adapter.TagTextAdapter;
 import com.zzh.dell.guoku.bean.Account;
+import com.zzh.dell.guoku.bean.Entity2;
 import com.zzh.dell.guoku.bean.LikeBean;
+import com.zzh.dell.guoku.bean.MeEntity;
 import com.zzh.dell.guoku.bean.Tag;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.fragment.MeFragment;
@@ -155,6 +159,7 @@ public class UserLikeListActivity extends AppCompatActivity implements HttpCallB
         Map<String, String> map = new ArrayMap<>();
         map.put("entity_id", paramString);
         String getUrl = StringUtils.getGetUrl("http://api.guoku.com/mobile/v4/entity/" + paramString + "/", map);
+        Log.e("===","==="+getUrl);
         utils.getStrGET(type, getUrl);
     }
 
@@ -265,7 +270,13 @@ public class UserLikeListActivity extends AppCompatActivity implements HttpCallB
                 }
                 break;
             case "Entity":
-                Toast.makeText(UserLikeListActivity.this, str, Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent();
+                intent.setClass(this, GoodsChildActivity.class);
+                MeEntity entityListBean = gson.fromJson(str, MeEntity.class);
+                intent.putExtra("cid", entityListBean.getEntity().getCategory_id());
+                intent.putExtra("id", entityListBean.getEntity().getEntity_id());
+                intent.putExtra("imagePath", entityListBean.getEntity().getChief_image());
+                startActivity(intent);
                 break;
         }
 

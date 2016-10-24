@@ -127,6 +127,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:lines">1</item>
     </style>
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
