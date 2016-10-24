@@ -149,9 +149,9 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
                             searchArticlesString(search);
                             break;
                         case 2:
-                            searchArticlesString(search);
+                            searchEntityString(search);
+                            searchCategoryString(search);
                             searchUserString(search);
-                            searchArticlesString(search);
                             break;
                         case 3:
                             searchUserString(search);
