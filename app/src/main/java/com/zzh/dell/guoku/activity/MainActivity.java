@@ -96,30 +96,35 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             HttpUtils httpUtils = new HttpUtils();
             httpUtils.setCallBack(new HttpCallBack() {
                 @Override
-                public void sendStr(String type, String str) {
+                public void sendStr(String type, final String str) {
                     if ("CategoryGet".equals(type)) {
-                        Gson gson = GsonUtils.getGson();
+                        final Gson gson = GsonUtils.getGson();
                         if (str.length()>=1000){
-                            CategoryBean bean = gson.fromJson("{\"bean\":" + str + "}", CategoryBean.class);
-                            if (bean != null && bean.getBean().size() != 0) {
-                                for (int i = 0; i < bean.getBean().size(); i++) {
-                                    CategoryBean.BeanBean beanBean = bean.getBean().get(i);
-                                    dbManager.insert(MainActivity.this
-                                            , beanBean.getGroup_id()
-                                            , beanBean.getTitle());
-                                    for (int j = 0; j < beanBean.getContent().size(); j++) {
-                                        CategoryBean.BeanBean.ContentBean contentBean = beanBean.getContent().get(j);
-                                        dbManager.subInsert(MainActivity.this
-                                                , beanBean.getGroup_id()
-                                                , contentBean.getCategory_id()
-                                                , contentBean.getCategory_title()
-                                                , contentBean.getCategory_icon_small()
-                                                , contentBean.getCategory_icon_large());
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    CategoryBean bean = gson.fromJson("{\"bean\":" + str + "}", CategoryBean.class);
+                                    if (bean != null && bean.getBean().size() != 0) {
+                                        for (int i = 0; i < bean.getBean().size(); i++) {
+                                            CategoryBean.BeanBean beanBean = bean.getBean().get(i);
+                                            dbManager.insert(MainActivity.this
+                                                    , beanBean.getGroup_id()
+                                                    , beanBean.getTitle());
+                                            for (int j = 0; j < beanBean.getContent().size(); j++) {
+                                                CategoryBean.BeanBean.ContentBean contentBean = beanBean.getContent().get(j);
+                                                dbManager.subInsert(MainActivity.this
+                                                        , beanBean.getGroup_id()
+                                                        , contentBean.getCategory_id()
+                                                        , contentBean.getCategory_title()
+                                                        , contentBean.getCategory_icon_small()
+                                                        , contentBean.getCategory_icon_large());
+                                            }
+                                        }
+                                    }else {
+                                        Toast.makeText(MainActivity.this, "当前没有网络，数据加载失败", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            }else {
-                                Toast.makeText(MainActivity.this, "当前没有网络，数据加载失败", Toast.LENGTH_SHORT).show();
-                            }
+                            }).start();
                         }else {
                             Toast.makeText(MainActivity.this, "当前没有网络，数据加载失败", Toast.LENGTH_SHORT).show();
                         }

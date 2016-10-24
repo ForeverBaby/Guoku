@@ -28,7 +28,7 @@ public class GuideActivity extends AppCompatActivity implements Animation.Animat
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.guide_rl);
         AlphaAnimation animation = new AlphaAnimation(0.1f,1.0f);
         animation.setFillAfter(true);
-        animation.setDuration(3000);
+        animation.setDuration(1000);
         rl.startAnimation(animation);
         animation.setAnimationListener(this);
     }

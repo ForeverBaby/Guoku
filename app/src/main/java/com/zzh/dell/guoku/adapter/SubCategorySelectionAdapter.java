@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.activity.GoodsChildActivity;
 import com.zzh.dell.guoku.bean.SubCategorySelectionBean;
 
 import java.util.List;
@@ -46,24 +48,37 @@ public class SubCategorySelectionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.category_entity_grid_item,null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.category_entity_grid_item, null);
             viewHolder = new ViewHolder(convertView);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tv_factory.setText(bean.get(position).getBrand());
         viewHolder.tv_name.setText(bean.get(position).getTitle());
-        viewHolder.tv_price.setText("￥"+bean.get(position).getPrice());
+        viewHolder.tv_price.setText("￥" + bean.get(position).getPrice());
         Picasso.with(context)
                 .load(bean.get(position).getChief_image())
-                .resize(200,240)
+                .resize(200, 240)
                 .centerCrop()
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .into(viewHolder.imageView);
         Picasso.with(context).invalidate(bean.get(position).getChief_image());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int entity_id = bean.get(position).getEntity_id();
+                Intent intent = new Intent(context, GoodsChildActivity.class);
+                intent.putExtra("id", entity_id);
+                intent.putExtra("cid", bean.get(position).getCategory_id());
+                intent.putExtra("imagePath", bean.get(position).getChief_image());
+                context.startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 

@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.activity.WebActivity;
 import com.zzh.dell.guoku.bean.SubCategoryArticlesBean;
 import com.zzh.dell.guoku.config.Contants;
 
@@ -49,7 +51,7 @@ public class SubCategoryArticlesAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.category_imagetext_list_item,null);
@@ -67,6 +69,17 @@ public class SubCategoryArticlesAdapter extends BaseAdapter {
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .into(viewHolder.imageView);
         Picasso.with(context).invalidate(path);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int article_id = bean.get(position).getArticle_id();
+                String path = Contants.IMAGE_TEXT_DETAIL + article_id;
+                Intent intent = new Intent(context, WebActivity.class);
+                intent.putExtra("data",path);
+                context.startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 

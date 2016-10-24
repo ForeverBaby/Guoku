@@ -12,7 +12,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.zzh.dell.guoku.R;
-import com.zzh.dell.guoku.activity.ProductInfoActivity;
 
 /**
  * Created by DELL on 2016/10/18.
@@ -31,7 +30,6 @@ public class CustomShareBoard extends PopupWindow implements View.OnClickListene
         super(paramActivity);
         this.mActivity = paramActivity;
         initView(paramActivity);
-        ProductInfoActivity.isRefrech = false;
     }
 
     LinearLayout share_wx_1;

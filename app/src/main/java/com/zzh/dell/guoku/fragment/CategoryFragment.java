@@ -36,6 +36,7 @@ import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.activity.CategoryActivity;
 import com.zzh.dell.guoku.activity.SearchActivity;
 import com.zzh.dell.guoku.activity.UserBaseActivity;
+import com.zzh.dell.guoku.activity.WebActivity;
 import com.zzh.dell.guoku.adapter.CategoryADAdapter;
 import com.zzh.dell.guoku.adapter.CategoryEntityAdapter;
 import com.zzh.dell.guoku.adapter.CategoryImageTextAdapter;
@@ -370,34 +371,34 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
             final CategoryMainBean.AuthorizeduserBean.UserBean authorizeduserBean = bean.get(i).getUser();
             viewHolder.tv_title.setText(authorizeduserBean.getNick());
             Picasso.with(getActivity()).load(authorizeduserBean.getAvatar_small()).into(viewHolder.img);
-            viewHolder.img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), UserBaseActivity.class);
-                    Account.UserBean userBean = new Account.UserBean();
-                    userBean.setAuthorized_author(true);
-                    userBean.setAvatar_large(authorizeduserBean.getAvatar_large());
-                    userBean.setAvatar_small(authorizeduserBean.getAvatar_small());
-                    userBean.setFollowing_count(authorizeduserBean.getFollowing_count());
-                    userBean.setEntity_note_count(authorizeduserBean.getEntity_note_count());
-                    userBean.setLike_count(authorizeduserBean.getLike_count());
-                    userBean.setRelation(authorizeduserBean.getRelation());
-                    userBean.setDig_count(authorizeduserBean.getDig_count());
-                    userBean.setUser_id(authorizeduserBean.getUser_id());
-                    userBean.setFan_count(authorizeduserBean.getFan_count());
-                    userBean.setNick(authorizeduserBean.getNick());
-                    userBean.setLocation(authorizeduserBean.getLocation());
-                    userBean.setEmail(authorizeduserBean.getEmail());
-                    userBean.setWebsite(authorizeduserBean.getWebsite());
-                    userBean.setBio(authorizeduserBean.getBio());
-                    userBean.setNickname(authorizeduserBean.getNickname());
-                    userBean.setTag_count(authorizeduserBean.getTag_count());
-                    userBean.setGender(authorizeduserBean.getGender());
-                    userBean.setMail_verified(true);
-                    intent.putExtra("data", userBean);
-                    startActivity(intent);
-                }
-            });
+//            viewHolder.img.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getActivity(), UserBaseActivity.class);
+//                    Account.UserBean userBean = new Account.UserBean();
+//                    userBean.setAuthorized_author(true);
+//                    userBean.setAvatar_large(authorizeduserBean.getAvatar_large());
+//                    userBean.setAvatar_small(authorizeduserBean.getAvatar_small());
+//                    userBean.setFollowing_count(authorizeduserBean.getFollowing_count());
+//                    userBean.setEntity_note_count(authorizeduserBean.getEntity_note_count());
+//                    userBean.setLike_count(authorizeduserBean.getLike_count());
+//                    userBean.setRelation(authorizeduserBean.getRelation());
+//                    userBean.setDig_count(authorizeduserBean.getDig_count());
+//                    userBean.setUser_id(authorizeduserBean.getUser_id());
+//                    userBean.setFan_count(authorizeduserBean.getFan_count());
+//                    userBean.setNick(authorizeduserBean.getNick());
+//                    userBean.setLocation(authorizeduserBean.getLocation());
+//                    userBean.setEmail(authorizeduserBean.getEmail());
+//                    userBean.setWebsite(authorizeduserBean.getWebsite());
+//                    userBean.setBio(authorizeduserBean.getBio());
+//                    userBean.setNickname(authorizeduserBean.getNickname());
+//                    userBean.setTag_count(authorizeduserBean.getTag_count());
+//                    userBean.setGender(authorizeduserBean.getGender());
+//                    userBean.setMail_verified(true);
+//                    intent.putExtra("data", userBean);
+//                    startActivity(intent);
+//                }
+//            });
             userPager.addView(view);
         }
     }
@@ -415,10 +416,10 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     }
 
     private void autoScorllViewInit() {
-        List<CategoryMainBean.BannerBean> bean = mainBean.getBanner();
+        final List<CategoryMainBean.BannerBean> bean = mainBean.getBanner();
         List<View> adList = new ArrayList<>();
         for (int i = 0; i < mainBean.getBanner().size(); i++) {
-            LinearLayout view = new LinearLayout(getActivity());
+            LinearLayout view = new LinearLayout(getContext());
             ImageView img = new ImageView(getActivity());
             view.addView(img);
             view.setBackgroundColor(Color.TRANSPARENT);
@@ -431,8 +432,20 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             params.setMargins(15, 5, 15, 15);
+            final int pos = i;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String path = bean.get(pos).getUrl();
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra("data",path);
+                    getActivity().startActivity(intent);
+                }
+            });
             img.setLayoutParams(params);
             adList.add(view);
+
+
         }
         CategoryADAdapter adAdapter = new CategoryADAdapter(adList);
         autoScrollViewPager.setBackgroundColor(Color.TRANSPARENT);

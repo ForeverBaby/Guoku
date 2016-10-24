@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.activity.UserBaseActivity;
+import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.SearchUserBean;
 
 import java.util.List;
@@ -87,7 +90,38 @@ public class SearchUserAdapter extends BaseAdapter {
                 }
             }
         });
+
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, UserBaseActivity.class);
+//                Account.UserBean userBean = new Account.UserBean();
+//                userBean.setAuthorized_author(false);
+//                userBean.setAvatar_large(bean.get(position).getAvatar_large());
+//                userBean.setAvatar_small(bean.get(position).getAvatar_small());
+//                userBean.setFollowing_count(bean.get(position).getFollowing_count());
+//                userBean.setEntity_note_count(bean.get(position).getEntity_note_count());
+//                userBean.setLike_count(bean.get(position).getLike_count());
+//                userBean.setRelation(bean.get(position).getRelation());
+//                userBean.setDig_count(bean.get(position).getDig_count());
+//                userBean.setUser_id(bean.get(position).getUser_id());
+//                userBean.setFan_count(bean.get(position).getFan_count());
+//                userBean.setNick(bean.get(position).getNick());
+//                userBean.setLocation(bean.get(position).getLocation());
+//                userBean.setEmail(bean.get(position).getEmail());
+//                userBean.setWebsite(bean.get(position).getWebsite());
+//                userBean.setBio(bean.get(position).getBio());
+//                userBean.setNickname(bean.get(position).getNickname());
+//                userBean.setTag_count(bean.get(position).getTag_count());
+//                userBean.setGender(bean.get(position).getGender());
+//                userBean.setMail_verified(true);
+//                intent.putExtra("data", userBean);
+//                context.startActivity(intent);
+//            }
+//        });
+
         return convertView;
+
     }
 
     class ViewHolder {
