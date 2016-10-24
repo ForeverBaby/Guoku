@@ -17,6 +17,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.ArticlesCategoryAdapter;
+import com.zzh.dell.guoku.app.GuokuApp;
 import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.CategoryMainBean;
 import com.zzh.dell.guoku.bean.MyLikeActBean;
@@ -83,10 +84,10 @@ public class UserArticleListActivity extends AppCompatActivity implements HttpCa
     }
 
 
-
+    String str;
     protected void setupData() {
         Bundle data = getIntent().getBundleExtra("data");
-        String str = data.getString(MeFragment.class.getName());
+        str = data.getString(MeFragment.class.getName());
         user = data.getParcelable("INTENT_CODE");
         title_bar_centrt_tv.setText(str);
         title_bar_left_iv.setImageResource(R.drawable.back_selector);
@@ -122,16 +123,16 @@ public class UserArticleListActivity extends AppCompatActivity implements HttpCa
                 if (articlesCategoryAdapter.getItem(paramInt - 1).getContent().length() > 50) {
                     localSharebean.setContext(articlesCategoryAdapter.getItem(paramInt - 1).getContent().substring(0, 50));
                 }
-
                 localSharebean.setAricleUrl(articlesCategoryAdapter.getItem(paramInt - 1).getUrl());
                 localSharebean.setImgUrl(articlesCategoryAdapter.getItem(paramInt - 1).getCover());
                 localSharebean.setIs_dig(articlesCategoryAdapter.getItem(paramInt - 1).isIs_dig());
+                localSharebean.setAricleId(String.valueOf(articlesCategoryAdapter.getItem(paramInt-1).getArticle_id()));
+                localSharebean.setContext(articlesCategoryAdapter.getItem(paramInt-1).getContent());
                 localBundle.putParcelable(WebShareActivity.class.getName(), localSharebean);
-                localSharebean.setAricleId(String.valueOf(articlesCategoryAdapter.getItem(paramInt).getArticle_id()));
-                localSharebean.setContext(articlesCategoryAdapter.getItem(paramInt).getContent());
                 Intent intent = new Intent(UserArticleListActivity.this, WebShareActivity.class);
                 intent.putExtra("share", localBundle);
                 startActivity(intent);
+                finish();
             }
         });
         pull_listview.setPullToRefreshOverScrollEnabled(false);
@@ -169,7 +170,7 @@ public class UserArticleListActivity extends AppCompatActivity implements HttpCa
     public void sendStr(String type, String str) {
         this.pull_listview.onRefreshComplete();
         Gson gson = new Gson();
-        if (str != null) {
+        if (str != null&&str.length()>20) {
             switch (type) {
                 case "1001":
                     list.clear();

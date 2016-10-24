@@ -18,6 +18,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.EntitysAdapter;
 import com.zzh.dell.guoku.bean.Entity2;
+import com.zzh.dell.guoku.bean.MeEntity;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
@@ -109,7 +110,13 @@ public class EntityActivity extends AppCompatActivity implements HttpCallBack {
         Gson gson = new Gson();
        switch (type){
            case "Entity2":
-               Toast.makeText(EntityActivity.this, str, Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent();
+               intent.setClass(this, GoodsChildActivity.class);
+               MeEntity entityListBean = gson.fromJson(str, MeEntity.class);
+               intent.putExtra("cid", entityListBean.getEntity().getCategory_id());
+               intent.putExtra("id", entityListBean.getEntity().getEntity_id());
+               intent.putExtra("imagePath", entityListBean.getEntity().getChief_image());
+               startActivity(intent);
                break;
            case "entity":
                list.clear();

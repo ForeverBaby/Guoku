@@ -112,7 +112,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     ListView historyListView;
 
     @OnClick(R.id.tv_clear)
-    void clearSearchHistory(){
+    void clearSearchHistory() {
         helper.deleteData(db);
         querryHistory("");
     }
@@ -157,11 +157,11 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
         return view;
     }
 
-    private void querryHistory(String string){
+    private void querryHistory(String string) {
         Cursor cursor = helper.queryData(string);
         // 创建adapter适配器对象
-        adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1, cursor, new String[] { "name" },
-                new int[] { android.R.id.text1 }, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1, cursor, new String[]{"name"},
+                new int[]{android.R.id.text1}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         // 设置适配器
         historyListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -214,14 +214,14 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
 
                         boolean hasData = helper.hasData(editText.getText().toString());
                         if (!hasData) {
-                            helper.insertData(db,editText.getText().toString());
+                            helper.insertData(db, editText.getText().toString());
                             querryHistory("");
                         }
 
                         Intent intent = new Intent(getActivity(), SearchActivity.class);
                         intent.putExtra("search", search);
                         startActivity(intent);
-                        getActivity().overridePendingTransition(R.anim.alpha_in,R.anim.no_anim);
+                        getActivity().overridePendingTransition(R.anim.alpha_in, R.anim.no_anim);
                     }
                     return true;
                 }
@@ -257,7 +257,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 intent.putExtra("search", search);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.alpha_in,R.anim.no_anim);
+                getActivity().overridePendingTransition(R.anim.alpha_in, R.anim.no_anim);
             }
         });
 
@@ -282,16 +282,19 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     @Override
     public void sendStr(String type, String str) {
         if ("CategoryFragment".equals(type)) {
-            Gson gson = GsonUtils.getGson();mainBean = gson.fromJson(str, CategoryMainBean.class);
-            if (mainBean != null && mainBean.getArticles().size() != 0) {
-                autoScorllViewInit();
-                userPagerInit();
-                categoryPagerInit();
-                imagetextListInit();
-                entityGridInit();
-                imagetextList.setFocusable(false);
-                entityGrid.setFocusable(false);
-                scrollView.smoothScrollTo(0, 0);
+            if (str!=null&&str.length()>20) {
+                Gson gson = GsonUtils.getGson();
+                mainBean = gson.fromJson(str, CategoryMainBean.class);
+                if (mainBean != null && mainBean.getArticles().size() != 0) {
+                    autoScorllViewInit();
+                    userPagerInit();
+                    categoryPagerInit();
+                    imagetextListInit();
+                    entityGridInit();
+                    imagetextList.setFocusable(false);
+                    entityGrid.setFocusable(false);
+                    scrollView.smoothScrollTo(0, 0);
+                }
             } else {
                 Toast.makeText(getActivity(), "当前没有网络，请链接网络后在加载", Toast.LENGTH_SHORT).show();
             }
@@ -388,7 +391,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
                     userBean.setTag_count(authorizeduserBean.getTag_count());
                     userBean.setGender(authorizeduserBean.getGender());
                     userBean.setMail_verified(true);
-                    intent.putExtra("data",userBean);
+                    intent.putExtra("data", userBean);
                     startActivity(intent);
                 }
             });
@@ -412,7 +415,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
         List<CategoryMainBean.BannerBean> bean = mainBean.getBanner();
         List<View> adList = new ArrayList<>();
         for (int i = 0; i < mainBean.getBanner().size(); i++) {
-            LinearLayout view = new LinearLayout(getActivity());
+            LinearLayout view = new LinearLayout(getContext());
             ImageView img = new ImageView(getActivity());
             view.addView(img);
             view.setBackgroundColor(Color.TRANSPARENT);

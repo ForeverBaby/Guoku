@@ -13,14 +13,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 import com.zzh.dell.guoku.R;
-import com.zzh.dell.guoku.config.Contants;
-import com.zzh.dell.guoku.utils.BitmapUtils;
 
-import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

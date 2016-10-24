@@ -94,8 +94,11 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
         //entity_id是传过来的 int型
         Intent intent = getIntent();
         int entity_id = intent.getIntExtra("id",-1);
+        Log.e("===","==id="+entity_id);
         String cid = intent.getStringExtra("cid");
+        Log.e("===","=cid=="+cid);
         imagePath = intent.getStringExtra("imagePath");
+        Log.e("===","==="+imagePath);
         String topPath = Contants.GOODS_DETAIL + entity_id + "/";
         getAndSetData(topPath,entity_id);
         getAndSetBottomData(entity_id,cid);
@@ -109,6 +112,7 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
         String getUrl = StringUtils.getGetUrl(Contants.GOODS_AD, treeMap);
         HttpUtils httpUtils = new HttpUtils();
         httpUtils.getStrGET(type_ad_data,getUrl);
+        Log.e("====","===="+getUrl);
         httpUtils.setCallBack(this);
     }
 
@@ -127,95 +131,97 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
 
     private void setDataToView(final String str) {
         Gson gson = new Gson();
-        GoodsChildData data = gson.fromJson(str, GoodsChildData.class);
-        final int like_size = data.getLike_user_list().size();
-        String brand1 = data.getEntity().getBrand();
-        buy_link = data.getEntity().getItem_list().get(0).getBuy_link();
-        if(brand1==null || "".equals(brand1)){
-            title.setText(data.getEntity().getTitle());
-        }else{
-            String brand = brand1 + "-" +data.getEntity().getTitle();
-            title.setText(brand);
-        }
-        btn.setText("￥" + data.getEntity().getPrice() +" 去购买");
-        detail_images = (ArrayList<String>) data.getEntity().getDetail_images();
-        detail_images.add(0, imagePath);
-        int size = detail_images.size();
-        if(size==1){
-            viewPager.setVisibility(View.GONE);
-            ll.setVisibility(View.GONE);
-            image.setVisibility(View.VISIBLE);
-            Picasso.with(this).load(imagePath).fit().into(image);
-            image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(GoodsChildActivity.this,PictureActivity.class);
-                    intent.putExtra("flag",true);
-                    intent.putExtra("detail_image",detail_images.get(0));
-                    startActivity(intent);
-                }
-            });
-        }else {
-            viewPager.setVisibility(View.VISIBLE);
-            ll.setVisibility(View.VISIBLE);
-            image.setVisibility(View.GONE);
-            List<ImageView> viewList = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                ImageView image_item = new ImageView(this);
-                Picasso.with(this).load(detail_images.get(i)).fit().into(image_item);
-                viewList.add(image_item);
-                ImageView point = new ImageView(this);
-                if (i == 0) {
-                    point.setImageResource(R.drawable.goods_child_circle_select);
-                } else {
-                    point.setImageResource(R.drawable.goods_child_circle);
-                }
-                point.setPadding(10, 0, 10, 0);
-                ll.addView(point);
+        if (str != null) {
+            GoodsChildData data = gson.fromJson(str, GoodsChildData.class);
+            final int like_size = data.getLike_user_list().size();
+            String brand1 = data.getEntity().getBrand();
+            buy_link = data.getEntity().getItem_list().get(0).getBuy_link();
+            if (brand1 == null || "".equals(brand1)) {
+                title.setText(data.getEntity().getTitle());
+            } else {
+                String brand = brand1 + "-" + data.getEntity().getTitle();
+                title.setText(brand);
             }
-           MyViewPagerAdapter adapter = new MyViewPagerAdapter(like_size,this,detail_images,viewList);
-            viewPager.setAdapter(adapter);
-            viewPager.setInterval(4000);
-            viewPager.startAutoScroll();
-            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            btn.setText("￥" + data.getEntity().getPrice() + " 去购买");
+            detail_images = (ArrayList<String>) data.getEntity().getDetail_images();
+            detail_images.add(0, imagePath);
+            int size = detail_images.size();
+            if (size == 1) {
+                viewPager.setVisibility(View.GONE);
+                ll.setVisibility(View.GONE);
+                image.setVisibility(View.VISIBLE);
+                Picasso.with(this).load(imagePath).fit().into(image);
+                image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(GoodsChildActivity.this, PictureActivity.class);
+                        intent.putExtra("flag", true);
+                        intent.putExtra("detail_image", detail_images.get(0));
+                        startActivity(intent);
+                    }
+                });
+            } else {
+                viewPager.setVisibility(View.VISIBLE);
+                ll.setVisibility(View.VISIBLE);
+                image.setVisibility(View.GONE);
+                List<ImageView> viewList = new ArrayList<>();
+                for (int i = 0; i < size; i++) {
+                    ImageView image_item = new ImageView(this);
+                    Picasso.with(this).load(detail_images.get(i)).fit().into(image_item);
+                    viewList.add(image_item);
+                    ImageView point = new ImageView(this);
+                    if (i == 0) {
+                        point.setImageResource(R.drawable.goods_child_circle_select);
+                    } else {
+                        point.setImageResource(R.drawable.goods_child_circle);
+                    }
+                    point.setPadding(10, 0, 10, 0);
+                    ll.addView(point);
                 }
+                MyViewPagerAdapter adapter = new MyViewPagerAdapter(like_size, this, detail_images, viewList);
+                viewPager.setAdapter(adapter);
+                viewPager.setInterval(4000);
+                viewPager.startAutoScroll();
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    }
 
-                @Override
-                public void onPageSelected(int position) {
-                    int childCount = ll.getChildCount();
-                    for (int i = 0; i < childCount; i++) {
-                        ImageView image = (ImageView) ll.getChildAt(i);
-                        if (position == i) {
-                            image.setImageResource(R.drawable.goods_child_circle_select);
-                        } else {
-                            image.setImageResource(R.drawable.goods_child_circle);
+                    @Override
+                    public void onPageSelected(int position) {
+                        int childCount = ll.getChildCount();
+                        for (int i = 0; i < childCount; i++) {
+                            ImageView image = (ImageView) ll.getChildAt(i);
+                            if (position == i) {
+                                image.setImageResource(R.drawable.goods_child_circle_select);
+                            } else {
+                                image.setImageResource(R.drawable.goods_child_circle);
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onPageScrollStateChanged(int state) {
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
 
-                }
-            });
+                    }
+                });
+            }
+
+            List<GoodsChildData.LikeUserListBean> like_user_list = data.getLike_user_list();
+            if (like_size == 0) {
+                like_ll.setVisibility(View.GONE);
+            } else {
+                like_ll.setVisibility(View.VISIBLE);
+                like_num.setText(like_size + " 人喜爱");
+                GoodsChildGridAdapter adapter1 = new GoodsChildGridAdapter(like_user_list, this);
+                gridView.setAdapter(adapter1);
+                gridView.setOnItemClickListener(this);
+            }
+
+            List<GoodsChildData.NoteListBean> note_list = data.getNote_list();
+            MyGoodsListAdapter adapter = new MyGoodsListAdapter(note_list, this);
+            listView.setAdapter(adapter);
         }
-
-        List<GoodsChildData.LikeUserListBean> like_user_list = data.getLike_user_list();
-        if(like_size == 0){
-            like_ll.setVisibility(View.GONE);
-        }else{
-            like_ll.setVisibility(View.VISIBLE);
-            like_num.setText(like_size + " 人喜爱");
-            GoodsChildGridAdapter adapter1 = new GoodsChildGridAdapter(like_user_list,this);
-            gridView.setAdapter(adapter1);
-            gridView.setOnItemClickListener(this);
-        }
-
-        List<GoodsChildData.NoteListBean> note_list = data.getNote_list();
-        MyGoodsListAdapter adapter = new MyGoodsListAdapter(note_list,this);
-        listView.setAdapter(adapter);
     }
 
     @Override

@@ -160,4 +160,9 @@ public final class StringUtils {
         return null;
 
     }
+
+    public static String isStringId(String paramString1, String paramString2) {
+        String str = paramString1.replace(paramString2, "");
+        return str.substring(0, -1 + str.length());
+    }
 }

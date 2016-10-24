@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ import com.zzh.dell.guoku.app.GuokuApp;
 import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.config.Contants;
-import com.zzh.dell.guoku.utils.BitMapUtils;
+import com.zzh.dell.guoku.utils.BitmapUtils;
 import com.zzh.dell.guoku.utils.DialogUtils;
 import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
@@ -181,7 +182,7 @@ public class UserInfoActivity extends AppCompatActivity implements HttpCallBack 
                             File file1 = new File(file, "temp.png");
                             path = Uri.fromFile(file1);
                             int1.putExtra(MediaStore.EXTRA_OUTPUT, path);
-                            BitMapUtils.insertImgStore(UserInfoActivity.this, path.toString(), file1.getAbsolutePath());
+                            BitmapUtils.insertImgStore(UserInfoActivity.this, path.toString(), file1.getAbsolutePath());
                         }
                         startActivityForResult(int1, 1);
                         break;
@@ -282,9 +283,11 @@ public class UserInfoActivity extends AppCompatActivity implements HttpCallBack 
         try {
 
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver, path);
-            String s = BitMapUtils.saveImageToSDCard(bitmap, "temp.png");
-            Bitmap bitmapByPath = BitMapUtils.getBitmapByPath(s);
+            String s = BitmapUtils.saveImageToSDCard(bitmap, "temp.png");
+            Bitmap bitmapByPath = BitmapUtils.getBitmapByPath(s);
             Picasso.with(this).load(path.toString()).resize(70, 70).centerCrop().into(user_info_pic);
+//            user_info_pic.setImageBitmap(bitmapByPath);
+            Log.e("===","====");
             upPic("http://api.guoku.com/mobile/v4/user/update/");
         } catch (IOException e) {
             e.printStackTrace();
@@ -324,7 +327,6 @@ public class UserInfoActivity extends AppCompatActivity implements HttpCallBack 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String string = response.body().string();
-//                Log.e("==run==","==="+string);
                 if (string != null) {
                     handler.post(new Runnable() {
                         @Override

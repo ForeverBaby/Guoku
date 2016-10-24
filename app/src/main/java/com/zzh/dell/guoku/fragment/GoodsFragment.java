@@ -101,45 +101,47 @@ public class GoodsFragment extends Fragment{
     }
 
     private void initListView(String str,int flag) {
-        String data = "{\"data\":" + str + "}";
-        Gson gson = new Gson();
-        goodsData = gson.fromJson(data, GoodsData.class);
-        if(flag == 0){
-            dataBeanList= goodsData.getData();
-            adapter = new MyGoodsChildAdapter(dataBeanList,getActivity());
-            listView.setAdapter(adapter);
-        }else if(flag == 1){
-            dataBeanList = goodsData.getData();
-            adapter = new MyGoodsChildAdapter(dataBeanList,getActivity());
-            listView.setAdapter(adapter);
-            listView.onRefreshComplete();
-        }else{
-            List<GoodsData.DataBean> list = goodsData.getData();
-            int num = list.size();
-            for(int i=0;i<num;i++){
-                dataBeanList.add(list.get(i));
-            }
-            adapter.notifyDataSetChanged();
-            listView.setAdapter(adapter);
-            listView.onRefreshComplete();
-        }
-        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                if(dataBeanList!=null&&dataBeanList.size()>0) {
-                    String time = String.valueOf(System.currentTimeMillis() / 1000L);
-                    lazyLoad(time,1);
+        if(str!=null&&str.length()>20) {
+            String data = "{\"data\":" + str + "}";
+            Gson gson = new Gson();
+            goodsData = gson.fromJson(data, GoodsData.class);
+            if (flag == 0) {
+                dataBeanList = goodsData.getData();
+                adapter = new MyGoodsChildAdapter(dataBeanList, getActivity());
+                listView.setAdapter(adapter);
+            } else if (flag == 1) {
+                dataBeanList = goodsData.getData();
+                adapter = new MyGoodsChildAdapter(dataBeanList, getActivity());
+                listView.setAdapter(adapter);
+                listView.onRefreshComplete();
+            } else {
+                List<GoodsData.DataBean> list = goodsData.getData();
+                int num = list.size();
+                for (int i = 0; i < num; i++) {
+                    dataBeanList.add(list.get(i));
                 }
+                adapter.notifyDataSetChanged();
+                listView.setAdapter(adapter);
+                listView.onRefreshComplete();
             }
+            listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+                @Override
+                public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                    if (dataBeanList != null && dataBeanList.size() > 0) {
+                        String time = String.valueOf(System.currentTimeMillis() / 1000L);
+                        lazyLoad(time, 1);
+                    }
+                }
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                if(dataBeanList!=null&&dataBeanList.size()>0){
-                    double post_time = dataBeanList.get(dataBeanList.size() - 1).getPost_time();
-                    String time = String.valueOf(post_time);
-                    lazyLoad(time,2);
+                @Override
+                public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                    if (dataBeanList != null && dataBeanList.size() > 0) {
+                        double post_time = dataBeanList.get(dataBeanList.size() - 1).getPost_time();
+                        String time = String.valueOf(post_time);
+                        lazyLoad(time, 2);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

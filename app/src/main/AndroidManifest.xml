@@ -3,6 +3,8 @@
     package="com.zzh.dell.guoku">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".app.GuokuApp"
@@ -15,11 +17,7 @@
             android:name=".activity.SplashActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.EntityActivity"  android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
@@ -31,7 +29,13 @@
         <activity
             android:name=".activity.GuideActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="orientation"
@@ -47,7 +51,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/login_theme" />
-        <activity android:name=".activity.ProductInfoActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.ChangeEmailActivity"
             />
@@ -78,6 +81,7 @@
         <activity android:name=".activity.UserTagActivity"></activity>
         <activity android:name=".activity.PictureActivity" />
         <activity android:name=".activity.CommentActivity" />
+        <activity android:name=".activity.GoodsChildActivity"/>
 
     </application>
 

@@ -33,7 +33,6 @@ public class WebActivity extends AppCompatActivity {
     private String url;
     private String URL_KAOLA_NEW = "m.kaola.com";
     private String URL_KAOLA_OLD = "www.m.kaola.com";
-    private String name;
     public static ArrayList<String> webViewTitle = new ArrayList();
 
     @Override

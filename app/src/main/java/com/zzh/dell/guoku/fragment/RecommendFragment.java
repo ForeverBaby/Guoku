@@ -109,7 +109,4 @@ public class RecommendFragment extends Fragment {
         main_line.setLayoutParams(new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
-
-
-
 }
