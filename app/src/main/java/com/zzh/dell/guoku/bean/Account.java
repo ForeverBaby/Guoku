@@ -90,27 +90,29 @@ public class Account implements Parcelable {
 
     public static class UserBean implements Parcelable {
         private boolean is_censor;
-        private String avatar_large;
-        private int following_count;
-        private String avatar_small;
-        private int entity_note_count;
-        private int like_count;
-        private int relation;
-        private int dig_count;
-        private boolean authorized_author;
+        private String avatar_large;//
+        private int following_count;//
+        private String avatar_small;//
+        private int entity_note_count;//
+        private int like_count;//
+        private int relation;//
+        private int dig_count;//
+        private boolean authorized_author;//
         private String city;
-        private int user_id;
-        private int fan_count;
-        private String nick;
-        private String location;
-        private String email;
+        private int user_id;//
+        private int fan_count;//
+        private String nick;//
+        private String location;//
+        private String email;//
         private Object website;
-        private Object bio;
+        private Object bio;//
         private String is_active;
-        private String nickname;
-        private int tag_count;
-        private String gender;
-        private boolean mail_verified;
+        private String nickname;//
+        private int tag_count;//
+        private String gender;//
+        private boolean mail_verified;//
+
+        public UserBean(){};
 
         protected UserBean(Parcel in) {
             is_censor = in.readByte() != 0;

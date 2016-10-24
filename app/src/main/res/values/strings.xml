@@ -56,6 +56,14 @@
     <string name="category_recommend_imagetext">热门图文</string>
     <string name="category_recommend_entity">热门商品</string>
     <string name="more">更多</string>
+    <string name="buy">购买</string>
+    <string name="buy_detail">宝贝详情</string>
+    <string name="comment">点评</string>
+    <string name="notification">通知</string>
+    <string name="notification_dynamic">动态</string>
+    <string name="notification_message">消息</string>
+    <string name="dynamic_like">开始关注</string>
+    <string name="dynamic_sen">喜欢了1件商品</string>
     <string name="cancel">取消</string>
     <string name="search_history">清空历史搜索记录</string>
     <string name="tv_rmb">¥%s</string>

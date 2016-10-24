@@ -49,7 +49,8 @@
             android:theme="@style/login_theme" />
         <activity android:name=".activity.ProductInfoActivity" />
         <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.ChangeEmailActivity" />
+        <activity android:name=".activity.ChangeEmailActivity"
+            />
         <activity
             android:name=".activity.EmailCheckActivity"
             android:configChanges="orientation"
@@ -64,8 +65,7 @@
         <activity android:name=".activity.FansActivity" />
         <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".activity.UserBaseActivity" />
-        <activity
-            android:name=".activity.Picture2Activity"
+        <activity android:name=".activity.Picture2Activity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.AllCategoryActivity" />
@@ -76,6 +76,9 @@
         <activity android:name=".activity.UserCommentListActivity" />
         <activity android:name=".activity.UserLikeListActivity"></activity>
         <activity android:name=".activity.UserTagActivity"></activity>
+        <activity android:name=".activity.PictureActivity" />
+        <activity android:name=".activity.CommentActivity" />
+
     </application>
 
 </manifest>

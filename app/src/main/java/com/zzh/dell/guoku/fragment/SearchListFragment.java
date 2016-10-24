@@ -35,12 +35,12 @@ public class SearchListFragment extends ListFragment {
     private int type;
     private SearchListCallBack callBack;
 
-    public void init(){
-        callBack.init(type);
-    }
-
     public void setCallBack(SearchListCallBack callBack) {
         this.callBack = callBack;
+    }
+
+    public void setComplete(){
+        listView.onRefreshComplete();
     }
 
     public void setAdapter(BaseAdapter adapter) {
@@ -70,8 +70,10 @@ public class SearchListFragment extends ListFragment {
                 callBack.upDate(type);
             }
         });
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.search_list_empty,null);
-        listView.setEmptyView(view);
     }
 
+    public void setEmpty(){
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.search_list_empty, null);
+        listView.setEmptyView(view);
+    }
 }

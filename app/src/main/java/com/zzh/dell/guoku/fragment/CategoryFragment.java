@@ -30,13 +30,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.activity.CategoryActivity;
 import com.zzh.dell.guoku.activity.SearchActivity;
+import com.zzh.dell.guoku.activity.UserBaseActivity;
 import com.zzh.dell.guoku.adapter.CategoryADAdapter;
 import com.zzh.dell.guoku.adapter.CategoryEntityAdapter;
 import com.zzh.dell.guoku.adapter.CategoryImageTextAdapter;
+import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.CategoryMainBean;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.config.Contants;
@@ -358,8 +361,37 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
         for (int i = 0; i < bean.size(); i++) {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.category_user_item, null);
             viewHolder = new ViewHolder(view);
-            viewHolder.tv_title.setText(bean.get(i).getUser().getNick());
-            Picasso.with(getActivity()).load(bean.get(i).getUser().getAvatar_small()).into(viewHolder.img);
+            final CategoryMainBean.AuthorizeduserBean.UserBean authorizeduserBean = bean.get(i).getUser();
+            viewHolder.tv_title.setText(authorizeduserBean.getNick());
+            Picasso.with(getActivity()).load(authorizeduserBean.getAvatar_small()).into(viewHolder.img);
+            viewHolder.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), UserBaseActivity.class);
+                    Account.UserBean userBean = new Account.UserBean();
+                    userBean.setAuthorized_author(true);
+                    userBean.setAvatar_large(authorizeduserBean.getAvatar_large());
+                    userBean.setAvatar_small(authorizeduserBean.getAvatar_small());
+                    userBean.setFollowing_count(authorizeduserBean.getFollowing_count());
+                    userBean.setEntity_note_count(authorizeduserBean.getEntity_note_count());
+                    userBean.setLike_count(authorizeduserBean.getLike_count());
+                    userBean.setRelation(authorizeduserBean.getRelation());
+                    userBean.setDig_count(authorizeduserBean.getDig_count());
+                    userBean.setUser_id(authorizeduserBean.getUser_id());
+                    userBean.setFan_count(authorizeduserBean.getFan_count());
+                    userBean.setNick(authorizeduserBean.getNick());
+                    userBean.setLocation(authorizeduserBean.getLocation());
+                    userBean.setEmail(authorizeduserBean.getEmail());
+                    userBean.setWebsite(authorizeduserBean.getWebsite());
+                    userBean.setBio(authorizeduserBean.getBio());
+                    userBean.setNickname(authorizeduserBean.getNickname());
+                    userBean.setTag_count(authorizeduserBean.getTag_count());
+                    userBean.setGender(authorizeduserBean.getGender());
+                    userBean.setMail_verified(true);
+                    intent.putExtra("data",userBean);
+                    startActivity(intent);
+                }
+            });
             userPager.addView(view);
         }
     }
@@ -384,7 +416,12 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
             ImageView img = new ImageView(getActivity());
             view.addView(img);
             view.setBackgroundColor(Color.TRANSPARENT);
-            Picasso.with(getActivity()).load(bean.get(i).getImg()).resize(986, 453).centerCrop().into(img);
+            Picasso.with(getActivity())
+                    .load(bean.get(i).getImg())
+                    .resize(986, 453)
+                    .centerCrop()
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(img);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             params.setMargins(15, 5, 15, 15);

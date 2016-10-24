@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zzh.dell.guoku.activity.BuyActivity">
+<!--
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/back"
+            android:layout_centerVertical="true"
+            android:onClick="back01"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_body"
+            android:text="@string/buy_detail"
+            android:layout_centerInParent="true"/>
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/product_xdetel"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:onClick="back02"/>
+    </RelativeLayout>
+    -->
+
+    <WebView
+        android:id="@+id/buy_web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+</LinearLayout>

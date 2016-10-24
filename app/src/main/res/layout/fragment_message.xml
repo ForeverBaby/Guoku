@@ -1,14 +1,97 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.zzh.dell.guoku.fragment.MessageFragment">
 
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/view_gray_bg">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/g_line"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/dynamic_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/notification_dynamic"
+                    android:gravity="center"
+                    android:textColor="@color/gray_fzxx"
+                    android:layout_marginBottom="2dp"/>
+                <View
+                    android:id="@+id/dynamic_line"
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:background="@mipmap/tab_focus"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/message_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/notification_message"
+                    android:gravity="center"
+                    android:textColor="@color/gray_fzxx"
+                    android:layout_marginBottom="2dp"/>
+                <View
+                    android:id="@+id/message_line"
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:background="@mipmap/tab_focus"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/g_line"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/dynamic_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/message_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/like_buy_blue">
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
+    </FrameLayout>
+</LinearLayout>

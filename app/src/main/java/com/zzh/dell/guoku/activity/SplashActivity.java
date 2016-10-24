@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.adapter.SplashViewPagerAdapter;
+import com.zzh.dell.guoku.config.Contants;
 import com.zzh.dell.guoku.app.GuokuApp;
 import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.config.Contants;
@@ -63,6 +64,10 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(flas,flas);
         setContentView(R.layout.activity_splash);
         initAccount();
+        int flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setFlags(flags,flags);
+        setContentView(R.layout.activity_splash);
+
         //让状态栏去掉
         ButterKnife.bind(this);
 
@@ -143,7 +148,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void goToGuideActivity(){
-        startActivity(new Intent(this,GuideActivity.class));
+        startActivity(new Intent(this,MainActivity.class));
         finish();
     }
 }

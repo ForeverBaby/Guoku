@@ -3,7 +3,6 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 23
     buildToolsVersion "24.0.2"
-
     defaultConfig {
         applicationId "com.zzh.dell.guoku"
         minSdkVersion 19
@@ -16,6 +15,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 

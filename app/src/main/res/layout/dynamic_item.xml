@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/item_dynamic_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+        <TextView
+            android:id="@+id/item_dynamic_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/like_buy_blue"
+            android:layout_alignTop="@id/item_dynamic_image"
+            android:layout_toRightOf="@id/item_dynamic_image"
+            android:layout_marginLeft="10dp" />
+        <TextView
+            android:id="@+id/dynamic_sen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/item_dynamic_image"
+            android:layout_toRightOf="@id/item_dynamic_user"
+            android:text="@string/dynamic_like"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/item_dynamic_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/like_buy_blue"
+            android:layout_alignLeft="@id/item_dynamic_user"
+            android:layout_below="@id/item_dynamic_user"
+            android:layout_marginTop="5dp" />
+        <ImageView
+            android:id="@+id/item_dynamic_goods"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+    </RelativeLayout>
+</LinearLayout>

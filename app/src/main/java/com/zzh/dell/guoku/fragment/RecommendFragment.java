@@ -83,14 +83,14 @@ public class RecommendFragment extends Fragment {
         });
     }
 
+
     private void addFraToPager() {
+        String[] name = new String[]{"商品","图文"};
         List<Fragment> listFragment = new ArrayList<>();
         listFragment.add(goodsFragment);
-        listFragment.add(new MessageFragment());
-        String[] str = new String[]{
-            "商品","图文"
-        };
-        MyGoodsAdapter adapter = new MyGoodsAdapter(getFragmentManager(), listFragment,str);
+        listFragment.add(ImagetextFragment.newInstance());
+
+        MyGoodsAdapter adapter = new MyGoodsAdapter(getFragmentManager(), listFragment,name);
         viewPaget.setAdapter(adapter);
 
         indicator.setSelectedTabIndicatorColor(getResources().getColor(android.R.color.transparent));

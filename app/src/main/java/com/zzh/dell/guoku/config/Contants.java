@@ -3,6 +3,7 @@ package com.zzh.dell.guoku.config;
 import android.os.Environment;
 
 /**
+ * 接口类
  * Created by DELL on 2016/10/15.
  */
 public final class Contants {
@@ -51,7 +52,7 @@ public final class Contants {
     /**
      * 品类页面图文接口
      * type:    CategoryArticles
-     *          SubCategoryArticlesRefresh
+     * SubCategoryArticlesRefresh
      */
     public static final String CATEGORYARTICLES_PATH = "http://api.guoku.com/mobile/v4/category/%s/articles/";
 
@@ -60,6 +61,21 @@ public final class Contants {
      * type:    CategorySelection
      */
     public static final String CATEGORYSELECTION_PATH = "http://api.guoku.com/mobile/v4/category/%s/selection/";
+
+    /**
+     * 搜索商品接口
+     */
+    public static final String SEARCH_ENTITY_PATH = "http://api.guoku.com/mobile/v4/entity/search/";
+
+    /**
+     * 搜索图文接口
+     */
+    public static final String SEARCH_ARTICLES_PATH = "http://api.guoku.com/mobile/v4/articles/search/";
+
+    /**
+     * 搜索用户接口
+     */
+    public static final String SEARCH_USER_PATH = "http://api.guoku.com/mobile/v4/user/search/";
 
     /**
      * 果库的图片库
@@ -79,7 +95,6 @@ public final class Contants {
     public static String IMAGES_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/GuoKu/" + "/images/";
 
 
-
     /**
      * SharedPreferenced类
      */
@@ -89,5 +104,40 @@ public final class Contants {
     public static final String SP_FIRST_INTO = "sp_first_into";
     public static final String SP_KEY = "sp_key";
 
+    /**
+     * 动态的
+     */
+    public static final String DYNAMIC_PATH = "http://api.guoku.com/mobile/v4/feed/";
+
+    public static final String IMAGE_TEXT_DETAIL = "http://m.guoku.com/articles/";
+
+
+    /**
+     * 消息的
+     */
+    public static final String MESSAGE_PATH = "http://api.guoku.com/mobile/v4/message/";
+
+    /**
+     * 商品界面
+     */
+    public static final String GOODS_PATH = "http://api.guoku.com/mobile/v4/selection/";
+    /**
+     * 图文界面
+     */
+    public static final String IMAGE_TEXT_PATH = "http://api.guoku.com/mobile/v4/articles/";
+
+    /**
+     * 图片地址（只有后半部分）的头部
+     */
+    public static final String IMAGE_TOP_PATH = "http://imgcdn.guoku.com/";
+
+    /**
+     * 商品详情页
+     */
+    public static final String GOODS_DETAIL = "http://api.guoku.com/mobile/v4/entity/";
+    /**
+     * 商品广告
+     */
+    public static final String GOODS_AD = "http://api.guoku.com/mobile/v4/entity/guess/";
 
 }

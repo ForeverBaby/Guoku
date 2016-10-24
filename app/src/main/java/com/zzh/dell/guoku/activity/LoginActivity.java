@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity implements HttpCallBack {
                 GuokuApp.getIntance().login(account);
                 Intent intent2 = new Intent(this,MainActivity.class);
                 intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-               startActivity(intent2);
+                startActivity(intent2);
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -13,6 +13,7 @@
     <color name="g_blue">#ff427ec0</color>
     <color name="like_buy_blue">#ff6eaaf0</color><!--设置页button的颜色-->
     <color name="gray_fzxx">#ff9d9e9f</color>
+    <color name="colorTransparent">#00000000</color>
     <color name="black_body">#ff414243</color>
     <color name="text_bg_box">#ffe6e6e6</color>
     <color name="view_gray_bg">#fffafafa</color>

@@ -1,5 +1,6 @@
 package com.zzh.dell.guoku.activity;
 
+import android.content.Intent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,6 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +20,8 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.app.GuokuApp;
 import com.google.gson.Gson;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.app.GuokuApp;
@@ -43,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 王立鹏 + 朱张华
+ * 朱张华
  */
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -53,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @BindView(R.id.rl_bottom)
     RadioGroup rl_bottom;
 
-
     static RadioButton me_rb;
+
 
     @BindView(R.id.selection)
     RadioButton selection;
@@ -142,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         if (Build.VERSION.SDK_INT >= 21) {
             window.setStatusBarColor(getResources().getColor(R.color.colorbgBlack));
         }
-
     }
 
     private void initListener() {
@@ -264,7 +265,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 break;
         }
         transaction.commit();
-
     }
 
     private void hide(FragmentTransaction fragmentTransaction) {
