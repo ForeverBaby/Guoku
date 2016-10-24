@@ -273,8 +273,8 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
 
     @OnClick(R.id.goods_child_btn)
     public void onClick(){
-        Intent intent = new Intent(this,BuyActivity.class);
-        intent.putExtra("path",buy_link);
+        Intent intent = new Intent(this,WebActivity.class);
+        intent.putExtra("data",buy_link);
         startActivity(intent);
     }
 

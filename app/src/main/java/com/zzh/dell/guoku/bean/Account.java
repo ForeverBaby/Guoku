@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by DELL on 2016/10/15.
  */
-public class Account implements Parcelable{
+public class Account implements Parcelable {
 
     /**
      * session : 8a17420cb1df5c4ef7ffdec6af6d7eec
@@ -40,7 +40,9 @@ public class Account implements Parcelable{
      */
 
     private UserBean user;
-    public  Account(){}
+
+    public Account() {
+    }
 
     protected Account(Parcel in) {
         session = in.readString();
@@ -86,29 +88,31 @@ public class Account implements Parcelable{
         this.user = user;
     }
 
-    public static class UserBean implements Parcelable{
+    public static class UserBean implements Parcelable {
         private boolean is_censor;
-        private String avatar_large;
-        private int following_count;
-        private String avatar_small;
-        private int entity_note_count;
-        private int like_count;
-        private int relation;
-        private int dig_count;
-        private boolean authorized_author;
+        private String avatar_large;//
+        private int following_count;//
+        private String avatar_small;//
+        private int entity_note_count;//
+        private int like_count;//
+        private int relation;//
+        private int dig_count;//
+        private boolean authorized_author;//
         private String city;
-        private int user_id;
-        private int fan_count;
-        private String nick;
-        private String location;
-        private String email;
+        private int user_id;//
+        private int fan_count;//
+        private String nick;//
+        private String location;//
+        private String email;//
         private Object website;
-        private Object bio;
+        private Object bio;//
         private String is_active;
-        private String nickname;
-        private int tag_count;
-        private String gender;
-        private boolean mail_verified;
+        private String nickname;//
+        private int tag_count;//
+        private String gender;//
+        private boolean mail_verified;//
+
+        public UserBean(){};
 
         protected UserBean(Parcel in) {
             is_censor = in.readByte() != 0;

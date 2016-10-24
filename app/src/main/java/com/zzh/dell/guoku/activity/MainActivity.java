@@ -25,6 +25,7 @@ import com.zzh.dell.guoku.app.GuokuApp;
 import com.google.gson.Gson;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.app.GuokuApp;
+import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.CategoryBean;
 import com.zzh.dell.guoku.callback.HttpCallBack;
 import com.zzh.dell.guoku.config.Contants;
@@ -34,7 +35,11 @@ import com.zzh.dell.guoku.fragment.MessageFragment;
 import com.zzh.dell.guoku.fragment.RecommendFragment;
 import com.zzh.dell.guoku.utils.CategoryDBManager;
 import com.zzh.dell.guoku.utils.GsonUtils;
+import com.zzh.dell.guoku.utils.StringUtils;
 import com.zzh.dell.guoku.utils.http.HttpUtils;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,29 +92,34 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         Cursor cursor = dbManager.queryNoSelection();
         int num = cursor.getCount();
 
-        if (num==0){
+        if (num == 0) {
             HttpUtils httpUtils = new HttpUtils();
             httpUtils.setCallBack(new HttpCallBack() {
                 @Override
                 public void sendStr(String type, String str) {
-                    if ("CategoryGet".equals(type)){
+                    if ("CategoryGet".equals(type)) {
                         Gson gson = GsonUtils.getGson();
-                        CategoryBean bean = gson.fromJson("{\"bean\":"+str+"}",CategoryBean.class);
-                        for (int i = 0; i < bean.getBean().size(); i++) {
-                            CategoryBean.BeanBean beanBean = bean.getBean().get(i);
-                            dbManager.insert(MainActivity.this
-                                    ,beanBean.getGroup_id()
-                                    ,beanBean.getTitle());
-                            for (int j = 0; j < beanBean.getContent().size(); j++) {
-                                CategoryBean.BeanBean.ContentBean contentBean = beanBean.getContent().get(j);
-                                dbManager.subInsert(MainActivity.this
-                                        ,beanBean.getGroup_id()
-                                        ,contentBean.getCategory_id()
-                                        ,contentBean.getCategory_title()
-                                        ,contentBean.getCategory_icon_small()
-                                        ,contentBean.getCategory_icon_large());
+                        CategoryBean bean = gson.fromJson("{\"bean\":" + str + "}", CategoryBean.class);
+                        if (bean != null && bean.getBean().size() != 0) {
+                            for (int i = 0; i < bean.getBean().size(); i++) {
+                                CategoryBean.BeanBean beanBean = bean.getBean().get(i);
+                                dbManager.insert(MainActivity.this
+                                        , beanBean.getGroup_id()
+                                        , beanBean.getTitle());
+                                for (int j = 0; j < beanBean.getContent().size(); j++) {
+                                    CategoryBean.BeanBean.ContentBean contentBean = beanBean.getContent().get(j);
+                                    dbManager.subInsert(MainActivity.this
+                                            , beanBean.getGroup_id()
+                                            , contentBean.getCategory_id()
+                                            , contentBean.getCategory_title()
+                                            , contentBean.getCategory_icon_small()
+                                            , contentBean.getCategory_icon_large());
+                                }
                             }
+                        }else {
+                            Toast.makeText(MainActivity.this, "当前没有网络，数据加载失败", Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 }
 
@@ -123,10 +133,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
                 }
             });
-            httpUtils.getStrGET("CategoryGet",
-                    String.format(Contants.CATEGORY_PATH,
-                            "b6fbc461c473452b1fa344ae6d1af2c2",
-                            Contants.API_KEY));
+            Map<String, String> map = new TreeMap<>();
+            String str = StringUtils.getGetUrl(Contants.CATEGORY_PATH, map);
+            httpUtils.getStrGET("CategoryGet", str);
         }
     }
 
@@ -160,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     RecommendFragment recommend;
     CategoryFragment category;
     MessageFragment message;
-    MeFragment me;
+    static MeFragment me;
 
     private void initView() {
         me_rb = (RadioButton) findViewById(R.id.me);
@@ -287,20 +296,27 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     public static class ChangeListener extends BroadcastReceiver {
-
+        static int count = 0;
         @Override
         public void onReceive(Context context, Intent intent) {
-            Drawable startDra;
             if ("Main.Login.btn.type1".equals(intent.getAction())) {
-                startDra = context.getResources().getDrawable(R.drawable.main_btn04);
-                startDra.setBounds(0, 0, startDra.getMinimumWidth(), startDra.getMinimumHeight());
-                me_rb.setCompoundDrawables(null, startDra, null, null);
-            } else if ("Main.Login.btn.type2".equals(intent.getAction())) {
-                startDra = context.getResources().getDrawable(R.drawable.main_btn05);
-                startDra.setBounds(0, 0, startDra.getMinimumWidth(), startDra.getMinimumHeight());
-                me_rb.setCompoundDrawables(null, startDra, null, null);
-            }
+                String name = intent.getStringExtra("name");
+                Account account = GuokuApp.getIntance().getAccount();
+                Account.UserBean user = account.getUser();
+                count = user.getFollowing_count();
+                if ("add".equals(name)) {
+                    user.setFollowing_count(++count);
 
+
+                } else if("add2".equals(name)){
+                    user.setRelation(--count);
+
+                }
+                account.getUser().setFollowing_count(count);
+                GuokuApp.getIntance().login(account);
+                me.init();
+
+            }
         }
     }
 

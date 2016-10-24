@@ -13,12 +13,12 @@ import java.util.List;
  */
 public class MyGoodsAdapter extends FragmentStatePagerAdapter{
     List<Fragment> fragmentList;
+    String[] str;
 
-    String[] name = new String[]{"商品","图文"};
-
-    public MyGoodsAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    public MyGoodsAdapter(FragmentManager fm, List<Fragment> fragmentList,String[] str) {
         super(fm);
         this.fragmentList = fragmentList;
+        this.str = str;
     }
 
     @Override
@@ -33,6 +33,6 @@ public class MyGoodsAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return name[position];
+        return str[position];
     }
 }

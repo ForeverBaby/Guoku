@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.activity.WebActivity;
 import com.zzh.dell.guoku.adapter.MyImageTextAdapter;
 import com.zzh.dell.guoku.bean.ImageTextData;
 import com.zzh.dell.guoku.callback.HttpCallBack;
