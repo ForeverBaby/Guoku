@@ -61,7 +61,7 @@ public class FansAdapter extends BaseAdapter {
         }
         Account.UserBean userBean = list.get(position);
         Picasso.with(context).load(userBean.getAvatar_small()).fit().centerCrop().into(holder.fans_item_iv_pic);
-        holder.fans_item_tv_name.setText(userBean.getNickname());
+        holder.fans_item_tv_name.setText(userBean.getNick());
         holder.fans_item_tv_fans.setText("关注  " + userBean.getFollowing_count() + "    粉丝 " + userBean.getFan_count());
         if(userBean.isAuthorized_author()){
             holder.imgAutuon.setVisibility(View.VISIBLE);

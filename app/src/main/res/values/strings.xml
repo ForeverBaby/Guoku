@@ -66,6 +66,9 @@
     <string name="dynamic_sen">喜欢了1件商品</string>
     <string name="cancel">取消</string>
     <string name="search_history">清空历史搜索记录</string>
+    <string name="tv_rmb">¥%s</string>
+    <string name="tv_empty_other">暂无%s</string>
+    <string name="tv_all">所有</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

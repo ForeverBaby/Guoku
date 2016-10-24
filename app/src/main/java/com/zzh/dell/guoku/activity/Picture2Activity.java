@@ -2,9 +2,13 @@ package com.zzh.dell.guoku.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +17,10 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.zzh.dell.guoku.R;
-import com.zzh.dell.guoku.utils.BitMapUtils;
+import com.zzh.dell.guoku.config.Contants;
+import com.zzh.dell.guoku.utils.BitmapUtils;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,32 +40,14 @@ public class Picture2Activity extends AppCompatActivity {
         }
         init();
     }
-
+    String s="temp";
     private void init() {
         Intent intent = getIntent();
         final String path = intent.getStringExtra("path");
         overridePendingTransition(R.anim.act_fade_in, R.anim.push_down_out);
         img.setImageResource(R.mipmap.item240);
-        final String fileName = BitMapUtils.getFileName(path);
-        Picasso.with(this).load(path).transform(new Transformation() {
-            @Override
-            public Bitmap transform(Bitmap source) {
-                String s = BitMapUtils.saveImageToSDCard(source, fileName);
-                Bitmap bitmapByPath = BitMapUtils.getBitmapByPath(s);
-                if(source!=null){
-                    source.recycle();
-                    source = null;
-                }
 
-
-                return bitmapByPath;
-            }
-
-            @Override
-            public String key() {
-                return path;
-            }
-        }).memoryPolicy(MemoryPolicy.NO_CACHE).fit().centerCrop().into(img);
+        Picasso.with(this).load(path).fit().centerCrop().into(img);
 
 //        Picasso.with(this).load(uri).fit().centerCrop().into(img);
 

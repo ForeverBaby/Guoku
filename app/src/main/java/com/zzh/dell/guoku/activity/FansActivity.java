@@ -100,6 +100,7 @@ public class FansActivity extends AppCompatActivity implements HttpCallBack {
                     Intent localIntent = new Intent(FansActivity.this, UserBaseActivity.class);
                     localIntent.putExtra("data", adapter.getItem(paramInt - 1));
                     startActivity(localIntent);
+                    finish();
                 }
             }
         });

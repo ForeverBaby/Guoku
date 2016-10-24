@@ -93,6 +93,40 @@
     <style name="act_style">
         <item name="android:background">@color/colorWhite</item>
     </style>
+    <style name="gridview_count_2">
+        <item name="android:textColor">@color/g_main</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="home_page_item_article_title">
+        <item name="android:textSize">15.0sp</item>
+        <item name="android:textColor">@color/black_body</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
+    <style name="home_page_item_article_context">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/gray_fzxx</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:lineSpacingMultiplier">1.0</item>
+    </style>
+
+    <style name="home_page_item_article_below">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/gray_fzxx</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lines">1</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

@@ -22,4 +22,7 @@
     <color name="category_background">#E0E0E0</color><!--分类页面的背景颜色-->
     <color name="title_bar_blue">#ff427ec0</color>
     <color name="search_background">#50000000</color>
+    <color name="gray_btm">#55000000</color>
+    <color name="gray_bg">#fff8f8f8</color>
+
 </resources>
