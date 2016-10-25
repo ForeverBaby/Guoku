@@ -25,35 +25,6 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/btn_back"
             android:layout_marginLeft="10dp"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
-            <ImageView
-                android:id="@+id/image_heart"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/icon_like"
-                android:padding="10dp"
-                android:onClick="clickHeart"
-                android:layout_gravity="center_vertical"/>
-            <ImageView
-                android:id="@+id/image_note"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-                android:src="@mipmap/comment_2"
-                android:padding="10dp"
-                android:onClick="clickNote"
-                android:layout_gravity="center_vertical"/>
-            <ImageView
-                android:id="@+id/image_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/more_shop"
-                android:padding="10dp"
-                android:onClick="clickMore"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
