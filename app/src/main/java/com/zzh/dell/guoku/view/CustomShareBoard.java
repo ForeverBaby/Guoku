@@ -1,17 +1,22 @@
 package com.zzh.dell.guoku.view;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.activity.LoginActivity;
+import com.zzh.dell.guoku.app.GuokuApp;
 
 /**
  * Created by DELL on 2016/10/18.
@@ -76,6 +81,11 @@ public class CustomShareBoard extends PopupWindow implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        if(GuokuApp.getIntance().getAccount()==null){
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            mActivity.startActivity(intent);
+            return;
+        }
         switch (v.getId()) {
             case R.id.share_wx_1:
                 break;
@@ -84,19 +94,30 @@ public class CustomShareBoard extends PopupWindow implements View.OnClickListene
             case R.id.share_sina:
                 break;
             case R.id.share_llq:
+                Intent localIntent2 = new Intent("android.intent.action.VIEW");
+                localIntent2.setData(Uri.parse(this.url));
+                this.mActivity.startActivity(localIntent2);
                 break;
             case R.id.share_mail:
+                sendMail();
                 break;
             case R.id.layout_refresh:
+                isrefresh = true;
                 break;
             case R.id.layout_copy:
+                ((ClipboardManager)this.mActivity.getSystemService(Context.CLIPBOARD_SERVICE)).setText(this.url);
+                Toast.makeText(this.mActivity, this.mActivity.getString(R.string.tv_already_copy),Toast.LENGTH_SHORT).show();
                 break;
             case R.id.layout_report:
                 break;
             case R.id.cancel:
                 break;
         }
+        dismiss();
     }
+
+    public boolean isrefresh = false;
+
 
     private void sendMail() {
         Intent localIntent = new Intent("android.intent.action.SEND");
@@ -107,7 +128,6 @@ public class CustomShareBoard extends PopupWindow implements View.OnClickListene
     }
 
     /**
-     *
      * @param paramContext 当前activity的Context
      * @param paramString1 副标题
      * @param paramString2 当前分享内容的url

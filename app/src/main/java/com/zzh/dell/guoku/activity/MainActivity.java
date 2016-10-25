@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -47,7 +48,7 @@ import butterknife.ButterKnife;
 /**
  * 朱张华
  */
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
 
     @BindView(R.id.rl_content)
     RelativeLayout rl_content;
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             @Override
             public void onClick(View v) {
                 if (isRunningHead) {
-                    Toast.makeText(MainActivity.this, "点击两次到第一页", Toast.LENGTH_SHORT).show();
+                    recommend.gotoFirstPosition(true);
                 }
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -294,6 +295,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         return false;
     }
+
 
     public static class ChangeListener extends BroadcastReceiver {
         static int count = 0;

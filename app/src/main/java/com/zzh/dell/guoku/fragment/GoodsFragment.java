@@ -56,7 +56,7 @@ public class GoodsFragment extends Fragment{
         return fragment;
     }
     @BindView(R.id.pullListView)
-    PullToRefreshListView listView;
+     PullToRefreshListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -143,5 +143,10 @@ public class GoodsFragment extends Fragment{
                 }
             });
         }
+    }
+
+    public void goFirst(){
+        ListView listView1 = listView.getRefreshableView();
+        listView1.smoothScrollToPosition(0);
     }
 }

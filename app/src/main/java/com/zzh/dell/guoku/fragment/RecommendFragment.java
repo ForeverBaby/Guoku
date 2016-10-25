@@ -54,6 +54,16 @@ public class RecommendFragment extends Fragment {
         return view;
     }
 
+    public void gotoFirstPosition(boolean flag) {
+
+        if (viewPaget.getCurrentItem() == 0) {
+            goodsFragment.goFirst();
+        } else {
+            imagetextFragment.goFirst();
+
+        }
+    }
+
     private void initListener() {
         viewPaget.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -63,13 +73,13 @@ public class RecommendFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                if(position==0){
-                    Animation anim = new TranslateAnimation(width,0,0,0);
+                if (position == 0) {
+                    Animation anim = new TranslateAnimation(width, 0, 0, 0);
                     anim.setDuration(300);
                     anim.setFillAfter(true);
                     main_line.startAnimation(anim);
-                }else if(position==1){
-                    Animation anim = new TranslateAnimation(0,width,0,0);
+                } else if (position == 1) {
+                    Animation anim = new TranslateAnimation(0, width, 0, 0);
                     anim.setDuration(300);
                     anim.setFillAfter(true);
                     main_line.startAnimation(anim);
@@ -83,21 +93,24 @@ public class RecommendFragment extends Fragment {
         });
     }
 
+    ImagetextFragment imagetextFragment = ImagetextFragment.newInstance();
 
     private void addFraToPager() {
-        String[] name = new String[]{"商品","图文"};
+        String[] name = new String[]{"商品", "图文"};
         List<Fragment> listFragment = new ArrayList<>();
         listFragment.add(goodsFragment);
-        listFragment.add(ImagetextFragment.newInstance());
+        listFragment.add(imagetextFragment);
 
-        MyGoodsAdapter adapter = new MyGoodsAdapter(getFragmentManager(), listFragment,name);
+        MyGoodsAdapter adapter = new MyGoodsAdapter(getFragmentManager(), listFragment, name);
         viewPaget.setAdapter(adapter);
 
         indicator.setSelectedTabIndicatorColor(getResources().getColor(android.R.color.transparent));
         indicator.setupWithViewPager(viewPaget);
 
     }
+
     int width = 0;
+
     private void initFragment() {
 
         goodsFragment = GoodsFragment.newInstance();
