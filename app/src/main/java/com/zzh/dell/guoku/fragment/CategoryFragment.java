@@ -417,10 +417,11 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
         List<View> adList = new ArrayList<>();
         Context context = getActivity();
         for (int i = 0; i < mainBean.getBanner().size(); i++) {
-            LinearLayout view = new LinearLayout(context);
+//            LinearLayout view = new LinearLayout(context);
+
             ImageView img = new ImageView(context);
-            view.addView(img);
-            view.setBackgroundColor(Color.TRANSPARENT);
+//            view.addView(img);
+//            view.setBackgroundColor(Color.TRANSPARENT);
             Picasso.with(getActivity())
                     .load(bean.get(i).getImg())
                     .resize(986, 453)
@@ -431,7 +432,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
                     LinearLayout.LayoutParams.MATCH_PARENT);
             params.setMargins(15, 5, 15, 15);
             final int pos = i;
-            view.setOnClickListener(new View.OnClickListener() {
+            img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String path = bean.get(pos).getUrl();
@@ -441,7 +442,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
                 }
             });
             img.setLayoutParams(params);
-            adList.add(view);
+            adList.add(img);
 
 
         }

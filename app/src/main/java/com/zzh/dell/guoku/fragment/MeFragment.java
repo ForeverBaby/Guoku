@@ -137,7 +137,6 @@ public class MeFragment extends Fragment implements HttpCallBack {
     ScrollViewWithGridView gridview_like;
 
 
-
     @BindView(R.id.red_round)
     ImageView red_round;
 
@@ -183,9 +182,10 @@ public class MeFragment extends Fragment implements HttpCallBack {
         if (bundle != null) {
             userBean = bundle.getParcelable("userBean");
             if (this.userBean != null) {
-                userType = this.userBean.getRelation();
+                userType = userBean.getRelation();
             }
         }
+
     }
 
     HttpUtils utils;
@@ -198,10 +198,10 @@ public class MeFragment extends Fragment implements HttpCallBack {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         if (userBean != null) {
             init();
         }
-
     }
 
 
@@ -249,6 +249,11 @@ public class MeFragment extends Fragment implements HttpCallBack {
                     setIcon(userBean.getNick());
                     getUserInfo(userBean);
                     break;
+                case 0:
+                    setIcon(userBean.getNick());
+                    getUserInfo(userBean);
+                    break;
+
 
             }
         }
@@ -365,6 +370,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
         String getUrl = StringUtils.getGetUrl(str, map);
         utils.getStrGET("userBean", getUrl);
     }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void getInitData(String paramString1, String paramString2, int paramInt) {
         if (paramInt == 1004) {
@@ -500,6 +506,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
         });
         getInitData("like", "4", 1002);
     }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void getShopInfo(String paramString, String type) {
         Map<String, String> map = new ArrayMap<>();
@@ -651,7 +658,6 @@ public class MeFragment extends Fragment implements HttpCallBack {
     List<CategoryMainBean.ArticlesBean.ArticleBean> lista;
 
 
-
     private void initUserAuthon() {
         view_stub_user_authen.inflate();
         pull_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
@@ -665,7 +671,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
         });
         view_stub_user.setVisibility(View.GONE);
         articleBeen = new ArrayList<>();
-        articlesCategoryAdapter = new ArticlesCategoryAdapter(articleBeen,getActivity());
+        articlesCategoryAdapter = new ArticlesCategoryAdapter(articleBeen, getActivity());
         listView_article = ((ScrollViewWithListView) view.findViewById(R.id.listView_article));
         listView_article.setVisibility(View.VISIBLE);
         listView_article.setAdapter(articlesCategoryAdapter);
