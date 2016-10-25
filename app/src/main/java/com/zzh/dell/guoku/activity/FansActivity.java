@@ -213,20 +213,29 @@ public class FansActivity extends AppCompatActivity implements HttpCallBack {
                 }
                 break;
             case "fans":
-                if (str != null) {
-                    list.clear();
-                    List<Account.UserBean> users = gson.fromJson(str, new TypeToken<List<Account.UserBean>>() {
-                    }.getType());
-                    if (null != users && users.size() > 0) {
-                        if (type2 == 1) {
-                            Account account = GuokuApp.getIntance().getAccount();
-                            Account.UserBean user = account.getUser();
-                            user.setFollowing_count(users.size());
-                            GuokuApp.getIntance().login(account);
+                try {
+                    if (str != null) {
+                        json = new JSONObject(str);
+                        list.clear();
+                        if (json.has("like_user_list")) {
+                            str = json.getString("like_user_list");
                         }
-                        list.addAll(users);
-                        adapter.notifyDataSetChanged();
+                        List<Account.UserBean> users = gson.fromJson(str, new TypeToken<List<Account.UserBean>>() {
+                        }.getType());
+
+                        if (null != users && users.size() > 0) {
+                            if (type2 == 1) {
+                                Account account = GuokuApp.getIntance().getAccount();
+                                Account.UserBean user = account.getUser();
+                                user.setFollowing_count(users.size());
+                                GuokuApp.getIntance().login(account);
+                            }
+                            list.addAll(users);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
                 break;
             case "guangzhu":

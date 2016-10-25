@@ -36,6 +36,7 @@ import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.activity.CategoryActivity;
 import com.zzh.dell.guoku.activity.SearchActivity;
 import com.zzh.dell.guoku.activity.UserBaseActivity;
+import com.zzh.dell.guoku.activity.WebActivity;
 import com.zzh.dell.guoku.adapter.CategoryADAdapter;
 import com.zzh.dell.guoku.adapter.CategoryEntityAdapter;
 import com.zzh.dell.guoku.adapter.CategoryImageTextAdapter;
@@ -112,7 +113,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     ListView historyListView;
 
     @OnClick(R.id.tv_clear)
-    void clearSearchHistory() {
+    void clearSearchHistory(){
         helper.deleteData(db);
         querryHistory("");
     }
@@ -412,7 +413,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     }
 
     private void autoScorllViewInit() {
-        List<CategoryMainBean.BannerBean> bean = mainBean.getBanner();
+        final List<CategoryMainBean.BannerBean> bean = mainBean.getBanner();
         List<View> adList = new ArrayList<>();
         Context context = getContext();
         for (int i = 0; i < mainBean.getBanner().size(); i++) {
@@ -429,8 +430,20 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             params.setMargins(15, 5, 15, 15);
+            final int pos = i;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String path = bean.get(pos).getUrl();
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra("data",path);
+                    getActivity().startActivity(intent);
+                }
+            });
             img.setLayoutParams(params);
             adList.add(view);
+
+
         }
         CategoryADAdapter adAdapter = new CategoryADAdapter(adList);
         autoScrollViewPager.setBackgroundColor(Color.TRANSPARENT);

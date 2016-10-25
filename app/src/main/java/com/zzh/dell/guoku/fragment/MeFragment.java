@@ -1,10 +1,12 @@
 package com.zzh.dell.guoku.fragment;
 
 
+import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -355,6 +357,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
     }
 
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void getUserInfo(Account.UserBean user) {
         Map<String, String> map = new ArrayMap<>();
         map.put("timestamp", (System.currentTimeMillis() / 1000L + ""));
@@ -362,7 +365,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
         String getUrl = StringUtils.getGetUrl(str, map);
         utils.getStrGET("userBean", getUrl);
     }
-
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void getInitData(String paramString1, String paramString2, int paramInt) {
         if (paramInt == 1004) {
             String str2 = "http://api.guoku.com/mobile/v4/user/" + userBean.getUser_id() + "/" + paramString1 + "/";
@@ -497,12 +500,11 @@ public class MeFragment extends Fragment implements HttpCallBack {
         });
         getInitData("like", "4", 1002);
     }
-
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void getShopInfo(String paramString, String type) {
         Map<String, String> map = new ArrayMap<>();
         map.put("entity_id", paramString);
         String getUrl = StringUtils.getGetUrl("http://api.guoku.com/mobile/v4/entity/" + paramString + "/", map);
-        Log.e("===", "===" + getUrl);
         utils.getStrGET(type, getUrl);
     }
 

@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.activity.GoodsChildActivity;
 import com.zzh.dell.guoku.bean.CategoryMainBean;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class CategoryEntityAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.category_entity_grid_item,null);
@@ -65,6 +67,17 @@ public class CategoryEntityAdapter extends BaseAdapter {
                 .resize(200,240)
                 .centerCrop()
                 .into(viewHolder.imageView);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int entity_id = bean.get(position).getEntity().getEntity_id();
+                Intent intent = new Intent(context, GoodsChildActivity.class);
+                intent.putExtra("id",entity_id);
+                intent.putExtra("cid",bean.get(position).getEntity().getCategory_id());
+                intent.putExtra("imagePath",bean.get(position).getEntity().getChief_image());
+                context.startActivity(intent);
+            }
+        });
         Picasso.with(context).invalidate(bean.get(position).getEntity().getChief_image());
 
         return convertView;
