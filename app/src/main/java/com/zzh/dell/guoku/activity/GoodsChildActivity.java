@@ -6,17 +6,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -26,6 +32,8 @@ import com.zzh.dell.guoku.adapter.GoodsChildGridAdapter;
 import com.zzh.dell.guoku.adapter.MyGoodsListAdapter;
 import com.zzh.dell.guoku.adapter.MyViewPagerAdapter;
 import com.zzh.dell.guoku.adapter.SplashViewPagerAdapter;
+import com.zzh.dell.guoku.app.GuokuApp;
+import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.AdData;
 import com.zzh.dell.guoku.bean.GoodsChildData;
 import com.zzh.dell.guoku.callback.HttpCallBack;
@@ -36,7 +44,9 @@ import com.zzh.dell.guoku.utils.http.HttpUtils;
 import com.zzh.dell.guoku.view.MyListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import butterknife.BindView;
@@ -79,11 +89,21 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
     @BindView(R.id.ad_grid)
     GridView ad_gridview;
 
+    @BindView(R.id.image_heart01)
+    ImageView image_heart;
+
     private String type_data = "goods_child_data";
     private String imagePath;
     private String type_ad_data = "ad_data";
+    private String type_comment = "comment_data";
     private ArrayList<String> detail_images = new ArrayList<>();
     private String buy_link;
+    private int entity_id;
+    private MyGoodsListAdapter myLikeAdapter;
+    private int like_already = -1;
+    String topPath;
+    private GoodsChildData data;
+    private String getUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,13 +115,19 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
         ButterKnife.bind(this);
         //entity_id是传过来的 int型
         Intent intent = getIntent();
-        int entity_id = intent.getIntExtra("id",-1);
-        Log.e("===","==id="+entity_id);
+        entity_id = intent.getIntExtra("id",-1);
         String cid = intent.getStringExtra("cid");
-        Log.e("===","=cid=="+cid);
         imagePath = intent.getStringExtra("imagePath");
-        Log.e("===","==="+imagePath);
-        String topPath = Contants.GOODS_DETAIL + entity_id + "/";
+        like_already = intent.getIntExtra("already",-1);
+        Log.e("=====","======"+like_already);
+        if(like_already!=-1){
+            if(like_already == 0){
+                image_heart.setImageResource(R.mipmap.icon_like);
+            }else{
+                image_heart.setImageResource(R.mipmap.icon_like_press);
+            }
+        }
+        topPath = Contants.GOODS_DETAIL + entity_id + "/";
         getAndSetData(topPath,entity_id);
         getAndSetBottomData(entity_id,cid);
     }
@@ -111,7 +137,7 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
         treeMap.put("count","10");
         treeMap.put("cid",cid);
         treeMap.put("eid",String.valueOf(entity_id));
-        String getUrl = StringUtils.getGetUrl(Contants.GOODS_AD, treeMap);
+        getUrl = StringUtils.getGetUrl(Contants.GOODS_AD, treeMap);
         HttpUtils httpUtils = new HttpUtils();
         httpUtils.getStrGET(type_ad_data,getUrl);
         Log.e("====","===="+getUrl);
@@ -134,8 +160,9 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
     private void setDataToView(final String str) {
         Gson gson = new Gson();
         if (str != null) {
-            GoodsChildData data = gson.fromJson(str, GoodsChildData.class);
-            final int like_size = data.getLike_user_list().size();
+            data = gson.fromJson(str, GoodsChildData.class);
+            final int like_size = data.getEntity().getLike_count();
+            final int like_already = data.getEntity().getLike_already();
             String brand1 = data.getEntity().getBrand();
             buy_link = data.getEntity().getItem_list().get(0).getBuy_link();
             if (brand1 == null || "".equals(brand1)) {
@@ -180,7 +207,7 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
                     point.setPadding(10, 0, 10, 0);
                     ll.addView(point);
                 }
-                MyViewPagerAdapter adapter = new MyViewPagerAdapter(like_size, this, detail_images, viewList);
+                MyViewPagerAdapter adapter = new MyViewPagerAdapter(entity_id,like_already,like_size, this, detail_images, viewList);
                 viewPager.setAdapter(adapter);
                 viewPager.setInterval(4000);
                 viewPager.startAutoScroll();
@@ -221,8 +248,8 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
             }
 
             List<GoodsChildData.NoteListBean> note_list = data.getNote_list();
-            MyGoodsListAdapter adapter = new MyGoodsListAdapter(note_list, this);
-            listView.setAdapter(adapter);
+            myLikeAdapter = new MyGoodsListAdapter(note_list, this);
+            listView.setAdapter(myLikeAdapter);
         }
     }
 
@@ -232,6 +259,10 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
             setDataToView(str);
         }else if(type.equals(type_ad_data)){
             setDataToBottom(str);
+        }else if(type.equals(type_comment)){
+            if(str!=null){
+                Toast.makeText(GoodsChildActivity.this, "评论成功！", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -275,7 +306,28 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.e("====","====="+position);
+        GoodsChildData.LikeUserListBean authorizeduserBean = data.getLike_user_list().get(position);
+        Account.UserBean userBean = new Account.UserBean();
+        userBean.setAvatar_large(authorizeduserBean.getAvatar_large());
+        userBean.setAvatar_small(authorizeduserBean.getAvatar_small());
+        userBean.setFollowing_count(authorizeduserBean.getFollowing_count());
+        userBean.setEntity_note_count(authorizeduserBean.getEntity_note_count());
+        userBean.setLike_count(authorizeduserBean.getLike_count());
+        userBean.setRelation(authorizeduserBean.getRelation());
+        userBean.setDig_count(authorizeduserBean.getDig_count());
+        userBean.setUser_id(authorizeduserBean.getUser_id());
+        userBean.setFan_count(authorizeduserBean.getFan_count());
+        userBean.setNick(authorizeduserBean.getNick());
+        userBean.setLocation(authorizeduserBean.getLocation());
+        userBean.setEmail(authorizeduserBean.getEmail());
+        userBean.setWebsite(authorizeduserBean.getWebsite());
+        userBean.setBio(authorizeduserBean.getBio());
+        userBean.setNickname(authorizeduserBean.getNickname());
+        userBean.setTag_count(authorizeduserBean.getTag_count());
+        userBean.setGender(authorizeduserBean.getGender());
+        Intent intent = new Intent(this,UserBaseActivity.class);
+        intent.putExtra("data",userBean);
+        this.startActivity(intent);
     }
 
 
@@ -288,7 +340,12 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
 
     @OnClick(R.id.click_rl)
     public void onClick02(){
-        Log.e("====","==喜爱===");
+        if(topPath != null){
+            Intent intent = new Intent(this,FansActivity.class);
+            Log.e("====","====="+topPath);
+            intent.putExtra("url",topPath);
+            this.startActivity(intent);
+        }
     }
 
 
@@ -296,17 +353,74 @@ public class GoodsChildActivity extends AppCompatActivity implements HttpCallBac
      * @param view
      */
     public void clickHeart(View view) {
-        Log.e("====","==爱心===");
+        String path;
+        if(like_already!=-1){
+            if(like_already == 0){
+                image_heart.setImageResource(R.mipmap.icon_like_press);
+                path = Contants.GOODS_DETAIL + entity_id +"/like/1/";
+            }else{
+                image_heart.setImageResource(R.mipmap.icon_like);
+            path = Contants.GOODS_DETAIL +entity_id +"/like/0/";
+        }
+            HttpUtils httpUtils = new HttpUtils();
+            Map<String,String> map = new HashMap<>();
+            httpUtils.getStrPOST("gg",path,map);
+        }
     }
 
     /**评论的点击
      * @param view
      */
     public void clickNote(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("0000000");
-        AlertDialog dialog = builder.create();
-        Window window = dialog.getWindow();
+        if(GuokuApp.getIntance().getAccount() == null){
+            startActivity(new Intent(this,LoginActivity.class));
+        }else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view1 = LayoutInflater.from(this)
+                    .inflate(R.layout.comment_item, null);
+            Button back = (Button) view1.findViewById(R.id.comment_btn);
+            Button send = (Button) view1.findViewById(R.id.comment_send);
+            final EditText editText = (EditText) view1.findViewById(R.id.comment_et);
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            builder.setView(view1);
+            final AlertDialog dialog = builder.create();
+            Window window = dialog.getWindow();
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.gravity = Gravity.BOTTOM;
+            window.setAttributes(params);
+            window.setBackgroundDrawableResource(R.color.colorWhite);
+            window.setWindowAnimations(R.style.popwin_anim_style);
+            dialog.show();
+
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            send.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String string = editText.getText().toString();
+                    if(TextUtils.isEmpty(string)){
+                        Toast.makeText(GoodsChildActivity.this, R.string.comment_not, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(entity_id!=0){
+                        String path = Contants.GOODS_DETAIL + entity_id +"/add/note/";
+                        Map<String,String> map = new HashMap<>();
+                        map.put("note",string);
+                        HttpUtils httpUtils = new HttpUtils();
+                        httpUtils.getStrPOST(type_comment,path,map);
+                        httpUtils.setCallBack(GoodsChildActivity.this);
+                        dialog.dismiss();
+                    }
+                }
+            });
+        }
     }
 
     /**更多的点击

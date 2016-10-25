@@ -164,11 +164,14 @@ public class MyGoodsChildAdapter extends BaseAdapter{
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int like_already1 = list.get(pos).getContent().getEntity().getLike_already();
+                int like_count1 = list.get(pos).getContent().getEntity().getLike_count();
                 int entity_id = list.get(pos).getContent().getEntity().getEntity_id();
                 Intent intent = new Intent(context, GoodsChildActivity.class);
                 intent.putExtra("id",entity_id);
                 intent.putExtra("cid",list.get(pos).getContent().getEntity().getCategory_id());
                 intent.putExtra("imagePath",imagePath);
+                intent.putExtra("already",like_already1);
                 context.startActivity(intent);
             }
         });

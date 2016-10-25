@@ -2,6 +2,8 @@ package com.zzh.dell.guoku.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,10 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
 import com.zzh.dell.guoku.activity.WebActivity;
+import com.zzh.dell.guoku.activity.WebActivity;
+import com.zzh.dell.guoku.activity.WebShareActivity;
 import com.zzh.dell.guoku.bean.SearchArticlesBean;
+import com.zzh.dell.guoku.bean.Sharebean;
 import com.zzh.dell.guoku.config.Contants;
 
 import java.util.List;
@@ -51,7 +56,7 @@ public class SearchArticlesAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.search_articles_list_item,null);
@@ -69,10 +74,21 @@ public class SearchArticlesAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int article_id = bean.get(position).getArticle_id();
-                String path = Contants.IMAGE_TEXT_DETAIL + article_id;
-                Intent intent = new Intent(context, WebActivity.class);
-                intent.putExtra("data",path);
+                Bundle localBundle = new Bundle();
+                Sharebean localSharebean = new Sharebean();
+                localSharebean.setTitle(bean.get(position).getTitle());
+                if (bean.get(position).getContent().length() > 50) {
+                    localSharebean.setContext(bean.get(position).getContent().substring(0, 50));
+                }
+
+                localSharebean.setAricleUrl(bean.get(position).getUrl());
+                localSharebean.setImgUrl(bean.get(position).getCover());
+                localSharebean.setIs_dig(bean.get(position).isIs_dig());
+                localSharebean.setAricleId(String.valueOf(bean.get(position).getArticle_id()));
+                localSharebean.setContext(bean.get(position).getContent());
+                localBundle.putParcelable(WebShareActivity.class.getName(), localSharebean);
+                Intent intent = new Intent(context, WebShareActivity.class);
+                intent.putExtra("share", localBundle);
                 context.startActivity(intent);
             }
         });

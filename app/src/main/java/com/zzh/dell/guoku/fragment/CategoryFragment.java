@@ -415,7 +415,7 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     private void autoScorllViewInit() {
         final List<CategoryMainBean.BannerBean> bean = mainBean.getBanner();
         List<View> adList = new ArrayList<>();
-        Context context = getContext();
+        Context context = getActivity();
         for (int i = 0; i < mainBean.getBanner().size(); i++) {
             LinearLayout view = new LinearLayout(context);
             ImageView img = new ImageView(context);
