@@ -30,6 +30,7 @@ import com.zzh.dell.guoku.adapter.MyGoodsAdapter;
 import com.zzh.dell.guoku.adapter.SearchArticlesAdapter;
 import com.zzh.dell.guoku.adapter.SearchEntityAdapter;
 import com.zzh.dell.guoku.adapter.SearchUserAdapter;
+import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.CategoryBean;
 import com.zzh.dell.guoku.bean.SearchArticlesBean;
 import com.zzh.dell.guoku.bean.SearchEntityBean;
@@ -55,7 +56,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchActivity extends AppCompatActivity implements SearchListCallBack, HttpCallBack {
+public class SearchActivity extends AppCompatActivity implements SearchListCallBack, HttpCallBack, SearchUserAdapter.GuangClickListener {
 
     @BindView(R.id.cancel)
     TextView tv_cancel;
@@ -374,6 +375,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
         if (userBean!=null&&userBean.getBean().size()!=0){
             userAdapter = new SearchUserAdapter(SearchActivity.this,userBean.getBean(),getLayoutInflater());
             userFragment.setAdapter(userAdapter);
+            userAdapter.setGuangClickListener(this);
         }
         userFragment.setComplete();
     }
@@ -467,5 +469,32 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.no_anim, R.anim.alpha_out);
+    }
+
+    @Override
+    public void guangListener(int position) {
+        Intent intent = new Intent();
+        Account.UserBean userBean = (Account.UserBean) userAdapter.getItem(position);
+        if ((userBean.getRelation() == 0) || (userBean.getRelation() == 2)) {
+            httpUtils.getStrPOST("guangzhu", "http://api.guoku.com/mobile/v4/user/" + userBean.getUser_id() + "/follow/1/", new HashMap<String, String>());
+            if (userBean.getRelation() == 2) {
+                userBean.setRelation(3);
+            } else {
+                userBean.setRelation(1);
+            }
+            intent.putExtra("name", "add");
+            intent.setAction("Main.Login.btn.type1");
+            sendBroadcast(intent);
+            return;
+        }
+        httpUtils.getStrPOST("quxiaoguangzhu", "http://api.guoku.com/mobile/v4/user/" + userBean.getUser_id() + "/follow/0/", new HashMap<String, String>());
+        if (userBean.getRelation() == 1) {
+            userBean.setRelation(0);
+        } else {
+            userBean.setRelation(2);
+        }
+        intent.putExtra("name", "add2");
+        intent.setAction("Main.Login.btn.type1");
+        sendBroadcast(intent);
     }
 }

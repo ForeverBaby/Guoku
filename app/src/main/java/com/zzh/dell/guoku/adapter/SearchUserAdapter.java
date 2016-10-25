@@ -42,7 +42,27 @@ public class SearchUserAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return bean.get(position);
+        Account.UserBean userBean = new Account.UserBean();
+        userBean.setAuthorized_author(false);
+        userBean.setAvatar_large(bean.get(position).getAvatar_large());
+        userBean.setAvatar_small(bean.get(position).getAvatar_small());
+        userBean.setFollowing_count(bean.get(position).getFollowing_count());
+        userBean.setEntity_note_count(bean.get(position).getEntity_note_count());
+        userBean.setLike_count(bean.get(position).getLike_count());
+        userBean.setRelation(bean.get(position).getRelation());
+        userBean.setDig_count(bean.get(position).getDig_count());
+        userBean.setUser_id(bean.get(position).getUser_id());
+        userBean.setFan_count(bean.get(position).getFan_count());
+        userBean.setNick(bean.get(position).getNick());
+        userBean.setLocation(bean.get(position).getLocation());
+        userBean.setEmail(bean.get(position).getEmail());
+        userBean.setWebsite(bean.get(position).getWebsite());
+        userBean.setBio(bean.get(position).getBio());
+        userBean.setNickname(bean.get(position).getNickname());
+        userBean.setTag_count(bean.get(position).getTag_count());
+        userBean.setGender(bean.get(position).getGender());
+        userBean.setMail_verified(true);
+        return userBean;
     }
 
     @Override
