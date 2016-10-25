@@ -90,8 +90,7 @@
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/message_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/like_buy_blue">
+            android:layout_height="match_parent">
         </com.handmark.pulltorefresh.library.PullToRefreshListView>
     </FrameLayout>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
+import com.zzh.dell.guoku.activity.GoodsChildActivity;
 import com.zzh.dell.guoku.bean.SearchEntityBean;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class SearchEntityAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.search_entity_list_item, null);
@@ -55,7 +57,7 @@ public class SearchEntityAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        SearchEntityBean.EntityListBean bean = list.get(position);
+        final SearchEntityBean.EntityListBean bean = list.get(position);
         viewHolder.tv_title.setText(bean.getTitle());
         viewHolder.tv_price.setText("￥ " + bean.getPrice());
         viewHolder.tv_like.setText(String.valueOf(bean.getLike_count()));
@@ -66,6 +68,18 @@ public class SearchEntityAdapter extends BaseAdapter {
                 .centerCrop()
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .into(viewHolder.img);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int entity_id = list.get(position).getEntity_id();
+                Intent intent = new Intent(context, GoodsChildActivity.class);
+                intent.putExtra("id",entity_id);
+                intent.putExtra("cid",list.get(position).getCategory_id());
+                intent.putExtra("imagePath",list.get(position).getChief_image());
+                context.startActivity(intent);
+            }
+        });
 
         return convertView;
     }
