@@ -30,6 +30,7 @@ import com.zzh.dell.guoku.adapter.MyGoodsAdapter;
 import com.zzh.dell.guoku.adapter.SearchArticlesAdapter;
 import com.zzh.dell.guoku.adapter.SearchEntityAdapter;
 import com.zzh.dell.guoku.adapter.SearchUserAdapter;
+import com.zzh.dell.guoku.bean.Account;
 import com.zzh.dell.guoku.bean.CategoryBean;
 import com.zzh.dell.guoku.bean.SearchArticlesBean;
 import com.zzh.dell.guoku.bean.SearchEntityBean;
@@ -55,7 +56,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchActivity extends AppCompatActivity implements SearchListCallBack, HttpCallBack {
+public class SearchActivity extends AppCompatActivity implements SearchListCallBack, HttpCallBack, SearchUserAdapter.GuangClickListener {
 
     @BindView(R.id.cancel)
     TextView tv_cancel;
@@ -139,7 +140,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
                     if (imm.isActive()) {
                         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     }
-                    switch (prePos){
+                    switch (prePos) {
                         case 0:
                             searchEntityString(search);
                             searchArticlesString(search);
@@ -187,7 +188,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
 
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         searchEntityString(search);
                         searchArticlesString(search);
@@ -234,7 +235,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
         listFragment.add(userFragment);
 
         FragmentManager fm = getSupportFragmentManager();
-        MyGoodsAdapter adapter = new MyGoodsAdapter(fm, listFragment,str);
+        MyGoodsAdapter adapter = new MyGoodsAdapter(fm, listFragment, str);
         viewPage.setAdapter(adapter);
 
         indicator.setSelectedTabIndicatorColor(getResources().getColor(android.R.color.transparent));
@@ -251,7 +252,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
     SearchUserBean userBean;
     SearchUserAdapter userAdapter;
 
-    void searchUserString(String searchStr){
+    void searchUserString(String searchStr) {
         userOffset = 0;
         Map<String, String> map = new TreeMap<>();
         map.put("count", "30");
@@ -263,7 +264,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
         httpUtils.getStrGET("UserSearch", str);
     }
 
-    void searchArticlesString(String searchStr){
+    void searchArticlesString(String searchStr) {
         articlesPage = 1;
         Map<String, String> map = new TreeMap<>();
         map.put("q", searchStr);
@@ -288,7 +289,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
         httpUtils.getStrGET("EntitySearch", str);
     }
 
-    void searchCategoryString(String searchStr){
+    void searchCategoryString(String searchStr) {
         CategoryDBManager manager;
         manager = CategoryDBManager.getDbManager(SearchActivity.this);
         Cursor cursor = manager.subQueryByTitle(searchStr);
@@ -301,7 +302,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
             contentBean.setCategory_title(title);
             list.add(contentBean);
         }
-        List<Map<String,String>> stringList = new ArrayList<>();
+        List<Map<String, String>> stringList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             Map<String, String> map = new HashMap<>();
             map.put("string", list.get(i).getCategory_title());
@@ -321,7 +322,7 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
                 String title = list.get(position).getCategory_title();
                 Intent intent = new Intent(SearchActivity.this, SubCategoryActivity.class);
                 intent.putExtra("id", String.valueOf(cid));
-                intent.putExtra("title",title);
+                intent.putExtra("title", title);
                 startActivity(intent);
             }
         });
@@ -330,62 +331,80 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
 
     private void entitySearch(String str) {
         Gson gson = GsonUtils.getGson();
-        entityBean = gson.fromJson(str, SearchEntityBean.class);
-        if (entityBean != null && entityBean.getEntity_list().size() != 0) {
-            entityAdapter = new SearchEntityAdapter(SearchActivity.this, entityBean.getEntity_list());
-            entityFragment.setAdapter(entityAdapter);
+        if (str != null && str.length() >= 50) {
+
+            entityBean = gson.fromJson(str, SearchEntityBean.class);
+            if (entityBean != null && entityBean.getEntity_list().size() != 0) {
+                entityAdapter = new SearchEntityAdapter(SearchActivity.this, entityBean.getEntity_list());
+                entityFragment.setAdapter(entityAdapter);
+            }
+            entityFragment.setComplete();
         }
-        entityFragment.setComplete();
     }
 
     private void updateEntity(String str) {
         Gson gson = GsonUtils.getGson();
-        SearchEntityBean new_bean = gson.fromJson(str, SearchEntityBean.class);
-        if (new_bean != null && new_bean.getEntity_list().size() != 0) {
-            entityBean.getEntity_list().addAll(new_bean.getEntity_list());
-            entityAdapter.notifyDataSetChanged();
+        if (str != null && str.length() >= 50) {
+
+            SearchEntityBean new_bean = gson.fromJson(str, SearchEntityBean.class);
+            if (new_bean != null && new_bean.getEntity_list().size() != 0) {
+                entityBean.getEntity_list().addAll(new_bean.getEntity_list());
+                entityAdapter.notifyDataSetChanged();
+            }
+            entityFragment.setComplete();
         }
-        entityFragment.setComplete();
     }
 
     private void articlesSearch(String str) {
         Gson gson = GsonUtils.getGson();
-        articlesBean = gson.fromJson(str, SearchArticlesBean.class);
-        if (articlesBean != null && articlesBean.getArticles().size() != 0) {
-            articlesAdapter = new SearchArticlesAdapter(articlesBean.getArticles(),SearchActivity.this);
-            articlesFragment.setAdapter(articlesAdapter);
+        if (str != null && str.length() >= 50) {
+            articlesBean = gson.fromJson(str, SearchArticlesBean.class);
+            if (articlesBean != null && articlesBean.getArticles().size() != 0) {
+                articlesAdapter = new SearchArticlesAdapter(articlesBean.getArticles(), SearchActivity.this);
+                articlesFragment.setAdapter(articlesAdapter);
+            }
+            articlesFragment.setComplete();
         }
-        articlesFragment.setComplete();
     }
 
     private void updateArticlse(String str) {
         Gson gson = GsonUtils.getGson();
-        SearchArticlesBean new_bean = gson.fromJson(str, SearchArticlesBean.class);
-        if (new_bean != null && new_bean.getArticles().size() != 0) {
-            articlesBean.getArticles().addAll(new_bean.getArticles());
-            articlesAdapter.notifyDataSetChanged();
+        if (str != null && str.length() >= 50) {
+
+            SearchArticlesBean new_bean = gson.fromJson(str, SearchArticlesBean.class);
+            if (new_bean != null && new_bean.getArticles().size() != 0) {
+                articlesBean.getArticles().addAll(new_bean.getArticles());
+                articlesAdapter.notifyDataSetChanged();
+            }
+            articlesFragment.setComplete();
         }
-        articlesFragment.setComplete();
     }
 
     private void userSearch(String str) {
         Gson gson = GsonUtils.getGson();
-        userBean = gson.fromJson("{\"bean\":"+str+"}", SearchUserBean.class);
-        if (userBean!=null&&userBean.getBean().size()!=0){
-            userAdapter = new SearchUserAdapter(SearchActivity.this,userBean.getBean(),getLayoutInflater());
-            userFragment.setAdapter(userAdapter);
+        if (str != null && str.length() >= 50) {
+
+            userBean = gson.fromJson("{\"bean\":" + str + "}", SearchUserBean.class);
+            if (userBean != null && userBean.getBean().size() != 0) {
+                userAdapter = new SearchUserAdapter(SearchActivity.this, userBean.getBean(), getLayoutInflater());
+                userFragment.setAdapter(userAdapter);
+                userAdapter.setGuangClickListener(this);
+            }
+            userFragment.setComplete();
         }
-        userFragment.setComplete();
     }
 
     private void updateUser(String str) {
         Gson gson = GsonUtils.getGson();
-        SearchUserBean new_bean = gson.fromJson("{\"bean\":"+str+"}", SearchUserBean.class);
-        if (new_bean != null && new_bean.getBean().size() != 0) {
-            userBean.getBean().addAll(new_bean.getBean());
-            userAdapter.notifyDataSetChanged();
+        if (str != null && str.length() >= 50) {
+
+            SearchUserBean new_bean = gson.fromJson("{\"bean\":" + str + "}", SearchUserBean.class);
+            if (new_bean != null && new_bean.getBean().size() != 0) {
+                userBean.getBean().addAll(new_bean.getBean());
+                userAdapter.notifyDataSetChanged();
+            }
+            userFragment.setComplete();
         }
-        userFragment.setComplete();
     }
 
 
@@ -467,5 +486,32 @@ public class SearchActivity extends AppCompatActivity implements SearchListCallB
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.no_anim, R.anim.alpha_out);
+    }
+
+    @Override
+    public void guangListener(int position) {
+        Intent intent = new Intent();
+        Account.UserBean userBean = (Account.UserBean) userAdapter.getItem(position);
+        if ((userBean.getRelation() == 0) || (userBean.getRelation() == 2)) {
+            httpUtils.getStrPOST("guangzhu", "http://api.guoku.com/mobile/v4/user/" + userBean.getUser_id() + "/follow/1/", new HashMap<String, String>());
+            if (userBean.getRelation() == 2) {
+                userBean.setRelation(3);
+            } else {
+                userBean.setRelation(1);
+            }
+            intent.putExtra("name", "add");
+            intent.setAction("Main.Login.btn.type1");
+            sendBroadcast(intent);
+            return;
+        }
+        httpUtils.getStrPOST("quxiaoguangzhu", "http://api.guoku.com/mobile/v4/user/" + userBean.getUser_id() + "/follow/0/", new HashMap<String, String>());
+        if (userBean.getRelation() == 1) {
+            userBean.setRelation(0);
+        } else {
+            userBean.setRelation(2);
+        }
+        intent.putExtra("name", "add2");
+        intent.setAction("Main.Login.btn.type1");
+        sendBroadcast(intent);
     }
 }
