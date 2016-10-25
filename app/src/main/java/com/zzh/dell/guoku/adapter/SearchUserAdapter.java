@@ -137,6 +137,7 @@ public class SearchUserAdapter extends BaseAdapter {
                 userBean.setMail_verified(true);
                 intent.putExtra("data", userBean);
                 context.startActivity(intent);
+                guangClickListener.guangListener(position);
             }
         });
 
