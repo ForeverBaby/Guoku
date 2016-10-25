@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.zzh.dell.guoku"
-        minSdkVersion 19
+        minSdkVersion 18
         targetSdkVersion 23
         versionCode 1
         versionName "version 4.1.8"
@@ -18,6 +18,11 @@ android {
     }
     productFlavors {
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -35,4 +40,11 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:23.4.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile files('libs/MobCommons-2016.1020.1028.jar')
+    compile files('libs/MobTools-2016.1020.1028.jar')
+    compile files('libs/ShareSDK-Core-2.7.8.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.7.8.jar')
+    compile files('libs/ShareSDK-Wechat-2.7.8.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.7.8.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.7.8.jar')
 }

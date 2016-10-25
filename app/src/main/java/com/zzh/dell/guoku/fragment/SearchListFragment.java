@@ -1,6 +1,7 @@
 package com.zzh.dell.guoku.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -32,6 +33,15 @@ public class SearchListFragment extends ListFragment {
     @BindView(R.id.list)
     PullToRefreshListView listView;
 
+    public SearchListFragment(){
+
+    }
+    public SearchListFragment getInstance(Bundle bundle){
+        SearchListFragment searchListFragment = new SearchListFragment();
+        searchListFragment.setArguments(bundle);
+        return searchListFragment;
+    }
+
     private int type;
     private SearchListCallBack callBack;
 
@@ -48,6 +58,7 @@ public class SearchListFragment extends ListFragment {
         listView.setAdapter(adapter);
     }
 
+    @SuppressLint("ValidFragment")
     public SearchListFragment(int type) {
         this.type = type;
     }
