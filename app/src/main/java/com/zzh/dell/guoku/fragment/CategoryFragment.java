@@ -414,9 +414,10 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     private void autoScorllViewInit() {
         List<CategoryMainBean.BannerBean> bean = mainBean.getBanner();
         List<View> adList = new ArrayList<>();
+        Context context = getContext();
         for (int i = 0; i < mainBean.getBanner().size(); i++) {
-            LinearLayout view = new LinearLayout(getContext());
-            ImageView img = new ImageView(getActivity());
+            LinearLayout view = new LinearLayout(context);
+            ImageView img = new ImageView(context);
             view.addView(img);
             view.setBackgroundColor(Color.TRANSPARENT);
             Picasso.with(getActivity())

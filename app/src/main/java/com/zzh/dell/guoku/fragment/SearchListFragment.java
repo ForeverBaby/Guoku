@@ -32,6 +32,15 @@ public class SearchListFragment extends ListFragment {
     @BindView(R.id.list)
     PullToRefreshListView listView;
 
+    public SearchListFragment(){
+
+    }
+    public SearchListFragment getInstance(Bundle bundle){
+        SearchListFragment searchListFragment = new SearchListFragment();
+        searchListFragment.setArguments(bundle);
+        return searchListFragment;
+    }
+
     private int type;
     private SearchListCallBack callBack;
 
