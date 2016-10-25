@@ -136,8 +136,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
     @BindView(R.id.gridview_like)
     ScrollViewWithGridView gridview_like;
 
-    @BindView(R.id.view_stub_user)
-    LinearLayout view_stub_user;
+
 
     @BindView(R.id.red_round)
     ImageView red_round;
@@ -147,6 +146,9 @@ public class MeFragment extends Fragment implements HttpCallBack {
 
     @BindView(R.id.psrson_ll_fans)
     LinearLayout psrson_ll_fans;
+
+    @BindView(R.id.view_stub_user)
+    LinearLayout view_stub_user;
 
 
     public MeFragment() {
@@ -158,12 +160,6 @@ public class MeFragment extends Fragment implements HttpCallBack {
 
     public static int srceeW;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        srceeW = getWin();
-        initData();
-    }
 
     View view;
 
@@ -172,6 +168,8 @@ public class MeFragment extends Fragment implements HttpCallBack {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_me, container, false);
         ButterKnife.bind(this, view);
+        srceeW = getWin();
+        initData();
         canAdd = true;
         getUserType();
         return view;
@@ -346,9 +344,9 @@ public class MeFragment extends Fragment implements HttpCallBack {
                 localSharebean.setAricleUrl(articlesCategoryAdapter.getItem(paramInt).getUrl());
                 localSharebean.setImgUrl(articlesCategoryAdapter.getItem(paramInt).getCover());
                 localSharebean.setIs_dig(articlesCategoryAdapter.getItem(paramInt).isIs_dig());
-                localBundle.putParcelable(WebShareActivity.class.getName(), localSharebean);
                 localSharebean.setAricleId(String.valueOf((articlesCategoryAdapter.getItem(paramInt).getArticle_id())));
                 localSharebean.setContext((articlesCategoryAdapter.getItem(paramInt).getContent()));
+                localBundle.putParcelable(WebShareActivity.class.getName(), localSharebean);
                 Intent intent = new Intent(getActivity(), WebShareActivity.class);
                 intent.putExtra("share", localBundle);
                 startActivity(intent);
@@ -629,7 +627,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
                     articleBeen.clear();
                     MyLikeActBean myLikeActBean = gson.fromJson(str, MyLikeActBean.class);
                     articleBeen.addAll(myLikeActBean.getArticles());
-                    likeGridAdapter.notifyDataSetChanged();
+                    articlesCategoryAdapter.notifyDataSetChanged();
                 }
                 break;
             case "entity/note":
@@ -653,6 +651,8 @@ public class MeFragment extends Fragment implements HttpCallBack {
     ArticlesCategoryAdapter articlesAuthonAdapter;
     List<CategoryMainBean.ArticlesBean.ArticleBean> lista;
 
+
+
     private void initUserAuthon() {
         view_stub_user_authen.inflate();
         pull_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
@@ -664,6 +664,9 @@ public class MeFragment extends Fragment implements HttpCallBack {
                 getInitData("articles", "30", 1005);
             }
         });
+        view_stub_user.setVisibility(View.GONE);
+        articleBeen = new ArrayList<>();
+        articlesCategoryAdapter = new ArticlesCategoryAdapter(articleBeen,getActivity());
         listView_article = ((ScrollViewWithListView) view.findViewById(R.id.listView_article));
         listView_article.setVisibility(View.VISIBLE);
         listView_article.setAdapter(articlesCategoryAdapter);

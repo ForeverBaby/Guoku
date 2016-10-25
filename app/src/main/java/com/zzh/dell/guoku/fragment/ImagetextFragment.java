@@ -137,6 +137,11 @@ public class ImagetextFragment extends Fragment {
         });
     }
 
+    public void goFirst(){
+        ListView listView1 = listView.getRefreshableView();
+        listView1.smoothScrollToPosition(0);
+    }
+
     private String initPath(int page) {
         TreeMap<String,String> treeMap = new TreeMap<>();
         treeMap.put("page",String.valueOf(page));

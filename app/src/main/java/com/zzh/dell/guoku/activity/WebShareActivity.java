@@ -255,10 +255,9 @@ public class WebShareActivity extends AppCompatActivity implements HttpCallBack 
 
     }
 
-    boolean isRefrech;
-
+    CustomShareBoard localCustomShareBoard;
     private void postShare() {
-        CustomShareBoard localCustomShareBoard = new CustomShareBoard(this);
+        localCustomShareBoard = new CustomShareBoard(this);
         if (!TextUtils.isEmpty(this.sharebean.getTitle())) {
             localCustomShareBoard.setShareContext(this, "", this.sharebean.getAricleUrl(), this.sharebean.getImgUrl(), this.webview.getTitle());
         }
@@ -272,8 +271,9 @@ public class WebShareActivity extends AppCompatActivity implements HttpCallBack 
                 WindowManager.LayoutParams localLayoutParams = WebShareActivity.this.getWindow().getAttributes();
                 localLayoutParams.alpha = 1.0F;
                 WebShareActivity.this.getWindow().setAttributes(localLayoutParams);
-                if (isRefrech) {
+                if (localCustomShareBoard.isrefresh) {
                     webview.reload();
+                    localCustomShareBoard.isrefresh = false;
                 }
             }
         });
