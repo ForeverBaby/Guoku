@@ -5,14 +5,17 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.zzh.dell.guoku.R;
@@ -27,9 +30,13 @@ import butterknife.ButterKnife;
 /**
  * 点评的activity 王立鹏
  */
-public class CommentActivity extends AppCompatActivity {
+public class CommentActivity extends AppCompatActivity implements View.OnClickListener {
 
     RelativeLayout rl;
+    EditText editText;
+    RelativeLayout send;
+    private String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +46,12 @@ public class CommentActivity extends AppCompatActivity {
         }
         initView();
         getData();
+        send.setOnClickListener(this);
     }
 
     private void initView() {
         rl = (RelativeLayout) findViewById(R.id.comment_rl);
+        send = (RelativeLayout) findViewById(R.id.comment_send_rl);
     }
 
     public void back(View view) {
@@ -72,21 +81,33 @@ public class CommentActivity extends AppCompatActivity {
         ButterKnife.bind(this,view);
         Picasso.with(this).load(intent.getStringExtra("circle"))
                 .fit().centerCrop().into(note_circle);
-        note_name.setText(intent.getStringExtra("name"));
+        name = intent.getStringExtra("name");
+        note_name.setText(name);
         note_content.setText(intent.getStringExtra("content"));
         note_time.setText(intent.getStringExtra("time"));
-        good.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("====","==点赞===");
-            }
-        });
+        int poke = intent.getIntExtra("poke",0);
+        if(poke == 0){
+            good.setImageResource(R.mipmap.good);
+        }else{
+            good.setImageResource(R.mipmap.good_press);
+        }
         pop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("====","==评论===");
+                if(name!=null) {
+                    editText.setHint("回复 " + name);
+                }
             }
         });
         rl.addView(view);
+    }
+
+    @Override
+    public void onClick(View v) {
+        boolean empty = TextUtils.isEmpty(editText.getText().toString());
+        if(empty){
+            return;
+        }
+        Toast.makeText(CommentActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
     }
 }
