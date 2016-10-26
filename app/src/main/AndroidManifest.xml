@@ -32,7 +32,7 @@
 
         </activity>
         <activity android:name=".activity.EntityActivity"  android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation"
@@ -89,8 +89,8 @@
         <activity android:name=".activity.WebShareActivity" />
         <activity android:name=".activity.UserArticleListActivity" />
         <activity android:name=".activity.UserCommentListActivity" />
-        <activity android:name=".activity.UserLikeListActivity"></activity>
-        <activity android:name=".activity.UserTagActivity"></activity>
+        <activity android:name=".activity.UserLikeListActivity"/>
+        <activity android:name=".activity.UserTagActivity"/>
         <activity android:name=".activity.PictureActivity" />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.GoodsChildActivity"/>
