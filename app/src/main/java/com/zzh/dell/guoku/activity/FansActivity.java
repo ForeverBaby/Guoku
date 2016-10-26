@@ -183,6 +183,7 @@ public class FansActivity extends AppCompatActivity implements HttpCallBack {
             map.put("count", count + "");
             map.put("offset", page + "");
             String getUrl = StringUtils.getGetUrl(url, map);
+            Log.e("===","==="+getUrl);
             utils.getStrGET("fans", getUrl);
         }
     }
@@ -214,27 +215,15 @@ public class FansActivity extends AppCompatActivity implements HttpCallBack {
                 break;
             case "fans":
                 try {
-                    if (str != null) {
+                    if (str != null&&str.length()>20) {
                         json = new JSONObject(str);
-                        list.clear();
                         if (json.has("like_user_list")) {
                             str = json.getString("like_user_list");
                         }
-                        List<Account.UserBean> users = gson.fromJson(str, new TypeToken<List<Account.UserBean>>() {
-                        }.getType());
-
-                        if (null != users && users.size() > 0) {
-                            if (type2 == 1) {
-                                Account account = GuokuApp.getIntance().getAccount();
-                                Account.UserBean user = account.getUser();
-                                user.setFollowing_count(users.size());
-                                GuokuApp.getIntance().login(account);
-                            }
-                            list.addAll(users);
-                            adapter.notifyDataSetChanged();
-                        }
+                        gata(str, gson);
                     }
                 } catch (JSONException e) {
+                    gata(str, gson);
                     e.printStackTrace();
                 }
                 break;
@@ -269,6 +258,23 @@ public class FansActivity extends AppCompatActivity implements HttpCallBack {
                     e.printStackTrace();
                 }
                 break;
+        }
+    }
+
+    private void gata(String str, Gson gson) {
+        list.clear();
+        List<Account.UserBean> users = gson.fromJson(str, new TypeToken<List<Account.UserBean>>() {
+        }.getType());
+        Log.e("===","===="+users.size());
+        if (null != users && users.size() > 0) {
+            if (type2 == 1) {
+                Account account = GuokuApp.getIntance().getAccount();
+                Account.UserBean user = account.getUser();
+                user.setFollowing_count(users.size());
+                GuokuApp.getIntance().login(account);
+            }
+            list.addAll(users);
+            adapter.notifyDataSetChanged();
         }
     }
 

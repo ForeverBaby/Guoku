@@ -1,5 +1,6 @@
 package com.zzh.dell.guoku.activity;
 
+import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -142,6 +143,7 @@ public class UserInfoActivity extends AppCompatActivity implements HttpCallBack 
         final EditText localEditText = new EditText(this);
         localEditText.setText(String.valueOf(user.getBio()));
         DialogUtils.getEDialog(this, new DialogInterface.OnClickListener() {
+                    @TargetApi(Build.VERSION_CODES.KITKAT)
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                         if ((localEditText.getText().toString() != null) && (!"".equals(localEditText.getText().toString()))) {
                             UserInfoActivity localUserInfoAct = UserInfoActivity.this;
@@ -200,6 +202,7 @@ public class UserInfoActivity extends AppCompatActivity implements HttpCallBack 
         final EditText localEditText = new EditText(this);
         localEditText.setText(user.getLocation());
         DialogUtils.getEDialog(this, new DialogInterface.OnClickListener() {
+                    @TargetApi(Build.VERSION_CODES.KITKAT)
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                         if ((localEditText.getText().toString() != null) && (!"".equals(localEditText.getText().toString()))) {
                             Map<String, String> map = new ArrayMap<String, String>();
@@ -235,6 +238,7 @@ public class UserInfoActivity extends AppCompatActivity implements HttpCallBack 
         final EditText localEditText = new EditText(this);
         localEditText.setText(user.getNick());
         DialogUtils.getEDialog(this, new DialogInterface.OnClickListener() {
+                    @TargetApi(Build.VERSION_CODES.KITKAT)
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                         if ((localEditText.getText().toString() != null) && (!"".equals(localEditText.getText().toString()))) {
                             Map<String, String> map = new ArrayMap<String, String>();
@@ -250,6 +254,7 @@ public class UserInfoActivity extends AppCompatActivity implements HttpCallBack 
     @OnClick(R.id.user_info_ll_sex)
     public void sex(View paramView) {
         DialogUtils.listDialgo(this, new String[]{"男", "女", "取消"}, new DialogInterface.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.KITKAT)
             public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                 Map<String, String> map = new ArrayMap<String, String>();
                 switch (paramInt) {
@@ -273,7 +278,7 @@ public class UserInfoActivity extends AppCompatActivity implements HttpCallBack 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null||resultCode!=RESULT_OK) {
+        if (data != null&&resultCode==RESULT_OK) {
             if (requestCode == 0) {
                 path = data.getData();
             }

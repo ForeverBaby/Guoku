@@ -574,7 +574,7 @@ public class MeFragment extends Fragment implements HttpCallBack {
                 break;
             case "guangzhu":
                 try {
-                    if (str != null) {
+                    if (str != null&&str.length()>20) {
                         json = new JSONObject(str);
                         if (json.has("message")) {
                             Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
