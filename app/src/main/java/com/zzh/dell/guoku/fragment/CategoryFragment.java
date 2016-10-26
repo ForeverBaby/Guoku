@@ -477,5 +477,4 @@ public class CategoryFragment extends Fragment implements HttpCallBack {
     protected void recommendUser() {
 
     }
-
 }

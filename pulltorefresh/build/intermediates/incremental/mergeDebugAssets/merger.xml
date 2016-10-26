@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\AndroidStudioProjects\Guoku\pulltorefresh\src\main\assets"/><source path="E:\AndroidStudioProjects\Guoku\pulltorefresh\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\AndroidStudioProjects\Guoku\pulltorefresh\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\AndroidProject\Test\Guoku\pulltorefresh\src\main\assets"/><source path="D:\AndroidProject\Test\Guoku\pulltorefresh\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\AndroidProject\Test\Guoku\pulltorefresh\src\debug\assets"/></dataSet></merger>
